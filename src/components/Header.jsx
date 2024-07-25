@@ -39,10 +39,10 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
     height: 60px;
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `;
 
 const LeftHeader = styled.div`
@@ -55,7 +55,7 @@ const RightHeader = styled.div`
     justify-content: space-between;
 
     & > * {
-        margin-left: 10px; /* 모든 자식 요소에 left-margin 적용 */
+        margin-left: 25px; /* 모든 자식 요소에 left-margin 적용 */
     }
 `;
 
@@ -69,7 +69,8 @@ const ProfileIcon = styled.div`
 
 `;
 const ProfileText = styled.div`
-        
+    border-bottom: 1px solid black;
+    margin-left: 5px;
 `;
 const MypageButton = styled.div`
         
