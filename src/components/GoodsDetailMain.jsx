@@ -178,7 +178,7 @@ const GoodsTransactionPlace = styled.div`
 
 const Choice = styled.div`
   display: flex;
-  height: 300px;
+  height: 350px;
   width: 100%;
 `;
 const Calender = styled.div`

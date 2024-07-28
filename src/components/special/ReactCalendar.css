@@ -4,7 +4,8 @@
     width: 350px;
     max-width: 100%;
     background: white;
-    border: none;
+    border: 1.5px solid #a0a0a0;
+    border-radius: 15px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
 }
@@ -84,7 +85,7 @@ font-weight: bold;
 }
 
 .react-calendar__month-view__days__day--weekend {
-color: #d10000;
+color: #767676;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth,
@@ -135,24 +136,38 @@ background: #ffffa9;
 }
 
 .react-calendar__tile--hasActive {
-background: #76baff;
+background: #ffff2d;
 }
 
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
-background: #a9d4ff;
+background: #ffe97b;
 }
 
 .react-calendar__tile--active {
-background: #006edc;
+background: #c6fd00;
 color: white;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-background: #1087ff;
+background: #ffe97b;
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {
 background-color: #e6e6e6;
 }
+
+.react-calendar__tile--rangeStart,
+.react-calendar__tile--rangeEnd {
+  background: #4caf50; /* 예: 초록색 배경 */
+  color: white;
+}
+/* 선택된 범위의 날짜들을 스타일링 */
+.react-calendar__tile--range {
+    background: #81c784; /* 예: 연한 초록색 배경 */
+    color: white;
+  }
+
+
+
