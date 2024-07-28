@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import React, { useState } from 'react'
 import Header from "../components/Header";
-import Main from "../components/Main";
 import RentalSearch from "../components/RentalSearchPage";
 import Footer from "../components/Footer";
 import Categories from "../components/Categories";

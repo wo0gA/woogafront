@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import bannerImage from '../images/banner.png'
-import MapComponent from './MapComponent'
 
 const Main = () => {
   return (
@@ -101,8 +100,6 @@ const Main = () => {
                 <Title>주변 운동공간</Title>
                 <Description>운동용품 빌리GO, 내 주변 운동공간에서 운동하GO</Description>
             </Nearby>
-            <MapComponent />
-
         </Contents>
     </Wrapper>
   )

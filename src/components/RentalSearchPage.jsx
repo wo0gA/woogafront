@@ -121,28 +121,6 @@ const Wrapper = styled.div`
     }
 `;
 
-const Mainbar = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 85%;
-    height: 50px;
-
-    /* border: 1px solid black; */
-`;
-const Navigation = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 60%;
-    height: 100%;
-    font-size: 20px;
-
-    border-bottom: 1px solid black;
-    /* border: 1px solid black; */
-`;
 const Nav = styled.div`
     display: flex;
     flex-direction: row;
@@ -150,19 +128,6 @@ const Nav = styled.div`
     justify-content: center;
 `;
 
-const Search = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 40%;
-    height: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-
-    border: 1px solid black;
-    border-radius: 40px;
-`;
 
 const Contents = styled.div`
     display: flex;
