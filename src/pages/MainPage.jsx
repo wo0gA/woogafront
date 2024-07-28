@@ -3,9 +3,8 @@ import React from 'react'
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Footer from "../components/Footer";
-import MapComponent from "../components/MapComponent";
 
-const Test = () => {
+const MainPage = () => {
   return (
     <Wrapper>
       <Header>
@@ -21,7 +20,7 @@ const Test = () => {
   )
 }
 
-export default Test
+export default MainPage
 
 const Wrapper = styled.div`
   display: flex;
