@@ -3,6 +3,7 @@ import React from 'react'
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Footer from "../components/Footer";
+import MapComponent from "../components/MapComponent";
 
 const Test = () => {
   return (
@@ -11,10 +12,10 @@ const Test = () => {
         
       </Header> 
       <Main>
-
+        
       </Main>
       <Footer>
-
+        
       </Footer>
     </Wrapper>
   )
