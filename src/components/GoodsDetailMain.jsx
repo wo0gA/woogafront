@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import goodsimage from '../images/badminton.png'
 import ReactCalendar from './special/ReactCalendar'
+import RecommendGoods from './RecommendGoods'
 
 const GoodsDetailMain = () => {
   return (
@@ -47,11 +48,26 @@ const GoodsDetailMain = () => {
           <ReactCalendar/>
         </Calender>
         <Cost>
-           cost
+          <CostUp>
+            <DayChoice>일별 대여</DayChoice>
+            <WeekChoice>주별 대여</WeekChoice>
+          </CostUp>
+          <CostDown>
+            <TotalCalculation>
+              <TotalDays>
+                총 2 일
+              </TotalDays>
+              <TotalCost>
+                전체 대여료 2,000원
+              </TotalCost>
+            </TotalCalculation>
+            <RentButton>
+              대여하기
+            </RentButton>
+          </CostDown>
         </Cost>
       </Choice>
       <RecommendGoods>
-        recommendgoods
       </RecommendGoods>
       <Under>
         <Description>
@@ -77,9 +93,6 @@ const Wrapper = styled.div`
   width: 85%;
   height: 100%;
   box-sizing: border-box;
-
-  /* padding-left: 100px;
-  padding-right: 100px; */
 `;
 
 const GoodsDetail = styled.div`
@@ -194,26 +207,69 @@ const Cost = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 50%;
   box-sizing: border-box;
+  padding-top: 80px;
+  padding-bottom: 20px;
   border: 1px solid black;
 `;
-
-
-const RecommendGoods = styled.div`
+const DayChoice = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 70%;
+  height: 50px;
+  border: 1px solid grey;
+  border-radius: 30px;
+  text-align: right;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 200px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 
-  box-sizing: border-box;
-  border: 1px solid black;
+  margin-bottom: 5px;
+  background-color: #f0f0f0;
 `;
+const WeekChoice = styled.div`
+  display: flex;
+  width: 70%;
+  height: 50px;
+  border: 1px solid grey;
+  border-radius: 30px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TotalCalculation = styled.div`
+  display: flex;
+  flex-direction: column; 
+  width: 90%;
+  font-weight: bold;
+  font-size: 20px;
+`;
+const TotalDays = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+`;
+const TotalCost = styled.div`
+  display: flex;
+  flex-direction: row; 
+  justify-content: right;
+`; 
+const RentButton = styled.div` 
+  display: flex;
+  width: 90%; 
+  height: 50px;
+  border: 1px solid grey;
+  border-radius: 30px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  background-color: #fbff81;
+`;
+
+
 
 const Under = styled.div`
   display: flex;
@@ -275,4 +331,20 @@ const Right = styled.div`
   width: 80%;
 
   font-size: 14px;
+`;
+
+const CostUp = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+const CostDown = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
 `;
