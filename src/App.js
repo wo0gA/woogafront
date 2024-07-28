@@ -1,5 +1,6 @@
 import './App.css';
-import Test from './pages/Test';
+import GoodsDetailPage from './pages/GoodsDetailPage';
+import MainPage from './pages/MainPage';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Test />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/goodsDetail" element={<GoodsDetailPage />} />
       </Routes>
     </div>
 

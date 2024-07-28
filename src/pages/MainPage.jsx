@@ -30,7 +30,7 @@ const Test = () => {
   )
 }
 
-export default Test
+export default MainPage
 
 const Wrapper = styled.div`
   display: flex;
