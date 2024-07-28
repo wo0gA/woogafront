@@ -1,4 +1,4 @@
-import GoogleLoginButton from "../components/Google";
+
 import styled from "styled-components";
 import React, { useState } from 'react'
 import Header from "../components/Header";
@@ -6,6 +6,7 @@ import Main from "../components/Main";
 import RentalSearch from "../components/RentalSearchPage";
 import Footer from "../components/Footer";
 import Categories from "../components/Categories";
+import MapComponent from "../components/MapComponent";
 
 const Test = () => {
   const [selectedSubSubCategory, setSelectedSubSubCategory] = useState(null);
@@ -15,11 +16,15 @@ const Test = () => {
       <Header>
         
       </Header> 
+    
       <Categories setSelectedSubSubCategory={setSelectedSubSubCategory} />
       <RentalSearch selectedSubSubCategory={selectedSubSubCategory} />
-  
-      <Footer>
 
+      <Main>
+        
+      </Main>
+      <Footer>
+       
       </Footer>
     </Wrapper>
   )
