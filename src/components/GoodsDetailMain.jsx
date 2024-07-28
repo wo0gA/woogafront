@@ -8,7 +8,6 @@ const GoodsDetailMain = () => {
     <Wrapper>
       <GoodsDetail>
         <GoodsImage>
-          goodsimage
         </GoodsImage>
         <GoodsInfo>
           <GoodsTitle>
@@ -179,7 +178,7 @@ const GoodsTransactionPlace = styled.div`
 
 const Choice = styled.div`
   display: flex;
-  height: 250px;
+  height: 300px;
   width: 100%;
 `;
 const Calender = styled.div`
