@@ -1,43 +1,46 @@
 import React, { useEffect } from 'react';
-import GoogleLoginButton from '../components/Google';
+import GoogleLoginButton from '../apis/GoogleLoginButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import KakaoLoginButton from '../apis/KakaoLoginButton';
 
 const TestPage = () => {
-  const code = new URL(window.location.href).searchParams.get('code');
-  const navigate = useNavigate();
-
   useEffect(() => {
-    if (code) {
-      console.log("< 인가 코드 >");
-      console.log(code);
+    const initializeMap = () => {
+      const container = document.getElementById('map');
+      const options = {
+        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      };
+      new window.kakao.maps.Map(container, options);
+    };
 
-      // 백엔드로 인가 코드를 보내기
-      axios.post("https://server.templ.es/accounts/google/callback/", { code })
-        .then((response) => {
-          console.log(response.data);
-          navigate('/myPage');
-        })
-        .catch((error) => {
-          console.error("인증 처리 중 오류 발생:", error);
-        });
+    if (window.kakao && window.kakao.maps) {
+      initializeMap();
+    } else {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=f9bc2694b79adc41830c94462233a59b&autoload=false`;
+      script.onload = () => {
+        window.kakao.maps.load(initializeMap);
+      };
+      document.head.appendChild(script);
     }
-  }, [code, navigate]);
-
-  const CLIENT_ID = '564600149423-3k57skta0kr16fblavp23vp34k9tvkp0.apps.googleusercontent.com';
-  const REDIRECT_URI = 'http://localhost:3000';
-
-  const handleLogin = () => {
-    // 구글 로그인 화면으로 이동시키기
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email%20profile&access_type=offline`;
-  };
+  }, []);
 
   return (
     <>
       <GoogleLoginButton />
-      <button type='button' onClick={handleLogin}>Google Login</button>
+      <KakaoLoginButton />
+      <Map id="map" />
     </>
   );
 };
 
 export default TestPage;
+
+const Map = styled.div`
+  width: 500px; 
+  height: 400px;
+`;
