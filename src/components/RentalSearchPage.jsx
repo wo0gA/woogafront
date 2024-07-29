@@ -97,7 +97,7 @@ const RentalSearch = ({ selectedSubSubCategory }) => {
                     <MagazinesItem>풋살 & 축구,<br/>그 차이점을<br/>알아보다</MagazinesItem>
                     <MagazinesItem>뜨거운 여름<br/>레저스포츠가<br/>제격</MagazinesItem>
                 </Magazines>
-                <MorePop button onClick={morePop}>더보기</MorePop>
+                <MorePop $button={true}>더보기</MorePop>
                 </Popular>
             </Contentarr>
         </Contents>

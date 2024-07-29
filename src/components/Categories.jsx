@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import categories from './data/categories';
 
 const customStyles = {
   menu: (provided) => ({
@@ -14,9 +13,31 @@ const customStyles = {
 };
 
 const Categories = ({ setSelectedSubSubCategory }) => {
+  const [categories, setCategories] = useState({});
+  const [loading, setLoading] = useState(true);
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedSubSubCategoryLocal, setSelectedSubSubCategoryLocal] = useState(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('https://wooga.o-r.kr/products/categories/');
+        const data = await response.json();
+        setCategories(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   const mainCategories = Object.keys(categories).map((key) => ({ value: key, label: key }));
   const subCategories =
