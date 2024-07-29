@@ -124,6 +124,7 @@ const Wrapper = styled.div`
 
 const Banner = styled.div`
     background-image: url('${bannerImage}');
+    background-repeat: no-repeat; /* 배경 이미지 반복 안 함 */
     background-size: contain;
     background-position: center; /* 이미지를 중앙에 위치 */
 
