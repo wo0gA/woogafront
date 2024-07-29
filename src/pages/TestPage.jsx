@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import GoogleLoginButton from '../apis/GoogleLoginButton';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import KakaoLoginButton from '../apis/KakaoLoginButton';
 
 const TestPage = () => {
+  const username = localStorage.getItem('username');
+
   useEffect(() => {
     const initializeMap = () => {
       const container = document.getElementById('map');
@@ -34,6 +34,12 @@ const TestPage = () => {
       <GoogleLoginButton />
       <KakaoLoginButton />
       <Map id="map" />
+
+      <Profile>
+        ~ username ~
+        <br />
+        {username}
+      </Profile>
     </>
   );
 };
@@ -44,3 +50,8 @@ const Map = styled.div`
   width: 500px; 
   height: 400px;
 `;
+
+const Profile = styled.div`
+  width: 500px; 
+  height: 400px;
+`;  
