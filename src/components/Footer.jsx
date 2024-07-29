@@ -8,16 +8,16 @@ const Footer = () => {
       <ContentWrapper>
         <Logo>wooga</Logo>
         <InfoBox>
-          <Info>PM 강지영 instagram @</Info>
+          <Info>PM 강지영 instagram @g0__kang</Info>
           <Info>DE 양채령 instagram @d_idicoode</Info>
         </InfoBox>
         <InfoBox>
-          <Info>FE 박수빈 instagram @</Info>
+          <Info>FE 박수빈 instagram @forsxygrave</Info>
           <Info>FE 조유빈 instagram @joeyycho</Info>
         </InfoBox>
         <InfoBox>
-          <Info>BE 김동영 instagram @</Info>
-          <Info>BE 이영주 instagram @</Info>
+          <Info>BE 김동영 instagram @dong_yeong01</Info>
+          <Info>BE 이영주 instagram @20joo_joo</Info>
         </InfoBox>
       </ContentWrapper>
     </Wrapper>
