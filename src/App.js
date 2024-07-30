@@ -5,7 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import SearchPage from './pages/SearchPage';
 import MyPage from './pages/MyPage';
 import TestPage from './pages/TestPage';
-import Chatting from './apis/Chatting';
+import NearbyPage from './pages/NearbyPage';
+import ChattingPage from './pages/ChattingPage';
 
 function App() {
 
@@ -18,7 +19,8 @@ function App() {
         <Route path="/goodsDetail" element={<GoodsDetailPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/test" element={<TestPage />} />
-        <Route path="/chatting" element={<Chatting />} />
+        <Route path="/chatting" element={<ChattingPage />} />
+        <Route path="/nearby" element={<NearbyPage />} />
       </Routes>
     </div>
 

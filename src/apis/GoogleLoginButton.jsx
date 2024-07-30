@@ -27,7 +27,6 @@ const GoogleLoginButton = () => {
             axios.post("https://server.templ.es/accounts/google/callback/", { code })
                 .then((response) => {
                     console.log(response.data);
-이
                     // 구글 로그인 성공 시, 서버에서 받은 토큰을 로컬스토리지에 저장
                     localStorage.setItem('access', response.data.token.access_token);
                     localStorage.setItem('refresh', response.data.token.refresh_token);
