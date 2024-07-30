@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import googleBtn from '../images/googleBtn.png';
 
 const GoogleLoginButton = () => {
     const REDIRECT_URI = 'http://localhost:3000';
@@ -42,22 +43,25 @@ const GoogleLoginButton = () => {
     }, [code, navigate]);
 
     return (
-        <LoginBtn type='button' onClick={loginHandler}>
-            구글 로그인
-        </LoginBtn>
+        // <LoginBtn onClick={loginHandler}/>
+        <Img src={googleBtn} alt="구글 로그인" onClick={loginHandler} />
     );
 };
 
 export default GoogleLoginButton
 
 const LoginBtn = styled.button`
-    background-color: #70bcff;
+    background-image: url(${googleBtn});
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20%;
+    aspect-ratio: 5/2;
     border: none;
-    border-radius: 5px;
-    color: #000;
+
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
+`;
+
+const Img = styled.img`
+    width: 20%;
+    cursor: pointer;
 `;

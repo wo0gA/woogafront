@@ -2,26 +2,24 @@
 import styled from "styled-components";
 import React from 'react'
 import Header from "../components/Header";
+import Main from "../components/Main";
 import Footer from "../components/Footer";
-import Nearbymain from "../components/Nearbymain";
+import LoginMain from "../components/LoginMain";
 
-const NearbyPage = () => {
-  return (
-    <Wrapper>
-      <Header>
-        
-      </Header> 
-      <Nearbymain>
-        
-      </Nearbymain>
-      <Footer>
+const LoginPage = () => {
+    return (
+        <Wrapper>
+            <Header>
+                
+            </Header> 
+            <LoginMain>
 
-      </Footer>
-    </Wrapper>
-  )
+            </LoginMain>
+        </Wrapper>
+    )
 }
 
-export default NearbyPage
+export default LoginPage
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,10 +27,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-
+  height: 100%;
   box-sizing: border-box;
 
   /* padding-left: 100px;
   padding-right: 100px; */
 `;
-

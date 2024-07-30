@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import kakaoBtn from '../images/kakaoBtn.png';
 
 const KakaoLoginButton = () => {
     const REST_API_KEY = 'b6390fc9c0a186ec2d9dc18c54150b14';
@@ -42,22 +43,25 @@ const KakaoLoginButton = () => {
         }, [code, navigate]);
 
     return (
-            <LoginBtn type='button' onClick={loginHandler}>
-                카카오 로그인
-            </LoginBtn>
+            // <LoginBtn type='button' onClick={loginHandler} />
+            <Img src={kakaoBtn} alt="구글 로그인" onClick={loginHandler} />
         );
     };
 
 export default KakaoLoginButton
 
 const LoginBtn = styled.button`
-    background-color: #ffeb3b;
+    background-image: url(${kakaoBtn});
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 20%;
+    height: 5 / 2;
     border: none;
     border-radius: 5px;
-    color: #000;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
     `;
+
+const Img = styled.img`
+width: 20%;
+cursor: pointer;
+`;

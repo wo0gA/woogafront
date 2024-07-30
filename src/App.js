@@ -7,20 +7,21 @@ import MyPage from './pages/MyPage';
 import TestPage from './pages/TestPage';
 import NearbyPage from './pages/NearbyPage';
 import ChattingPage from './pages/ChattingPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
 
   return (
     <div className="App">
       <Routes>
-        {/* 일단 바꿔둠 */}
-      <Route path="/" element={<MainPage />} /> 
+        <Route path="/" element={<MainPage />} /> 
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/goodsDetail" element={<GoodsDetailPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/chatting" element={<ChattingPage />} />
         <Route path="/nearby" element={<NearbyPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
 

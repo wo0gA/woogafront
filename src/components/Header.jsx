@@ -1,26 +1,28 @@
-import React from 'react'
-import styled from 'styled-components'
-import logo from '../images/logox2.png'
-import { logoClick } from '../utils/simple'
-import { useNavigate } from 'react-router-dom' 
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import logo from '../images/logox2.png';
+import { logoClick } from '../utils/simple';
+import { useNavigate } from 'react-router-dom'; 
 
 const Header = () => {
     const navigate = useNavigate();
+    const [activeNav, setActiveNav] = useState('/'); // 현재 활성화된 nav의 경로를 저장
+
     const handleLogoClick = () => {
         logoClick(navigate);
     };
+
     const handleNavClick = (path) => () => {
+        setActiveNav(path); // nav 클릭 시 활성화된 nav 경로를 업데이트
         navigate(path);
     };
 
     return (
         <Wrapper>
             <FirstRow>
-                <LeftHeader src={logo} alt="logo" onClick={handleLogoClick}>
-
-                </LeftHeader>
+                <LeftHeader src={logo} alt="logo" onClick={handleLogoClick}></LeftHeader>
                 <RightHeader>   
-                    <ProfileButton>
+                    <ProfileButton onClick={handleNavClick('/mypage')}>
                         <ProfileIcon>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M6 5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5C12 6.65685 10.6569 8 9 8C7.34315 8 6 6.65685 6 5ZM9 0C6.23858 0 4 2.23858 4 5C4 7.76142 6.23858 10 9 10C11.7614 10 14 7.76142 14 5C14 2.23858 11.7614 0 9 0ZM5 12C3.67392 12 2.40215 12.5268 1.46447 13.4645C0.526784 14.4021 0 15.6739 0 17V19C0 19.5523 0.447715 20 1 20C1.55228 20 2 19.5523 2 19V17C2 16.2043 2.31607 15.4413 2.87868 14.8787C3.44129 14.3161 4.20435 14 5 14H13C13.7956 14 14.5587 14.3161 15.1213 14.8787C15.6839 15.4413 16 16.2044 16 17V19C16 19.5523 16.4477 20 17 20C17.5523 20 18 19.5523 18 19V17C18 15.6739 17.4732 14.4021 16.5355 13.4645C15.5979 12.5268 14.3261 12 13 12H5Z" fill="black"/>
@@ -43,11 +45,11 @@ const Header = () => {
             </FirstRow>
             <SecondRow>
                 <Navigation>
-                    <Nav onClick={handleNavClick('/search')}>물품 대여</Nav>
-                    <Nav>물품 등록</Nav>
-                    <Nav>건강 AtoZ</Nav>
-                    <Nav onClick={handleNavClick('/nearby')}>어디GO</Nav>
-                    <Nav onClick={handleNavClick('/chatting')}>채팅</Nav>
+                    <Nav onClick={handleNavClick('/search')} active={activeNav === '/search'}>물품 대여</Nav>
+                    <Nav onClick={handleNavClick('/register')} active={activeNav === '/register'}>물품 등록</Nav>
+                    <Nav onClick={handleNavClick('/health')} active={activeNav === '/health'}>건강 AtoZ</Nav>
+                    <Nav onClick={handleNavClick('/nearby')} active={activeNav === '/nearby'}>어디GO</Nav>
+                    <Nav onClick={handleNavClick('/chatting')} active={activeNav === '/chatting'}>채팅</Nav>
                 </Navigation>
                 <Search>
                     <div>
@@ -67,22 +69,20 @@ export default Header
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    /* justify-content: space-between; */
     width: 85%;
-    /* height: 60px; */
     & > * {
-        margin-top: 20px;
+        margin-top: 10px;
         margin-bottom: 10px;
     }
-    /* border: 1px solid black; */
 `;
+
 const FirstRow = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 `;      
+
 const SecondRow = styled.div`
     display: flex;
     flex-direction: row;
@@ -92,10 +92,9 @@ const SecondRow = styled.div`
 `;
 
 const LeftHeader = styled.img`
-    width: 150px;
+    width: 160px;
     height: auto;
     cursor: pointer;
-
 `;
 
 const RightHeader = styled.div`
@@ -105,7 +104,7 @@ const RightHeader = styled.div`
     justify-content: space-between;
 
     & > * {
-        margin-left: 25px; /* 모든 자식 요소에 left-margin 적용 */
+        margin-left: 25px;
     }
 `;
 
@@ -114,25 +113,25 @@ const ProfileButton = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `;
-const ProfileIcon = styled.div`
 
+const ProfileIcon = styled.div`
 `;
+
 const ProfileText = styled.div`
     border-bottom: 1px solid black;
     margin-left: 5px;
 `;
+
 const MypageButton = styled.div`
-        
 `;
+
 const LogoutButton = styled.div`
-        
 `;
 
 // const LoginButton = styled.div`
-        
 // `;
-
 
 const Navigation = styled.div`
     display: flex;
@@ -142,16 +141,16 @@ const Navigation = styled.div`
     width: 60%;
     height: 100%;
     font-size: 20px;
-
     border-bottom: 1px solid black;
-    /* border: 1px solid black; */
 `;
+
 const Nav = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
     &:hover {
         color: #8f8f8f;
     }
@@ -169,7 +168,6 @@ const Search = styled.div`
     height: 100%;
     padding-left: 20px;
     padding-right: 20px;
-
     border: 1px solid black;
     border-radius: 40px;
 `;
