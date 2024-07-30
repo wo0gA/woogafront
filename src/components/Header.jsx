@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import logo from '../images/logox2.png'
 
 const Header = () => {
   return (
     <Wrapper>
         <FirstRow>
-            <LeftHeader>
-                logo
+            <LeftHeader src={logo} alt="logo">
+
             </LeftHeader>
             <RightHeader>   
                 <ProfileButton>
@@ -80,9 +81,13 @@ const SecondRow = styled.div`
     height: 50px;
 `;
 
-const LeftHeader = styled.div`
-    
+const LeftHeader = styled.img`
+    width: 150px;
+    height: auto;
+    /* border: 1px solid black; */
+
 `;
+
 const RightHeader = styled.div`
     display: flex;
     flex-direction: row;
