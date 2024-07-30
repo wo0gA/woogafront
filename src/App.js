@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Routes>
         {/* 일단 바꿔둠 */}
-      <Route path="/" element={<TestPage />} /> 
+      <Route path="/" element={<MainPage />} /> 
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/goodsDetail" element={<GoodsDetailPage />} />
         <Route path="/search" element={<SearchPage />} />
