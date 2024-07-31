@@ -2,15 +2,24 @@ import styled from "styled-components";
 import React, { useState } from 'react'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import RentalSearchPage from "../components/RentalSearchPage";
+import RentalCategoryPage from "../components/RentalCategoryPage";
+import CategoryComponent from "../components/CategoryComponent";
 
-const SearchPage = () => {
+const CategoryPage = () => {
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    const handleItemSelect = (item) => {
+      setSelectedItem(item);
+    };
+    
   return (
     <Wrapper>
       <Header>
         
       </Header> 
-      <RentalSearchPage />
+    
+      <CategoryComponent onItemSelect={handleItemSelect} />
+      {selectedItem && <RentalCategoryPage selectedItem={selectedItem} />}
       <Footer>
        
       </Footer>
@@ -18,7 +27,7 @@ const SearchPage = () => {
   )
 }
 
-export default SearchPage
+export default CategoryPage
 
 const Wrapper = styled.div`
   display: flex;
