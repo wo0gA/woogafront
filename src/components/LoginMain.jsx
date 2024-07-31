@@ -1,19 +1,27 @@
-import { GoogleLogin } from '@react-oauth/google';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import GoogleLoginButton from '../apis/GoogleLoginButton';
 import KakaoLoginButton from '../apis/KakaoLoginButton';
+import { sendWhichLogin } from '../apis/login';
+import { useNavigate } from 'react-router-dom';
 
 const LoginMain = () => {
-    // useEffect(() => {
-    //     // 페이지가 마운트될 때
-    //     document.body.style.overflow = 'hidden';
+    const navigate = useNavigate();
+    useEffect(() => {
+        //url에서 인가코드 받아오기
+        const url = new URL(window.location.href);
+        const code = url.searchParams.get('code');
+        console.log(code);
+        //인가코드가 있으면 백엔드에 보내기
+        if (code) {
+            sendWhichLogin(code);
+        }
+        else{
+            console.log("인가코드 없음");
+        }
         
-    //     // 페이지가 언마운트될 때
-    //     return () => {
-    //         document.body.style.overflow = 'auto';
-    //     };
-    // }, []);
+    }
+    , []);
     
     return (
         <Wrapper>

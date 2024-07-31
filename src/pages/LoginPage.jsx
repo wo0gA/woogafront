@@ -1,12 +1,17 @@
 
 import styled from "styled-components";
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from "../components/Header";
 import Main from "../components/MainMain";
 import Footer from "../components/Footer";
 import LoginMain from "../components/LoginMain";
 
 const LoginPage = () => {
+    useEffect(() => {
+        console.log('////LoginPage Routed////');
+    }  
+    , []);
+
     return (
         <Wrapper>
             <Header>

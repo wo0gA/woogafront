@@ -30,3 +30,16 @@ export async function searchByCategory(categoryID) {
         console.error('Error fetching search results:', error);
     }
 }
+
+// 로그아웃
+export async function logout() {
+    // localstorage에서 username, refresh, access, loginType, first_login 삭제
+    localStorage.removeItem('username');
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('access');
+    localStorage.removeItem('loginType');
+    localStorage.removeItem('first_login');
+
+    // 화면을 새로고침
+    window.location.reload();
+}
