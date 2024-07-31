@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react';
-import GoogleLoginButton from '../apis/GoogleLoginButton';
 import styled from 'styled-components';
-import KakaoLoginButton from '../apis/KakaoLoginButton';
-import PCMap from '../test/PCMap';
+import { getPopular } from '../test/test';
 
 const TestPage = () => {
-  const username = localStorage.getItem('username');
-
+  useEffect(() => {
+    getPopular();
+  }, []);
 
   return (
     <Wrapper>
-      <GoogleLoginButton />
-      <KakaoLoginButton />
-      <PCMap />
+      
     </Wrapper>
   );
 };

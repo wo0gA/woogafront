@@ -8,13 +8,15 @@ import TestPage from './pages/TestPage';
 import NearbyPage from './pages/NearbyPage';
 import ChattingPage from './pages/ChattingPage';
 import LoginPage from './pages/LoginPage';
+import ProfileSettingPage from './pages/ProfileSettingPage';
 
 function App() {
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<MainPage />} /> 
+        <Route path="/" element={<LoginPage />} /> 
+        <Route path="/main" element={<MainPage />} />
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/goodsDetail" element={<GoodsDetailPage />} />
         <Route path="/search" element={<SearchPage />} />
@@ -22,6 +24,7 @@ function App() {
         <Route path="/chatting" element={<ChattingPage />} />
         <Route path="/nearby" element={<NearbyPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/profileSetting" element={<ProfileSettingPage />} />
       </Routes>
     </div>
 

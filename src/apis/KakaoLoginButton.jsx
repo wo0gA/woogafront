@@ -34,7 +34,14 @@ const KakaoLoginButton = () => {
                 localStorage.setItem('refresh', response.data.token.refresh_token);
                 //username도 저장
                 localStorage.setItem('username', response.data.user.username);
-                navigate('/');
+                
+                //만약 첫 로그인이면 프로필 설정 페이지로 이동
+                // if(response.data.user.first_login){
+                //     navigate('/profile');
+                // }
+                // else{
+                //     navigate('/');
+                // }
                 })
                 .catch((error) => {
                 console.error("카카오 인증 처리 중 오류 발생:", error);

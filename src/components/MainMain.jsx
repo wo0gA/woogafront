@@ -1,6 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import bannerImage from '../images/banner.png'
+import nearbyImage from '../images/main_nearby.png'
+import footsalImage from '../images/footsal.png'
+import badmintonImage from '../images/badminton.png'
+import bikeImage from '../images/bike.png'
+import campingtableImage from '../images/campingtable.png'
+import helmetImage from '../images/helmet.png'
+import pingpongImage from '../images/pingpong.png'
+import rollerImage from '../images/roller.png'
+import volleyImage from '../images/volley.png'
 
 const Main = () => {
   return (
@@ -18,9 +27,6 @@ const Main = () => {
                 <path d="M25.8333 23.3333H24.5167L24.05 22.8833C25.7398 20.9234 26.6685 18.4212 26.6667 15.8333C26.6667 13.6907 26.0313 11.5962 24.8409 9.81466C23.6505 8.03313 21.9586 6.64459 19.9791 5.82464C17.9995 5.00469 15.8213 4.79016 13.7199 5.20816C11.6184 5.62617 9.68808 6.65795 8.17301 8.17301C6.65795 9.68808 5.62617 11.6184 5.20816 13.7199C4.79016 15.8213 5.00469 17.9995 5.82464 19.9791C6.64459 21.9586 8.03313 23.6505 9.81466 24.8409C11.5962 26.0313 13.6907 26.6667 15.8333 26.6667C18.5167 26.6667 20.9833 25.6833 22.8833 24.05L23.3333 24.5167V25.8333L31.6667 34.15L34.15 31.6667L25.8333 23.3333ZM15.8333 23.3333C11.6833 23.3333 8.33334 19.9833 8.33334 15.8333C8.33334 11.6833 11.6833 8.33334 15.8333 8.33334C19.9833 8.33334 23.3333 11.6833 23.3333 15.8333C23.3333 19.9833 19.9833 23.3333 15.8333 23.3333Z" fill="black"/>
             </svg>
             <MainSearchText>더운 여름! 레저스포츠 도전하기</MainSearchText>
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <path d="M20.0007 23.3333C22.7673 23.3333 24.984 21.0999 24.984 18.3333L25.0007 8.33325C25.0007 5.56659 22.7673 3.33325 20.0007 3.33325C17.234 3.33325 15.0007 5.56659 15.0007 8.33325V18.3333C15.0007 21.0999 17.234 23.3333 20.0007 23.3333ZM18.0007 8.16659C18.0007 7.06659 18.9007 6.16659 20.0007 6.16659C21.1007 6.16659 22.0007 7.06659 22.0007 8.16659L21.984 18.4999C21.984 19.5999 21.1007 20.4999 20.0007 20.4999C18.9007 20.4999 18.0007 19.5999 18.0007 18.4999V8.16659ZM28.834 18.3333C28.834 23.3333 24.6007 26.8333 20.0007 26.8333C15.4007 26.8333 11.1673 23.3333 11.1673 18.3333H8.33398C8.33398 24.0166 12.8673 28.7166 18.334 29.5333V34.9999H21.6673V29.5333C27.134 28.7332 31.6673 24.0333 31.6673 18.3333H28.834Z" fill="black"/>
-            </svg>
         </MainSearch>
         <Contents>
             <Category>
@@ -95,11 +101,170 @@ const Main = () => {
             <Popular>
                 <Title>인기 운동용품</Title>
                 <Description>최근 사용자들이 많이 찾는 용품이에요!</Description>
+                <PopularContents>
+                    <PopularItem>
+                        <PopularImage src={footsalImage}/>
+                        <PolularText>
+                            <PopularName>풋살화 270사이즈</PopularName>
+                            <PopularPrice>
+                                <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                    <PopularItem>
+                        <PopularImage src={badmintonImage}/>
+                        <PolularText>
+                            <PopularName>배드민턴 세트</PopularName>
+                            <PopularPrice>
+                                <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                    <PopularItem>
+                        <PopularImage src={volleyImage}/>
+                        <PolularText>
+                            <PopularName>배구공 5개</PopularName>
+                            <PopularPrice>
+                                <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                    <PopularItem>
+                        <PopularImage src={bikeImage}/>
+                        <PolularText>
+                            <PopularName>산악자전거 MX4000</PopularName>
+                            <PopularPrice>
+                                <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                    <PopularItem>
+                        <PopularImage src={helmetImage}/>
+                        <PolularText>
+                            <PopularName>라이딩헬멧</PopularName>
+                            <PopularPrice>
+                                <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                    <PopularItem>
+                        <PopularImage src={rollerImage}/>
+                        <PolularText>
+                            <PopularName>폼롤러</PopularName>
+                            <PopularPrice>
+                                <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                    <PopularItem>
+                        <PopularImage src={campingtableImage}/>
+                        <PolularText>
+                            <PopularName>캠핑 테이블</PopularName>
+                            <PopularPrice>
+                                <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                    <PopularItem>
+                        <PopularImage src={pingpongImage}/>
+                        <PolularText>
+                            <PopularName>탁구 세트</PopularName>
+                            <PopularPrice>
+                            <PopularPriceDay>
+                                    <Unit>일</Unit>
+                                    <Price>7,000원</Price>
+                                </PopularPriceDay>
+                                <PopularPriceWeek>
+                                    <Unit>주</Unit>
+                                    <Price>40,000원</Price>
+                                </PopularPriceWeek>
+                            </PopularPrice>
+                        </PolularText>
+                    </PopularItem>
+                </PopularContents>
             </Popular>
-            <Nearby>
-                <Title>주변 운동공간</Title>
-                <Description>운동용품 빌리GO, 내 주변 운동공간에서 운동하GO</Description>
-            </Nearby>
+            <RankingAndNearby>
+                <Ranking>
+                    <Title>인기 순위</Title>
+                    <Description>순위 확인하세영</Description>
+                    <Rankings>
+                        <RankingItem>
+                            <RankingNumber>1</RankingNumber>
+                            <RankingName>요가매트</RankingName>
+                        </RankingItem>
+                        <RankingItem>
+                            <RankingNumber>2</RankingNumber>
+                            <RankingName>요가복</RankingName>
+                        </RankingItem>
+                        <RankingItem>
+                            <RankingNumber>3</RankingNumber>
+                            <RankingName>요가벨트</RankingName>
+                        </RankingItem>  
+                        <RankingItem>
+                            <RankingNumber>4</RankingNumber>
+                            <RankingName>덤벨</RankingName>
+                        </RankingItem>
+                        <RankingItem>
+                            <RankingNumber>5</RankingNumber>
+                            <RankingName>수영모</RankingName>
+                        </RankingItem> 
+                    </Rankings>
+                </Ranking>
+                <Nearby>
+                    <Title>주변 운동공간</Title>
+                    <Description>운동용품 빌리GO, 내 주변 운동공간에서 운동하GO</Description>
+                    <NearbyImage src={nearbyImage} />
+                </Nearby>
+            </RankingAndNearby>
         </Contents>
     </Wrapper>
   )
@@ -115,10 +280,6 @@ const Wrapper = styled.div`
     width: 100%;
     height: 80%;
     /* border: 1px solid black; */
-
-    & > * {
-        margin-top: 25px; /* 모든 자식 요소에 left-margin 적용 */
-    }
 `;
 
 
@@ -135,6 +296,10 @@ const Banner = styled.div`
 
     width: 100%;
     height: 400px;
+
+    & > * {
+        margin-top: 25px; 
+    }
 `;
 
 const MainSearch = styled.div`
@@ -142,7 +307,6 @@ const MainSearch = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     width: 70%;
     height: 60px;
 
@@ -153,7 +317,9 @@ const MainSearch = styled.div`
 `;
 const MainSearchText = styled.div`
     text-align: left;
+    margin-left: 20px;
 `;
+
 
 const Contents = styled.div`
     display: flex;
@@ -161,6 +327,10 @@ const Contents = styled.div`
     align-items: center;
     justify-content: center;
     width: 80%;
+
+    & > * {
+        margin-top: 80px; /* 모든 자식 요소에 left-margin 적용 */
+    }
 `;
 
 const Category = styled.div`
@@ -211,16 +381,131 @@ const Popular = styled.div`
 
     /* border: 1px solid black; */
 `;
+const PopularContents = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+    & > div:nth-child(-n+4) {
+        margin-bottom: 40px; // 윗줄과 아랫줄 간격 설정
+    }
+`;
+
+const PopularItem = styled.div`
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    width: calc(25% - 15px); // 4개씩 배치되도록 설정, 여백을 고려하여 계산
+    height: 20%;
+    margin-bottom: 20px; // 아이템 사이의 세로 간격 설정
+    margin-left: 5px;
+    margin-right: 5px;
+    &:nth-child(4n + 1) {
+        margin-left: 0;
+    }
+    &:nth-child(4n) {
+        margin-right: 0;
+    }
+`;
+const PopularImage = styled.img`
+    width: 100%;
+    
+`;
+const PolularText = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start; // 왼쪽 정렬
+`;
+const PopularName = styled.div`
+    margin-top: 10px;
+    align-self: flex-start; // 왼쪽 정렬
+`;
+const PopularPrice = styled.div`
+    display: flex;
+    flex-direction: row;    
+    width: 100%;
+    align-items: center;
+    font-weight: bold;
+    justify-content: space-between;
+`;
+const PopularPriceDay = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+const PopularPriceWeek = styled.div`  
+    display: flex;
+    flex-direction: row;
+`;
+const Unit = styled.div`
+    margin-right: 5px;
+`;
+const Price = styled.div`
+`;
+
+const RankingAndNearby = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;  // align-items 속성을 stretch로 설정
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid black; */
+`;
+
+const Ranking = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40%;
+    height: 100%;  // 높이를 100%로 설정
+    margin-right: 40px;
+    /* border: 1px solid black; */
+`;
+const Rankings = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+`;
+const RankingItem = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-bottom: 1px solid black;
+`;
+const RankingNumber = styled.div`
+    font-size: 20px;
+    font-weight: 400;
+`;
+const RankingName = styled.div`
+    font-size: 20px;
+    font-weight: 400;
+`;
+
 
 const Nearby = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 60%;
+    height: 100%;  // 높이를 100%로 설정
+    /* border: 1px solid black; */
+`;
+const NearbyImage = styled.img`
     width: 100%;
     height: 100%;
-
-    /* border: 1px solid black; */
+    margin-top: 10px;
 `;
 
 
