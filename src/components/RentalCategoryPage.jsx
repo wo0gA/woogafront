@@ -1,17 +1,26 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import SportItem from '../images/main_card_image.png'
 import categories from './data/categories';
+import SearchResultCard from './Card/SearchResultCard';
+import CategoryComponent from './CategoryComponent';
 
-const RentalCategoryPage = ( { selectedItem }) => {
+const RentalCategoryPage = ( { searchTerm } ) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+    const [resultCard, setResultCard] = useState();
 
     const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
   };
 
+    const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleItemSelect = (item) => {
+    setSelectedItem(item);
+  };
+
     return (
     <Wrapper>
+           <CategoryComponent onItemSearch = {handleMainCategoryClick} onItemSelect={handleItemSelect} />
         <Contents>
             <Category>
             <CatTitle>카테고리</CatTitle>
@@ -31,7 +40,14 @@ const RentalCategoryPage = ( { selectedItem }) => {
             </Category>
             <Contentarr>
                 <SearchResult>
-                <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
+                        {/* Display search term results */}
+                        {searchTerm && (
+                            <Title>'{searchTerm}'에 대한 검색결과</Title>
+                        )}
+                        {/* Display category results */}
+                        {selectedItem && !searchTerm && (
+                            <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
+                        )}
                 <SearchNavigation>
                     <Nav>관련도순</Nav>
                     <Nav>판매순</Nav>
@@ -41,27 +57,7 @@ const RentalCategoryPage = ( { selectedItem }) => {
                     <Nav>최근 등록순</Nav>
                 </SearchNavigation>
                 <SearchResultBox>
-                    <SearchResultCards>
-                        <ResultImage src={SportItem}  alt='운동 용품 이미지' />
-                        <ResultDesciption>
-                            <ResultName>배드민턴 세트</ResultName>
-                            <ResultPrice>일 1,000원<br/>주 4,000원</ResultPrice>
-                        </ResultDesciption>
-                    </SearchResultCards>
-                    <SearchResultCards>
-                        <ResultImage src={SportItem}  alt='운동 용품 이미지' />
-                        <ResultDesciption>
-                            <ResultName>배드민턴 세트</ResultName>
-                            <ResultPrice>일 1,000원<br/>주 4,000원</ResultPrice>
-                        </ResultDesciption>
-                    </SearchResultCards>
-                    <SearchResultCards>
-                        <ResultImage src={SportItem}  alt='운동 용품 이미지' />
-                        <ResultDesciption>
-                            <ResultName>배드민턴 세트</ResultName>
-                            <ResultPrice>일 1,000원<br/>주 4,000원</ResultPrice>
-                        </ResultDesciption>
-                    </SearchResultCards>
+                        <SearchResultCard setResultCard={setResultCard} />
                 </SearchResultBox>
                 </SearchResult>
                 <Popular>
@@ -76,7 +72,7 @@ const RentalCategoryPage = ( { selectedItem }) => {
             </Contentarr>
         </Contents>
     </Wrapper>
-  )
+);
 }
 
 export default RentalCategoryPage
@@ -217,7 +213,7 @@ const SearchResultCards = styled.div`
     margin-top: 20px;
     text-align: left;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: space-evenly;
     height: 200px;
@@ -225,39 +221,6 @@ const SearchResultCards = styled.div`
     background-color: #bfbfbf;
 
     margin-inline: 5px;
-`;
-
-const ResultImage = styled.img`
-    flex: 3;
-    width: 100%;
-    height: auto;
-`;
-
-const ResultDesciption = styled.div`
-    flex: 1;
-    position: relative;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
-    height: auto;
-    background-color: beige;
-`;
-
-const ResultName = styled.div`
-    top: 10px;
-    left: 10px;
-    font-weight: bold;
-`;
-
-const ResultPrice = styled.div`
-    top: 10px;
-    right: 10px;
-    display: flex;
-    align-items: flex-start; /* 상단 정렬 */
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    position: absolute;
-    font-size: 12px;
-    text-align: right;
 `;
 
 const Magazines = styled.div`

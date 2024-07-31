@@ -6,20 +6,20 @@ import RentalCategoryPage from "../components/RentalCategoryPage";
 import CategoryComponent from "../components/CategoryComponent";
 
 const CategoryPage = () => {
-    const [selectedItem, setSelectedItem] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedItem, setselectedItem] = useState('');
 
-    const handleItemSelect = (item) => {
-      setSelectedItem(item);
-    };
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
     
   return (
     <Wrapper>
-      <Header>
+      <Header onSearch={handleSearch}>
         
       </Header> 
-    
-      <CategoryComponent onItemSelect={handleItemSelect} />
-      {selectedItem && <RentalCategoryPage selectedItem={selectedItem} />}
+
+      <RentalCategoryPage selectedItem={selectedItem} searchTerm= {searchTerm} />
       <Footer>
        
       </Footer>
