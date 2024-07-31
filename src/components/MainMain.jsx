@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import bannerImage from '../images/banner.png'
 import nearbyImage from '../images/main_nearby.png'
@@ -10,9 +10,24 @@ import helmetImage from '../images/helmet.png'
 import pingpongImage from '../images/pingpong.png'
 import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
+import { searchProducts } from '../test/test'
 
 const Main = () => {
-  return (
+    const [searchValue, setSearchValue] = useState('')
+    const handleSearchChange = (e) => {
+        setSearchValue(e.target.value)
+    }
+    const handleSearchClick = () => {
+        console.log(`Search value: ${searchValue}`);
+        searchProducts(searchValue);
+    }
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleSearchClick();
+        }
+    };
+
+    return (
     <Wrapper>
         <Banner>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="60" viewBox="0 0 40 60" fill="none">
@@ -23,10 +38,12 @@ const Main = () => {
             </svg>
         </Banner>
         <MainSearch>
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <MainSearchIcon>
+                <svg onClick={handleSearchClick} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                 <path d="M25.8333 23.3333H24.5167L24.05 22.8833C25.7398 20.9234 26.6685 18.4212 26.6667 15.8333C26.6667 13.6907 26.0313 11.5962 24.8409 9.81466C23.6505 8.03313 21.9586 6.64459 19.9791 5.82464C17.9995 5.00469 15.8213 4.79016 13.7199 5.20816C11.6184 5.62617 9.68808 6.65795 8.17301 8.17301C6.65795 9.68808 5.62617 11.6184 5.20816 13.7199C4.79016 15.8213 5.00469 17.9995 5.82464 19.9791C6.64459 21.9586 8.03313 23.6505 9.81466 24.8409C11.5962 26.0313 13.6907 26.6667 15.8333 26.6667C18.5167 26.6667 20.9833 25.6833 22.8833 24.05L23.3333 24.5167V25.8333L31.6667 34.15L34.15 31.6667L25.8333 23.3333ZM15.8333 23.3333C11.6833 23.3333 8.33334 19.9833 8.33334 15.8333C8.33334 11.6833 11.6833 8.33334 15.8333 8.33334C19.9833 8.33334 23.3333 11.6833 23.3333 15.8333C23.3333 19.9833 19.9833 23.3333 15.8333 23.3333Z" fill="black"/>
-            </svg>
-            <MainSearchText>더운 여름! 레저스포츠 도전하기</MainSearchText>
+                </svg>
+            </MainSearchIcon>
+            <MainSearchInput type="text" placeholder="더운 여름 무더위를 즐기세요" value={searchValue} onChange={handleSearchChange} onKeyPress={handleKeyPress} ></MainSearchInput>
         </MainSearch>
         <Contents>
             <Category>
@@ -315,9 +332,19 @@ const MainSearch = styled.div`
     padding-left: 20px;
     padding-right: 20px;
 `;
-const MainSearchText = styled.div`
-    text-align: left;
+const MainSearchInput = styled.input`
+    background-color: transparent;
     margin-left: 20px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+`;
+const MainSearchIcon = styled.button`
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
 `;
 
 

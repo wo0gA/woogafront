@@ -10,3 +10,13 @@ export async function getPopular() {
         console.error('Error fetching popular products:', error);
     }
 }
+
+//키워드로 검색
+export async function searchProducts(keyword) {
+    try {
+        const response = await axios.get(`https://${serverURL}/products/?keyword=${keyword}`);
+        console.log(response.data);
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+    }
+}
