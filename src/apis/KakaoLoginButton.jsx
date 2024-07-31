@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import kakaoBtn from '../images/kakaoBtn.png';
 
 const KakaoLoginButton = () => {
     const REST_API_KEY = 'b6390fc9c0a186ec2d9dc18c54150b14';
@@ -27,7 +28,20 @@ const KakaoLoginButton = () => {
             axios.post("https://server.templ.es/accounts/kakao/callback/", { code })
                 .then((response) => {
                 console.log(response.data);
-                navigate('/');
+
+                // 카카오 로그인 성공 시, 서버에서 받은 토큰을 로컬스토리지에 저장
+                localStorage.setItem('access', response.data.token.access_token);
+                localStorage.setItem('refresh', response.data.token.refresh_token);
+                //username도 저장
+                localStorage.setItem('username', response.data.user.username);
+                
+                //만약 첫 로그인이면 프로필 설정 페이지로 이동
+                // if(response.data.user.first_login){
+                //     navigate('/profile');
+                // }
+                // else{
+                //     navigate('/');
+                // }
                 })
                 .catch((error) => {
                 console.error("카카오 인증 처리 중 오류 발생:", error);
@@ -36,22 +50,25 @@ const KakaoLoginButton = () => {
         }, [code, navigate]);
 
     return (
-            <LoginBtn type='button' onClick={loginHandler}>
-                카카오 로그인
-            </LoginBtn>
+            // <LoginBtn type='button' onClick={loginHandler} />
+            <Img src={kakaoBtn} alt="구글 로그인" onClick={loginHandler} />
         );
     };
 
 export default KakaoLoginButton
 
 const LoginBtn = styled.button`
-    background-color: #ffeb3b;
+    background-image: url(${kakaoBtn});
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 20%;
+    height: 5 / 2;
     border: none;
     border-radius: 5px;
-    color: #000;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
     `;
+
+const Img = styled.img`
+width: 20%;
+cursor: pointer;
+`;

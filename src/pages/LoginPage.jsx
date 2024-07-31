@@ -4,24 +4,22 @@ import React from 'react'
 import Header from "../components/Header";
 import Main from "../components/MainMain";
 import Footer from "../components/Footer";
+import LoginMain from "../components/LoginMain";
 
-const MainPage = () => {
-  return (
-    <Wrapper>
-      <Header>
-        
-      </Header> 
-      <Main>
-        
-      </Main>
-      <Footer>
+const LoginPage = () => {
+    return (
+        <Wrapper>
+            <Header>
+                
+            </Header> 
+            <LoginMain>
 
-      </Footer>
-    </Wrapper>
-  )
+            </LoginMain>
+        </Wrapper>
+    )
 }
 
-export default MainPage
+export default LoginPage
 
 const Wrapper = styled.div`
   display: flex;

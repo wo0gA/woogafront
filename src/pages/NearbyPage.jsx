@@ -2,18 +2,18 @@
 import styled from "styled-components";
 import React from 'react'
 import Header from "../components/Header";
-import Main from "../components/MainMain";
 import Footer from "../components/Footer";
+import Nearbymain from "../components/Nearbymain";
 
-const MainPage = () => {
+const NearbyPage = () => {
   return (
     <Wrapper>
       <Header>
         
       </Header> 
-      <Main>
+      <Nearbymain>
         
-      </Main>
+      </Nearbymain>
       <Footer>
 
       </Footer>
@@ -21,7 +21,7 @@ const MainPage = () => {
   )
 }
 
-export default MainPage
+export default NearbyPage
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,9 +29,10 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+
   box-sizing: border-box;
 
   /* padding-left: 100px;
   padding-right: 100px; */
 `;
+
