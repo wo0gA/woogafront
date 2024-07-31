@@ -1,27 +1,23 @@
 import React, { useState } from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import SportItem from '../images/main_card_image.png'
 import categories from './data/categories';
 
-const RentalSearchPage = () => {
+const RentalCategoryPage = ( { selectedItem }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
 
     const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
   };
 
-  return (
+    return (
     <Wrapper>
-        <Bannerbar>
-            <BarText>물품 대여</BarText>
-        </Bannerbar>
         <Contents>
             <Category>
-                <CatTitle>카테고리</CatTitle>
-                <CategoryContents>
-                    <Sports>
-                        <SportsDescription>
-                        {Object.keys(categories).map((mainCategory) => (
+            <CatTitle>카테고리</CatTitle>
+            <CategoryContents>
+            <SportsDescription>
+          {Object.keys(categories).map((mainCategory) => (
             <CategoryItem
               key={mainCategory}
               onClick={() => handleMainCategoryClick(mainCategory)}
@@ -30,13 +26,12 @@ const RentalSearchPage = () => {
               {mainCategory}
             </CategoryItem>
           ))}
-                    </SportsDescription>
-                    </Sports>
-                </CategoryContents>
+            </SportsDescription>
+            </CategoryContents>
             </Category>
             <Contentarr>
                 <SearchResult>
-                <Title>'검색어'에 대한 검색결과</Title>
+                <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
                 <SearchNavigation>
                     <Nav>관련도순</Nav>
                     <Nav>판매순</Nav>
@@ -70,7 +65,7 @@ const RentalSearchPage = () => {
                 </SearchResultBox>
                 </SearchResult>
                 <Popular>
-                <Title>오늘의 인기 운동</Title>
+                <Title>빌리GO의 제안</Title>
                 <Magazines>
                     <MagazinesItem>집에서도<br/>건강하게<br/>홈트레이닝</MagazinesItem>
                     <MagazinesItem>풋살 & 축구,<br/>그 차이점을<br/>알아보다</MagazinesItem>
@@ -84,7 +79,7 @@ const RentalSearchPage = () => {
   )
 }
 
-export default RentalSearchPage
+export default RentalCategoryPage
 
 const Wrapper = styled.div`
     display: flex;
@@ -96,9 +91,8 @@ const Wrapper = styled.div`
     /* border: 1px solid black; */
 
     & > * {
-        margin-top: 25px; 
+        margin-top: 25px; /* 모든 자식 요소에 left-margin 적용 */
     }
-
 `;
 
 const Nav = styled.div`
@@ -143,17 +137,13 @@ const CategoryContents = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     width: 80%;
-    text-align: left;
 `;
-const Sports = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
+
 const SportsDescription = styled.div`
-    margin-top: 10px;
+    margin-top: px;
     font-size: 12px;
+    text-align: left;
+    justify-content: space-between;
 `;
 
 const Popular = styled.div`
@@ -179,9 +169,17 @@ const Title = styled.div`
 const CatTitle = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 550;
     margin-bottom: 10px;
+    color: #000;
+
+/* head 2 
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 150%; /* 30px */
 `;
 
 const Contentarr = styled.div`
@@ -190,26 +188,6 @@ const Contentarr = styled.div`
     align-items: center;
     width: 70%;
     padding-left: 20px;
-`;
-
-const Bannerbar = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 7rem;
-    background-color: #F5FA25;
-    margin-top: 0%;
-`;
-
-const BarText = styled.div`
-    text-align: left;
-    width: 100%;
-    font-size: 22px;
-    font-weight: 550;
-    margin-bottom: 10px;
-    margin-left: 150px;
 `;
 
 const SearchNavigation = styled.div`
@@ -232,6 +210,7 @@ const SearchResultBox = styled.div`
     display: flex;
     overflow: hidden;
     margin-top: 5px;
+    justify-content: space-between;
     `;
 
 const SearchResultCards = styled.div`
@@ -241,7 +220,7 @@ const SearchResultCards = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
-    height: auto;
+    height: 200px;
     width: 200px;
     background-color: #bfbfbf;
 
@@ -260,6 +239,7 @@ const ResultDesciption = styled.div`
     padding: 10px;
     box-sizing: border-box;
     width: 100%;
+    height: auto;
     background-color: beige;
 `;
 
@@ -285,6 +265,8 @@ const Magazines = styled.div`
     display: flex;
     flex-direction: row;
     margin-bottom: 25px;
+    justify-content: space-between;
+
 `;
 
 const MagazinesItem = styled.div`
