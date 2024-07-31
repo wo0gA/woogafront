@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { searchProducts, searchByCategory } from '../test/test'
+
 import bannerImage from '../images/banner.png'
 import nearbyImage from '../images/main_nearby.png'
+
 import footsalImage from '../images/footsal.png'
 import badmintonImage from '../images/badminton.png'
 import bikeImage from '../images/bike.png'
@@ -10,7 +13,17 @@ import helmetImage from '../images/helmet.png'
 import pingpongImage from '../images/pingpong.png'
 import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
-import { searchProducts } from '../test/test'
+
+import category1 from '../images/category/category1.svg'
+// import category2 from '../images/category/category2.png'
+// import category3 from '../images/category/category3.png'
+// import category4 from '../images/category/category4.png'
+// import category5 from '../images/category/category5.png'
+// import category6 from '../images/category/category6.png'
+// import category7 from '../images/category/category7.png'
+// import category8 from '../images/category/category8.png'
+
+import { MdDirectionsBike } from 'react-icons/md';
 
 const Main = () => {
     const [searchValue, setSearchValue] = useState('')
@@ -26,6 +39,10 @@ const Main = () => {
             handleSearchClick();
         }
     };
+    const handleCategoryClick = (categoryID) => () => {
+        console.log(`Category ID: ${categoryID}`);
+        searchByCategory(categoryID);
+    }
 
     return (
     <Wrapper>
@@ -43,7 +60,7 @@ const Main = () => {
                 <path d="M25.8333 23.3333H24.5167L24.05 22.8833C25.7398 20.9234 26.6685 18.4212 26.6667 15.8333C26.6667 13.6907 26.0313 11.5962 24.8409 9.81466C23.6505 8.03313 21.9586 6.64459 19.9791 5.82464C17.9995 5.00469 15.8213 4.79016 13.7199 5.20816C11.6184 5.62617 9.68808 6.65795 8.17301 8.17301C6.65795 9.68808 5.62617 11.6184 5.20816 13.7199C4.79016 15.8213 5.00469 17.9995 5.82464 19.9791C6.64459 21.9586 8.03313 23.6505 9.81466 24.8409C11.5962 26.0313 13.6907 26.6667 15.8333 26.6667C18.5167 26.6667 20.9833 25.6833 22.8833 24.05L23.3333 24.5167V25.8333L31.6667 34.15L34.15 31.6667L25.8333 23.3333ZM15.8333 23.3333C11.6833 23.3333 8.33334 19.9833 8.33334 15.8333C8.33334 11.6833 11.6833 8.33334 15.8333 8.33334C19.9833 8.33334 23.3333 11.6833 23.3333 15.8333C23.3333 19.9833 19.9833 23.3333 15.8333 23.3333Z" fill="black"/>
                 </svg>
             </MainSearchIcon>
-            <MainSearchInput type="text" placeholder="더운 여름 무더위를 즐기세요" value={searchValue} onChange={handleSearchChange} onKeyPress={handleKeyPress} ></MainSearchInput>
+            <MainSearchInput type="text" placeholder="더운 여름! 레저 스포츠 도전하기" value={searchValue} onChange={handleSearchChange} onKeyPress={handleKeyPress} ></MainSearchInput>
         </MainSearch>
         <Contents>
             <Category>
@@ -51,9 +68,9 @@ const Main = () => {
                 <CategoryContents>
                     <Sports>
                         <Eclipse>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                                <path d="M32.2917 11.4583C34.5833 11.4583 36.4583 9.58333 36.4583 7.29167C36.4583 5 34.5833 3.125 32.2917 3.125C30 3.125 28.125 5 28.125 7.29167C28.125 9.58333 30 11.4583 32.2917 11.4583ZM10.4167 25C4.58333 25 0 29.5833 0 35.4167C0 41.25 4.58333 45.8333 10.4167 45.8333C16.25 45.8333 20.8333 41.25 20.8333 35.4167C20.8333 29.5833 16.25 25 10.4167 25ZM10.4167 42.7083C6.45833 42.7083 3.125 39.375 3.125 35.4167C3.125 31.4583 6.45833 28.125 10.4167 28.125C14.375 28.125 17.7083 31.4583 17.7083 35.4167C17.7083 39.375 14.375 42.7083 10.4167 42.7083ZM22.5 21.875L27.5 16.875L29.1667 18.5417C31.875 21.25 35.4167 22.9167 39.7917 22.9167V18.75C36.6667 18.75 34.1667 17.5 32.2917 15.625L28.3333 11.6667C27.2917 10.8333 26.25 10.4167 25 10.4167C23.75 10.4167 22.7083 10.8333 22.0833 11.6667L16.25 17.5C15.4167 18.3333 15 19.375 15 20.4167C15 21.6667 15.4167 22.7083 16.25 23.3333L22.9167 29.1667V39.5833H27.0833V26.6667L22.5 21.875ZM39.5833 25C33.75 25 29.1667 29.5833 29.1667 35.4167C29.1667 41.25 33.75 45.8333 39.5833 45.8333C45.4167 45.8333 50 41.25 50 35.4167C50 29.5833 45.4167 25 39.5833 25ZM39.5833 42.7083C35.625 42.7083 32.2917 39.375 32.2917 35.4167C32.2917 31.4583 35.625 28.125 39.5833 28.125C43.5417 28.125 46.875 31.4583 46.875 35.4167C46.875 39.375 43.5417 42.7083 39.5833 42.7083Z" fill="black"/>
-                            </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                            <path d="M32.2917 11.4583C34.5833 11.4583 36.4583 9.58333 36.4583 7.29167C36.4583 5 34.5833 3.125 32.2917 3.125C30 3.125 28.125 5 28.125 7.29167C28.125 9.58333 30 11.4583 32.2917 11.4583ZM10.4167 25C4.58333 25 0 29.5833 0 35.4167C0 41.25 4.58333 45.8333 10.4167 45.8333C16.25 45.8333 20.8333 41.25 20.8333 35.4167C20.8333 29.5833 16.25 25 10.4167 25ZM10.4167 42.7083C6.45833 42.7083 3.125 39.375 3.125 35.4167C3.125 31.4583 6.45833 28.125 10.4167 28.125C14.375 28.125 17.7083 31.4583 17.7083 35.4167C17.7083 39.375 14.375 42.7083 10.4167 42.7083ZM22.5 21.875L27.5 16.875L29.1667 18.5417C31.875 21.25 35.4167 22.9167 39.7917 22.9167V18.75C36.6667 18.75 34.1667 17.5 32.2917 15.625L28.3333 11.6667C27.2917 10.8333 26.25 10.4167 25 10.4167C23.75 10.4167 22.7083 10.8333 22.0833 11.6667L16.25 17.5C15.4167 18.3333 15 19.375 15 20.4167C15 21.6667 15.4167 22.7083 16.25 23.3333L22.9167 29.1667V39.5833H27.0833V26.6667L22.5 21.875ZM39.5833 25C33.75 25 29.1667 29.5833 29.1667 35.4167C29.1667 41.25 33.75 45.8333 39.5833 45.8333C45.4167 45.8333 50 41.25 50 35.4167C50 29.5833 45.4167 25 39.5833 25ZM39.5833 42.7083C35.625 42.7083 32.2917 39.375 32.2917 35.4167C32.2917 31.4583 35.625 28.125 39.5833 28.125C43.5417 28.125 46.875 31.4583 46.875 35.4167C46.875 39.375 43.5417 42.7083 39.5833 42.7083Z" fill="black"/>
+                        </svg>
                         </Eclipse>
                         <SportsDescription>생활체육</SportsDescription>
                     </Sports>
@@ -66,15 +83,15 @@ const Main = () => {
                         <SportsDescription>피트니스</SportsDescription>
                     </Sports>
                     <Sports>
-                        <Eclipse>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
+                        <Eclipse onClick={handleCategoryClick(1)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
                                 <path d="M41.2396 5.18739C36.3646 0.312392 27.4479 1.29156 21.3438 7.39572C18.0104 10.7291 16.0937 15.4582 16.0521 18.7707C16.0104 22.0624 16.5937 26.8749 13.2396 30.2291L4.40625 39.0624L7.36458 42.0207L16.1979 33.1874C19.5521 29.8332 24.3646 30.4166 27.6562 30.3749C30.9479 30.3332 35.6979 28.4166 39.0312 25.0832C45.1146 18.9791 46.1146 10.0624 41.2396 5.18739ZM22.0729 24.3332C18.8854 21.1457 19.8854 14.7291 24.2812 10.3332C28.6771 5.93739 35.0729 4.93739 38.2812 8.12489C41.4688 11.3124 40.4688 17.7291 36.0729 22.1249C31.6771 26.5207 25.2812 27.5207 22.0729 24.3332ZM38.0729 35.4166C39.1771 35.4166 40.2396 35.8541 41.0104 36.6457C42.6354 38.2707 42.6354 40.9166 41.0104 42.5416C40.2396 43.3124 39.1771 43.7499 38.0729 43.7499C36.9688 43.7499 35.9062 43.3124 35.1354 42.5207C33.5104 40.8957 33.5104 38.2499 35.1354 36.6249C35.9062 35.8541 36.9688 35.4166 38.0729 35.4166ZM38.0729 31.2499C36.4229 31.2466 34.8091 31.7334 33.4362 32.6487C32.0632 33.564 30.9931 34.8664 30.3615 36.3907C29.7299 37.9151 29.5652 39.5927 29.8885 41.2107C30.2117 42.8288 31.0083 44.3144 32.1771 45.4791C33.8021 47.1041 35.9479 47.9166 38.0729 47.9166C39.7229 47.9199 41.3368 47.433 42.7097 46.5177C44.0826 45.6025 45.1527 44.3001 45.7843 42.7757C46.416 41.2514 46.5806 39.5738 46.2573 37.9557C45.9341 36.3377 45.1376 34.8521 43.9687 33.6874C43.1944 32.9136 42.2751 32.3 41.2635 31.8818C40.2518 31.4635 39.1676 31.2488 38.0729 31.2499Z" fill="black"/>
                             </svg>
                         </Eclipse>
                         <SportsDescription>구기스포츠</SportsDescription>
                     </Sports>
                     <Sports>
-                        <Eclipse>
+                        <Eclipse onClick={handleCategoryClick(1)}> 
                             <svg xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
                                 <path d="M17.5234 17.7083C17.5234 17.125 17.9818 16.6667 18.5651 16.6667H23.8151L23.7734 14.5833H18.5651C17.9818 14.5833 17.5234 14.125 17.5234 13.5417C17.5234 12.9583 17.9818 12.5 18.5651 12.5H23.7734V6.25H7.10677V37.5H13.3568V41.6667H5.02344V45.8333H38.3568C44.1068 45.8333 48.7734 41.1667 48.7734 35.4167H44.6068C44.6068 38.875 41.8151 41.6667 38.3568 41.6667H34.1901V37.5H40.4401V31.5C40.4401 27.125 37.2109 24.1458 34.1276 23.4167L28.5026 22.0208C26.6901 21.5625 25.2318 20.3333 24.4401 18.75H18.5651C17.9818 18.75 17.5234 18.2917 17.5234 17.7083ZM30.0234 41.6667H17.5234V37.5H30.0234V41.6667Z" fill="black"/>
                             </svg>
@@ -339,6 +356,7 @@ const MainSearchInput = styled.input`
     height: 100%;
     border: none;
     outline: none;
+    font-size: 16px;
 `;
 const MainSearchIcon = styled.button`
     background-color: transparent;
@@ -386,9 +404,9 @@ const Sports = styled.div`
 const SportsDescription = styled.div`
     margin-top: 10px;
 `;
-const Eclipse = styled.div`
-    width: 100px;
-    height: 100px;
+const Eclipse = styled.button`
+    width: 80px;
+    aspect-ratio: 1/1;
     border: 2px solid black;
     border-radius: 50%;
     background-color: #FEFCE8;
@@ -396,6 +414,13 @@ const Eclipse = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    &:hover {
+        background-color: #c6c6c6;
+    }
+    &:active {
+        background-color: #4d4d4d;
+    }
 `;
 
 const Popular = styled.div`
@@ -549,4 +574,10 @@ const Description = styled.div`
     width: 100%;
     font-size: 20px;
     font-weight: 400;
+`;
+
+///////////////////////////////////// Icons ///////////////////////////////////////
+const BikeIcon = styled(MdDirectionsBike)`
+    width: 50%;
+    height: 50%;
 `;
