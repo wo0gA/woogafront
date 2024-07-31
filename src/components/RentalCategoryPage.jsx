@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import categories from './data/categories';
 import SearchResultCard from './Card/SearchResultCard';
 import CategoryComponent from './CategoryComponent';
+import mag1 from '../images/Mask group1.png'
+import mag2 from '../images/Mask group2.png'
+import mag3 from '../images/Mask group3.png'
 
-const RentalCategoryPage = ( { searchTerm } ) => {
-    const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+const RentalCategoryPage = ( { searchTerm, onClearSearch } ) => {
+    const [selectedMainCategory, setSelectedMainCategory] = useState();
     const [resultCard, setResultCard] = useState();
+    const [selectedItem, setSelectedItem] = useState();
 
     const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
   };
 
-    const [selectedItem, setSelectedItem] = useState(null);
-
   const handleItemSelect = (item) => {
     setSelectedItem(item);
+    onClearSearch();
   };
 
     return (
@@ -49,12 +52,9 @@ const RentalCategoryPage = ( { searchTerm } ) => {
                             <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
                         )}
                 <SearchNavigation>
-                    <Nav>관련도순</Nav>
-                    <Nav>판매순</Nav>
+                    <Nav>최신순</Nav>
+                    <Nav>인기순</Nav>
                     <Nav>낮은 가격순</Nav>
-                    <Nav>매너지수 높은순</Nav>
-                    <Nav>장기대여 가능순</Nav>
-                    <Nav>최근 등록순</Nav>
                 </SearchNavigation>
                 <SearchResultBox>
                         <SearchResultCard setResultCard={setResultCard} />
@@ -63,11 +63,10 @@ const RentalCategoryPage = ( { searchTerm } ) => {
                 <Popular>
                 <Title>빌리GO의 제안</Title>
                 <Magazines>
-                    <MagazinesItem>집에서도<br/>건강하게<br/>홈트레이닝</MagazinesItem>
-                    <MagazinesItem>풋살 & 축구,<br/>그 차이점을<br/>알아보다</MagazinesItem>
-                    <MagazinesItem>뜨거운 여름<br/>레저스포츠가<br/>제격</MagazinesItem>
+                    <MagazinesItem><img src={mag1} width='200px'/></MagazinesItem>
+                    <MagazinesItem><img src={mag2} width='200px'/></MagazinesItem>
+                    <MagazinesItem><img src={mag3} width='200px'/></MagazinesItem>
                 </Magazines>
-                <MorePop $button={true}>더보기</MorePop>
                 </Popular>
             </Contentarr>
         </Contents>
@@ -190,12 +189,10 @@ const SearchNavigation = styled.div`
     margin-top: 15px;
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-evenly;
-    width: 80%;
+    width: 35%;
     height: 100%;
-    font-size: 14px;
-`;
+    font-size: 14px;`;
 
 const SearchResult = styled.div`
     width: 100%;
@@ -227,7 +224,7 @@ const Magazines = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    margin-bottom: 25px;
+    margin-bottom: 6rem;
     justify-content: space-between;
 
 `;
@@ -240,7 +237,6 @@ const MagazinesItem = styled.div`
     justify-content: space-evenly;
     height: 200px;
     width: 200px;
-    background-color: beige;
     font-size: 27px;
     font-weight: 400;
     margin-inline: 5px; 

@@ -12,14 +12,20 @@ const CategoryPage = () => {
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
-    
+
+  const handleClearSearch = () => {
+    setSearchTerm(null);
+  }    
   return (
     <Wrapper>
       <Header onSearch={handleSearch}>
         
       </Header> 
 
-      <RentalCategoryPage selectedItem={selectedItem} searchTerm= {searchTerm} />
+      <RentalCategoryPage
+      selectedItem={selectedItem}
+      searchTerm= {searchTerm}
+      onClearSearch={handleClearSearch} />
       <Footer>
        
       </Footer>
