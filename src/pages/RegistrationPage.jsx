@@ -1,24 +1,24 @@
 import styled from "styled-components";
-import React, { useState } from 'react'
+import React from 'react'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import RentalSearchPage from "../components/RentalSearchPage";
+import RegistrationMain from '../components/RegistrationMain'
 
-const SearchPage = () => {
+const RegistrationPage = () => {
   return (
     <Wrapper>
       <Header>
         
       </Header> 
-      <RentalSearchPage />
+      <RegistrationMain />
       <Footer>
-       
+
       </Footer>
     </Wrapper>
   )
 }
 
-export default SearchPage
+export default RegistrationPage
 
 const Wrapper = styled.div`
   display: flex;
