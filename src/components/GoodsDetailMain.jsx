@@ -1,15 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import goodsimage from '../images/badminton.png'
 import ReactCalendar from './special/ReactCalendar'
 import RecommendGoods from './RecommendGoods'
+import RentalFeeDisplay from './RentalFeeDisplay'
+import { RentalFeeContext } from '../context/RentalFeeContext'
+import { getReviewsOfProduct } from '../apis/review'
 
 const GoodsDetailMain = () => {
+const [reviewsArray, setReviewsArray] = useState([]);
   // 페이지 네이션 기능을 추가하기 위해 필요한 상태와 핸들러 함수
 const [currentPage, setCurrentPage] = useState(1);
 const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
 
-// 샘플 리뷰 데이터
+// // 샘플 리뷰 데이터
 const reviews = [
   { reviewer: '리뷰어1', content: '리뷰 내용1' },
   { reviewer: '리뷰어2', content: '리뷰 내용2' },
@@ -26,6 +30,7 @@ const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 // 페이지 번호 클릭 핸들러
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const productID = 1; //임시로 1로 설정
   const imsiPrice = 1000;
   const dayPrice = imsiPrice.toLocaleString();
   const weekPrice = imsiPrice.toLocaleString();
@@ -40,6 +45,24 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const firstCategory = "구기 스포츠";
   const secondCategory = "테니스 및 라켓";
+
+  const { setDailyRate } = useContext(RentalFeeContext);
+
+  useEffect(() => {
+    // 기준 요금 설정
+    setDailyRate(imsiPrice);
+    getReviewsOfProduct(1);
+
+    //리뷰 불러오기
+    setReviewsArray(getReviewsOfProduct(productID));
+    
+    const response = getReviewsOfProduct(productID);
+    response.then((res) => {
+      console.log(res);
+    });
+
+  }
+  , [dayPrice]);
 
   return (
     <Wrapper>
@@ -137,7 +160,7 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
           <ReactCalendar/>
         </Calender>
         <Empty>
-          empty
+          <RentalFeeDisplay />
         </Empty>
       </Choice>
       <Under>
