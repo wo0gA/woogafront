@@ -12,7 +12,7 @@ export const sendGoogleCode = async (code) => {
         //username도 저장
         localStorage.setItem('username', response.data.user.username);
         //첫 로그인 여부도 저장
-        localStorage.setItem('first_login', response.data.user.first_login);
+        localStorage.setItem('first_login', response.data.first_login);
 
     } catch (error) {
         console.error("구글 인증 처리 중 오류 발생:", error);
@@ -31,7 +31,7 @@ export const sendKakaoCode = async (code) => {
         //username도 저장
         localStorage.setItem('username', response.data.user.username);
         //첫 로그인 여부도 저장
-        localStorage.setItem('first_login', response.data.user.first_login);
+        localStorage.setItem('first_login', response.data.first_login);
 
     } catch (error) {
         console.error("구글 인증 처리 중 오류 발생:", error);
@@ -49,7 +49,12 @@ export const sendWhichLogin = async (code) => {
     }
     
     // 로컬스토리지에 값들 저장 후, 값들이 있으면 메인으로 이동
+    //첫 로그인이면 프로필 설정 페이지로 이동
     if (localStorage.getItem('access') && localStorage.getItem('refresh') && localStorage.getItem('username')) {
-        window.location.href = "/";
+        if (localStorage.getItem('first_login') === 'true') {
+            window.location.href = "/profileSetting";
+        } else {
+            window.location.href = "/";
+        }
     }
 }

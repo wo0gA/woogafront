@@ -101,7 +101,6 @@ const Wrapper = styled.div`
     width: 85%;
     & > * {
         margin-top: 10px;
-        margin-bottom: 10px;
     }
 `;
 
