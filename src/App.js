@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 import MyPage from "./pages/MyPage";
 import TestPage from "./pages/TestPage";
-import Chatting from "./apis/Chatting";
 import ChatPage from "./pages/ChatPage";
 
 function App() {

@@ -1,7 +1,30 @@
+import Header from "../components/Header";
+import styled from "styled-components";
+import ChatRoom from "../components/ChatRoom";
+import axios from "axios";
+import { useEffect } from "react";
+
+const SERVER_URL = "server.templ.es";
+
 const ChatPage = () => {
+	const [ownerChatRoom, setOwnerChatRoom] = useEffect([]);
+	const [visitorChatRoom, setVisitorChatRoom] = useEffect([]);
+
+	useEffect(() => {
+		async function getUserInfo() {
+			const accessToken = localStorage.getItem("access");
+			const response = await axios.get(`https://${SERVER_URL}/accounts/`, {
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
+		}
+	}, []);
+
 	return (
-		<div class="flex flex-col w-full min-h-screen">
-			<header class="flex items-center justify-between h-16 px-4 border-b shrink-0 md:px-6">
+		<Wrapper>
+			<Header />
+			{/* <header class="flex items-center justify-between h-16 px-4 border-b shrink-0 md:px-6">
 				<div class="flex items-center space-x-4">
 					<img src="/placeholder.svg" alt="Logo" class="h-10" />
 					<nav class="flex space-x-4">
@@ -47,9 +70,9 @@ const ChatPage = () => {
 						<span class="sr-only">User menu</span>
 					</button>
 				</div>
-			</header>
-			<main class="flex flex-1">
-				<aside class="w-1/5 border-r">
+			</header> */}
+			<main class="flex flex-1 w-5/6">
+				<aside class="w-1/3 border-r">
 					<div class="p-4">
 						<div class="flex space-x-2">
 							<button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-primary/90 h-10 px-4 py-2 text-yellow-500">
@@ -132,7 +155,8 @@ const ChatPage = () => {
 						</div>
 					</div>
 				</aside>
-				<section class="flex flex-col flex-1">
+				<ChatRoom roomId={1} currentUserEmail={"qw@naver.com"} />
+				{/* <section class="flex flex-col flex-1">
 					<div class="flex items-center justify-between p-4 bg-yellow-100">
 						<div class="flex items-center space-x-2">
 							<div
@@ -184,10 +208,23 @@ const ChatPage = () => {
 							전송
 						</button>
 					</div>
-				</section>
+				</section> */}
 			</main>
-		</div>
+		</Wrapper>
 	);
 };
 
 export default ChatPage;
+
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+
+	/* padding-left: 100px;
+  padding-right: 100px; */
+`;
