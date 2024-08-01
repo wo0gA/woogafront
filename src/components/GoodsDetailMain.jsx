@@ -8,7 +8,6 @@ import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 
 const GoodsDetailMain = () => {
-const [reviewsArray, setReviewsArray] = useState([]);
   // 페이지 네이션 기능을 추가하기 위해 필요한 상태와 핸들러 함수
 const [currentPage, setCurrentPage] = useState(1);
 const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
@@ -48,19 +47,23 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const { setDailyRate } = useContext(RentalFeeContext);
 
+  // 리뷰 데이터 가져오기 -> 비동기로 처리해야함!!
+  const fetchReviews = async (productID) => { //휴 어려웠다..핵
+    try {
+        const reviews = await getReviewsOfProduct(productID);
+        console.log('Fetched reviews:', reviews);
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+    }
+};
+
+
   useEffect(() => {
     // 기준 요금 설정
     setDailyRate(imsiPrice);
-    getReviewsOfProduct(1);
-
-    //리뷰 불러오기
-    setReviewsArray(getReviewsOfProduct(productID));
     
-    const response = getReviewsOfProduct(productID);
-    response.then((res) => {
-      console.log(res);
-    });
-
+    // 리뷰 데이터 가져오기
+    fetchReviews(1);
   }
   , [dayPrice]);
 
