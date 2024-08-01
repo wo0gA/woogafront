@@ -1,11 +1,11 @@
 /* ///react-calendar overiding CSS// */
 
 .react-calendar {
-    width: 300px;
+    width: 100%;
     max-width: 100%;
     background: white;
     border: 1.5px solid #a0a0a0;
-    border-radius: 15px;
+    border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
 }
@@ -162,15 +162,11 @@ background-color: #e6e6e6;
 .react-calendar__tile--rangeEnd {
   background: #4caf50; /* 예: 초록색 배경 */
   color: white;
-
-  border-radius: 50%;
 }
 /* 선택된 범위의 날짜들을 스타일링 */
 .react-calendar__tile--range {
-    background: #81c784; /* 예: 연한 초록색 배경 */
+    background: #454a46; /* 예: 연한 초록색 배경 */
     color: white;
-
-    border-radius: 50%;
   }
 
 /* 다른 스타일이 잘 적용되도록 padding과 margin 조정 */
@@ -181,4 +177,10 @@ background-color: #e6e6e6;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* 추가 스타일링 */
+  .highlight {
+    background-color: #ffeb3b !important; /* 강조할 색상 */
+    color: white;
   }

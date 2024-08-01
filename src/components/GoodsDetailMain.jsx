@@ -1,10 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import goodsimage from '../images/badminton.png'
 import ReactCalendar from './special/ReactCalendar'
 import RecommendGoods from './RecommendGoods'
 
 const GoodsDetailMain = () => {
+  // 페이지 네이션 기능을 추가하기 위해 필요한 상태와 핸들러 함수
+const [currentPage, setCurrentPage] = useState(1);
+const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
+
+// 샘플 리뷰 데이터
+const reviews = [
+  { reviewer: '리뷰어1', content: '리뷰 내용1' },
+  { reviewer: '리뷰어2', content: '리뷰 내용2' },
+  { reviewer: '리뷰어3', content: '리뷰 내용3' },
+  { reviewer: '리뷰어4', content: '리뷰 내용4' },
+  { reviewer: '리뷰어5', content: '리뷰 내용5' },
+  // 더 많은 리뷰 추가 가능
+];
+// 현재 페이지의 리뷰 데이터 가져오기
+const indexOfLastReview = currentPage * reviewsPerPage;
+const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+
+// 페이지 번호 클릭 핸들러
+const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const imsiPrice = 1000;
   const dayPrice = imsiPrice.toLocaleString();
   const weekPrice = imsiPrice.toLocaleString();
@@ -15,6 +36,7 @@ const GoodsDetailMain = () => {
   const transanction = "포함";
   const goodsName = "배드민턴 세트";
   const ownerName = "잉잉";
+  const description = "아이 방과후 용으로 샀던 배드민턴 세트입니다. 훼르자 브륄란떼 제품이고, 용용감 무지 적어요. 반납 후에 관리도 꼼꼼히 해주고 있습니다. 새 셔틀콕도 같이 넣어드려요! 채팅으로 연락주세요.";
 
   const firstCategory = "구기 스포츠";
   const secondCategory = "테니스 및 라켓";
@@ -107,7 +129,6 @@ const GoodsDetailMain = () => {
               <span>{viewCount}</span>
               </ViewCount>
             </RentalBtn_Row>
-
           </RentalBtn_Container>
         </GoodsInfo>
       </GoodsDetail>
@@ -119,17 +140,62 @@ const GoodsDetailMain = () => {
           empty
         </Empty>
       </Choice>
-      <RecommendGoods>
-      </RecommendGoods>
       <Under>
-        <Description>
-          description
-        </Description>
-        <Review>
-          <GoodsReview>goodsreview</GoodsReview>
-          <UserReview>userreview</UserReview>
-        </Review>
-      </Under>    
+        <Description_AND_Recommend>
+          <Description>
+            <Title>상세 설명</Title>
+            <Contents>{description}</Contents>
+          </Description>      
+            <RecommendGoods>
+
+            </RecommendGoods>  
+        </Description_AND_Recommend>
+        <Review_AND_Store>
+        <Title>대여 리뷰</Title>
+          <ReviewContainer>
+          <GoodsReview>
+            <Contents>
+              <LittleTitle>
+                <span>상품 후기</span>
+                <br />
+                상품에 대한 생생한 후기를 확인해보세요.
+              </LittleTitle>
+              <LittleContents>
+                {currentReviews.map((review, index) => (
+                  <OneReview key={index}>
+                    <Reviwer>{review.reviewer}</Reviwer>
+                    <ReviewContents>{review.content}</ReviewContents>
+                  </OneReview>
+                ))}
+              </LittleContents>
+              <Pagination>
+              {Array.from({ length: Math.ceil(reviews.length / reviewsPerPage) }, (_, index) => (
+                <PageNumber 
+                  key={index + 1} 
+                  onClick={() => paginate(index + 1)}
+                  active={currentPage === index + 1}
+                >
+                  {index + 1}
+                </PageNumber>
+              ))}
+              </Pagination>
+            </Contents>
+          </GoodsReview>            <OwnerStore>
+              <Contents>
+              <LittleTitle>
+                  <span>등록자 상점</span>
+                  <br/>
+                  상품 등록자의 상점을 방문해보세요.
+                </LittleTitle>
+                <LittleContents>
+
+                </LittleContents>
+              </Contents>
+            </OwnerStore>
+          </ReviewContainer>
+        </Review_AND_Store>
+      </Under>  
+
     </Wrapper>
   )
 }
@@ -143,7 +209,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 85%;
-  height: 100%;
+  overflow: visible; /* 화면 크기를 자동으로 조정 */
   box-sizing: border-box;
 `;
 
@@ -188,7 +254,7 @@ const GoodsTitle = styled.div`
   width: 90%;
   margin-bottom: 20px;
 
-  border-bottom: 1.5px solid black;
+  border-bottom: 1.5px solid grey;
 `;
 const GoodsTitle_Category = styled.div`
   font-size: 12px;
@@ -309,22 +375,13 @@ const Empty = styled.div`
 const Under = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-between;
   width: 100%;
-  height: 500px;
+  height: auto;
   box-sizing: border-box;
-  border: 1px solid black;
-`;
-const Description = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  height: 100%;
-  box-sizing: border-box;
-  border: 1px solid black;
+  margin-top: 100px;
+  margin-bottom: 40px;
 `;
 const GoodsDescription_Left = styled.div`
   display: flex;
@@ -343,17 +400,14 @@ const GoodsDescription_Right = styled.div`
   }
 `;
 
-const Review = styled.div`
+const ReviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
+  width: 100%;
   height: 100%;
   box-sizing: border-box;
-  border: 1px solid black;
 `;  
-const GoodsReview = styled.div`
+const OwnerStore = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -361,17 +415,9 @@ const GoodsReview = styled.div`
   width: 100%;
   height: 50%;
   box-sizing: border-box;
-  border: 1px solid black;
-`;  
-const UserReview = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 50%;
-  box-sizing: border-box;
-  border: 1px solid black;
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  height: auto; /* 높이를 자동으로 조정 */
 `;  
 
 
@@ -500,5 +546,131 @@ const Third = styled.div`
   & > span {
     margin-left: 3px;
     margin-right: 10px;
+  }
+`;
+
+
+
+
+const Description_AND_Recommend = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 65%;
+  height: 100%;
+`;
+
+const Review_AND_Store = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30%;
+  height: 100%;
+`;
+
+const Title = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid grey;
+`;
+
+const Contents = styled.div`
+  width: 100%;
+  min-height: 200px;
+  font-size: 15px;
+  text-align: left; 
+  //줄간격  
+  line-height: 2.5;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+`;
+
+const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const GoodsReview = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  margin-bottom: 20px;
+`;
+
+const LittleTitle = styled.div`
+  line-height: 1.5;
+  font-size: 12px;
+  & > span {
+    font-weight: bold;
+    font-size: 14px;
+  }
+`;
+const LittleContents = styled.div`  
+  line-height: 1.5;
+  font-size: 12px;
+`;
+
+const OneReview = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  width: 100%;
+  height: 20%;
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  border: 1px solid #d5d5d5;
+  padding: 5px;
+`;
+const Reviwer = styled.div`
+  font-weight: bold;
+  font-size: 12px;
+`;
+const ReviewContents = styled.div`
+  font-size: 12px;
+`;
+
+
+// 스타일 컴포넌트 추가
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
+const PageNumber = styled.div`
+  margin: 0 5px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  //지금 선태된 페이지에는 밑줄을 그어줌
+  text-decoration: ${props => props.active ? 'underline' : 'none'};
+  &:hover {
+    text-decoration: underline;
   }
 `;
