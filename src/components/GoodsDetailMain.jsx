@@ -18,7 +18,7 @@ const GoodsDetailMain = () => {
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 
-  // 페이지 번호 클릭 핸들러
+  // 페이지 번호 클릭 핸들러kk
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const productID = 1; // 임시로 1로 설정
@@ -154,9 +154,9 @@ const GoodsDetailMain = () => {
           <span>예상되는 대여 가능 기간과 대여료를 먼저 계산해드립니다.</span>
           <ReactCalendar/>
         </Calender>
-        <Empty>
+        <RentalFeeContainer>
           <RentalFeeDisplay />
-        </Empty>
+        </RentalFeeContainer>
       </Choice>
       <Under>
         <DescriptionANDRecommend>
@@ -393,17 +393,15 @@ const Calender = styled.div`
     text-align: left; 
     font-size: 16px;
     font-weight: bold;
+    }
 `;
-const Empty = styled.div`
+const RentalFeeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 50%;
   box-sizing: border-box;
-  padding-top: 80px;
-  padding-bottom: 20px;
-  border: 1px solid #d5d5d5;
 `;
 
 const Under = styled.div`
