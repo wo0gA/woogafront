@@ -8,28 +8,19 @@ import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 
 const GoodsDetailMain = () => {
-  // 페이지 네이션 기능을 추가하기 위해 필요한 상태와 핸들러 함수
-const [currentPage, setCurrentPage] = useState(1);
-const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
+  const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
 
-// // 샘플 리뷰 데이터
-const reviews = [
-  { reviewer: '리뷰어1', content: '리뷰 내용1' },
-  { reviewer: '리뷰어2', content: '리뷰 내용2' },
-  { reviewer: '리뷰어3', content: '리뷰 내용3' },
-  { reviewer: '리뷰어4', content: '리뷰 내용4' },
-  { reviewer: '리뷰어5', content: '리뷰 내용5' },
-  // 더 많은 리뷰 추가 가능
-];
-// 현재 페이지의 리뷰 데이터 가져오기
-const indexOfLastReview = currentPage * reviewsPerPage;
-const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
-const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+  // 현재 페이지의 리뷰 데이터 가져오기
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 
-// 페이지 번호 클릭 핸들러
-const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // 페이지 번호 클릭 핸들러
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const productID = 1; //임시로 1로 설정
+  const productID = 1; // 임시로 1로 설정
   const imsiPrice = 1000;
   const dayPrice = imsiPrice.toLocaleString();
   const weekPrice = imsiPrice.toLocaleString();
@@ -47,25 +38,23 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const { setDailyRate } = useContext(RentalFeeContext);
 
-  // 리뷰 데이터 가져오기 -> 비동기로 처리해야함!!
-  const fetchReviews = async (productID) => { //휴 어려웠다..핵
+  // 리뷰 데이터 가져오기
+  const fetchReviews = async (productID) => {
     try {
-        const reviews = await getReviewsOfProduct(productID);
-        console.log('Fetched reviews:', reviews);
+        const reviewsData = await getReviewsOfProduct(productID);
+        setReviews(reviewsData); // 상태 업데이트
     } catch (error) {
         console.error('Error fetching reviews:', error);
     }
-};
-
+  };
 
   useEffect(() => {
     // 기준 요금 설정
     setDailyRate(imsiPrice);
-    
+
     // 리뷰 데이터 가져오기
-    fetchReviews(1);
-  }
-  , [dayPrice]);
+    fetchReviews(productID);
+  }, [setDailyRate, productID]);
 
   return (
     <Wrapper>
@@ -173,11 +162,10 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
             <Contents>{description}</Contents>
           </Description>      
             <RecommendGoods>
-
             </RecommendGoods>  
         </Description_AND_Recommend>
         <Review_AND_Store>
-        <Title>대여 리뷰</Title>
+          <Title>대여 리뷰</Title>
           <ReviewContainer>
           <GoodsReview>
             <Contents>
@@ -189,7 +177,7 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
               <LittleContents>
                 {currentReviews.map((review, index) => (
                   <OneReview key={index}>
-                    <Reviwer>{review.reviewer}</Reviwer>
+                    <Reviwer>{review.writer.username}</Reviwer>
                     <ReviewContents>{review.content}</ReviewContents>
                   </OneReview>
                 ))}
@@ -206,7 +194,8 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
               ))}
               </Pagination>
             </Contents>
-          </GoodsReview>            <OwnerStore>
+          </GoodsReview>            
+          <OwnerStore>
               <Contents>
               <LittleTitle>
                   <span>등록자 상점</span>
@@ -214,20 +203,16 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
                   상품 등록자의 상점을 방문해보세요.
                 </LittleTitle>
                 <LittleContents>
-
                 </LittleContents>
               </Contents>
             </OwnerStore>
           </ReviewContainer>
         </Review_AND_Store>
       </Under>  
-
     </Wrapper>
   )
 }
-
 export default GoodsDetailMain
-
 
 const Wrapper = styled.div`
   display: flex;
