@@ -85,9 +85,9 @@ const ReactCalendar = () => {
         formatDay={(locale, date) => moment(date).format('D')}
         tileClassName={tileClassName}
       />
-      <div className="text-gray-500 mt-4">
-        {formatDateRange(value)}
-      </div>
+      {/* <div className="text-gray-500 mt-4">
+        {/* {formatDateRange(value)} 
+      </div> */}
     </div>
   );
 };

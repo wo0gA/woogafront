@@ -6,6 +6,7 @@ import RecommendGoods from './RecommendGoods'
 import RentalFeeDisplay from './RentalFeeDisplay'
 import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
+import { formatDate } from '../utils/formatDate'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -88,54 +89,54 @@ const GoodsDetailMain = () => {
         <GoodsImage>
         </GoodsImage>
         <GoodsInfo>
-          <NotRentalBtn_Container>
+          <NotRentalBtnContainer>
           <GoodsTitle>
-            <GoodsTitle_Category>
+            <GoodsTitleCategory>
               {secondCategory}
-            </GoodsTitle_Category>
-            <GoodsTitle_Name>
+            </GoodsTitleCategory>
+            <GoodsTitleName>
               {goodsName}
-            </GoodsTitle_Name>
-            <GoodsTitle_Registrant>
+            </GoodsTitleName>
+            <GoodsTitleRegistrant>
               <ResistrantName>{ownerName} 님</ResistrantName>
               <ResistrantLocation>{userLocation}</ResistrantLocation>
-            </GoodsTitle_Registrant>
+            </GoodsTitleRegistrant>
           </GoodsTitle>
           <GoodsDescription>
-            <GoodsDescription_Left>
-              <Goods_State>
+            <GoodsDescriptionLeft>
+              <GoodsState>
                 <Left>상품 상태</Left>
-                <Right><Goods_State_Btn>거의 새 것</Goods_State_Btn></Right>
-              </Goods_State>
-              <Goods_Cost>
+                <Right><GoodsStateBtn>거의 새 것</GoodsStateBtn></Right>
+              </GoodsState>
+              <GoodsCost>
                 <Left>대여료</Left>
                 <Right>
-                  <Goods_Cost_Box>
+                  <GoodsCostBox>
                     <div id="day">일 <span>{dayPrice}원</span></div>
                     <div id="week">주 <span>{weekPrice}원</span></div>
-                  </Goods_Cost_Box>
+                  </GoodsCostBox>
                 </Right>
-              </Goods_Cost>
-            </GoodsDescription_Left>
-            <GoodsDescription_Right>
-              <Goods_Model>
+              </GoodsCost>
+            </GoodsDescriptionLeft>
+            <GoodsDescriptionRight>
+              <GoodsModel>
                 <Left>모델명</Left>
                 <Right>{modelName}</Right>
-              </Goods_Model>
-              <Goods_DeliveryFee>
+              </GoodsModel>
+              <GoodsDeliveryFee>
                 <Left>배송비</Left>
                 <Right>{transanction}</Right>
-              </Goods_DeliveryFee>
-              <Goods_TransactionPlace>
+              </GoodsDeliveryFee>
+              <GoodsTransactionPlace>
                 <Left>직거래 장소</Left>
                 <Right>{transactionPlace}</Right>
-              </Goods_TransactionPlace>
-            </GoodsDescription_Right>
+              </GoodsTransactionPlace>
+            </GoodsDescriptionRight>
           </GoodsDescription>
-          </NotRentalBtn_Container>
-          <RentalBtn_Container>
+          </NotRentalBtnContainer>
+          <RentalBtnContainer>
             <RantalBtnText>정확한 대여기간과 대여료는 등록자와의 채팅으로 확정해보세요.</RantalBtnText>
-            <RentalBtn_Row>            
+            <RentalBtnRow>            
               <RentalBtn>대여 문의하기</RentalBtn>
               <ViewCount>
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
@@ -143,12 +144,14 @@ const GoodsDetailMain = () => {
               </svg>
               <span>{viewCount}</span>
               </ViewCount>
-            </RentalBtn_Row>
-          </RentalBtn_Container>
+            </RentalBtnRow>
+          </RentalBtnContainer>
         </GoodsInfo>
       </GoodsDetail>
       <Choice>
         <Calender>
+          <div id="title">대여료 계산기</div>
+          <span>예상되는 대여 가능 기간과 대여료를 먼저 계산해드립니다.</span>
           <ReactCalendar/>
         </Calender>
         <Empty>
@@ -156,15 +159,15 @@ const GoodsDetailMain = () => {
         </Empty>
       </Choice>
       <Under>
-        <Description_AND_Recommend>
+        <DescriptionANDRecommend>
           <Description>
             <Title>상세 설명</Title>
             <Contents>{description}</Contents>
           </Description>      
             <RecommendGoods>
             </RecommendGoods>  
-        </Description_AND_Recommend>
-        <Review_AND_Store>
+        </DescriptionANDRecommend>
+        <ReviewANDStore>
           <Title>대여 리뷰</Title>
           <ReviewContainer>
           <GoodsReview>
@@ -177,8 +180,11 @@ const GoodsDetailMain = () => {
               <LittleContents>
                 {currentReviews.map((review, index) => (
                   <OneReview key={index}>
-                    <Reviwer>{review.writer.username}</Reviwer>
-                    <ReviewContents>{review.content}</ReviewContents>
+                    <Reviwer>
+                      <Writer>{review.writer.username}</Writer>
+                      <Date>{formatDate(review.created_at)}</Date>
+                    </Reviwer>
+                    <ReviewContents>{review.comment}</ReviewContents>
                   </OneReview>
                 ))}
               </LittleContents>
@@ -207,7 +213,7 @@ const GoodsDetailMain = () => {
               </Contents>
             </OwnerStore>
           </ReviewContainer>
-        </Review_AND_Store>
+        </ReviewANDStore>
       </Under>  
     </Wrapper>
   )
@@ -267,16 +273,16 @@ const GoodsTitle = styled.div`
 
   border-bottom: 1.5px solid grey;
 `;
-const GoodsTitle_Category = styled.div`
+const GoodsTitleCategory = styled.div`
   font-size: 12px;
 `;
-const GoodsTitle_Name = styled.div`
+const GoodsTitleName = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 10px;
 `;
-const GoodsTitle_Registrant = styled.div`
+const GoodsTitleRegistrant = styled.div`
     font-size: 14px;
     margin-bottom: 7px;
 `;
@@ -287,16 +293,16 @@ const ResistrantLocation = styled.span`
   margin-left: 10px;
   font-size: 13px;
 `;
-const Goods_State = styled.div`
+const GoodsState = styled.div`
   display: flex;
   text-align: left;
   width: 100%;
 `;
-const Goods_Cost = styled.div`
+const GoodsCost = styled.div`
   display: flex;
   width: 100%;
 `;
-const Goods_Cost_Box = styled.div`
+const GoodsCostBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -334,17 +340,17 @@ const Goods_Cost_Box = styled.div`
 `;
 
 
-const Goods_Model = styled.div`
+const GoodsModel = styled.div`
     display: flex;
     text-align: left;
     width: 90%;
 `;
-const Goods_DeliveryFee = styled.div`
+const GoodsDeliveryFee = styled.div`
   display: flex;
   text-align: left;
   width: 90%;
 `;
-const Goods_TransactionPlace = styled.div`
+const GoodsTransactionPlace = styled.div`
   display: flex;
   text-align: left; 
   width: 90%;
@@ -360,8 +366,9 @@ const GoodsDescription = styled.div`
 
 
 const Choice = styled.div`
+  margin-top: 40px;
   display: flex;
-  height: 350px;
+  height: auto;
   width: 100%;
 `;
 const Calender = styled.div`
@@ -370,7 +377,22 @@ const Calender = styled.div`
   align-items: center;
   justify-content: center;
   width: 50%;
+  // height: auto;
   box-sizing: border-box;
+
+  & > span {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 13px;
+  }
+  & > #title {
+    border: none;
+    margin-bottom: none;
+    width: 100%;
+    text-align: left; 
+    font-size: 16px;
+    font-weight: bold;
 `;
 const Empty = styled.div`
   display: flex;
@@ -381,6 +403,7 @@ const Empty = styled.div`
   box-sizing: border-box;
   padding-top: 80px;
   padding-bottom: 20px;
+  border: 1px solid #d5d5d5;
 `;
 
 const Under = styled.div`
@@ -394,7 +417,7 @@ const Under = styled.div`
   margin-top: 100px;
   margin-bottom: 40px;
 `;
-const GoodsDescription_Left = styled.div`
+const GoodsDescriptionLeft = styled.div`
   display: flex;
   flex-direction: column;
   width: 45%;
@@ -402,7 +425,7 @@ const GoodsDescription_Left = styled.div`
     margin-bottom: 20px;
   }
 `;
-const GoodsDescription_Right = styled.div` 
+const GoodsDescriptionRight = styled.div` 
   display: flex;
   flex-direction: column; 
   width: 45%;
@@ -450,7 +473,7 @@ const Right = styled.div`
   width: 100%;
 `;
 
-const Goods_State_Btn = styled.div`
+const GoodsStateBtn = styled.div`
   display: flex;
   width: 100%;
   height: 30px;
@@ -465,7 +488,7 @@ const Goods_State_Btn = styled.div`
   font-size: 12px;
 `;
 
-const NotRentalBtn_Container = styled.div`
+const NotRentalBtnContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -474,7 +497,7 @@ const NotRentalBtn_Container = styled.div`
   height: auto;
 `;
 
-const RentalBtn_Container = styled.div`
+const RentalBtnContainer = styled.div`
   width: 90%;
 `;
 const RantalBtnText = styled.div`
@@ -487,7 +510,7 @@ const RantalBtnText = styled.div`
   color: #b0b0b0;
   margin-bottom: 7px;
 `;
-const RentalBtn_Row = styled.div`
+const RentalBtnRow = styled.div`
   display: flex;
   width: 100%;
   height: 50px;
@@ -563,7 +586,7 @@ const Third = styled.div`
 
 
 
-const Description_AND_Recommend = styled.div`
+const DescriptionANDRecommend = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -572,7 +595,7 @@ const Description_AND_Recommend = styled.div`
   height: 100%;
 `;
 
-const Review_AND_Store = styled.div`
+const ReviewANDStore = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -684,4 +707,13 @@ const PageNumber = styled.div`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const Writer = styled.span`
+  font-weight: bold;
+  margin-right: 10px;
+`;
+const Date = styled.span`
+  font-size: 12px;
+  color: #A1A1AA;
 `;
