@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { searchProducts, searchByCategory } from '../test/test'
 
@@ -14,18 +14,12 @@ import pingpongImage from '../images/pingpong.png'
 import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
 
-import category1 from '../images/category/category1.svg'
-// import category2 from '../images/category/category2.png'
-// import category3 from '../images/category/category3.png'
-// import category4 from '../images/category/category4.png'
-// import category5 from '../images/category/category5.png'
-// import category6 from '../images/category/category6.png'
-// import category7 from '../images/category/category7.png'
-// import category8 from '../images/category/category8.png'
-
 import { MdDirectionsBike } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
+    const navigate = useNavigate();
+
     const [searchValue, setSearchValue] = useState('')
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value)
@@ -43,6 +37,7 @@ const Main = () => {
         console.log(`Category ID: ${categoryID}`);
         searchByCategory(categoryID);
     }
+
 
     return (
     <Wrapper>
