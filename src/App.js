@@ -10,7 +10,7 @@ import ChattingPage from './pages/ChattingPage';
 import LoginPage from './pages/LoginPage';
 import ProfileSettingPage from './pages/ProfileSettingPage';
 import CategoryPage from './pages/CategoryPage';
-
+import ChatPage from "./pages/ChatPage";
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
         <Route path="/rentalSearch" element={<SearchPage />} />
         <Route path="/rentalCategory" element={<CategoryPage />} />
         <Route path="/test" element={<TestPage />} />
-        <Route path="/chatting" element={<ChattingPage />} />
+        <Route path="/chatting" element={<ChatPage />} />
         <Route path="/nearby" element={<NearbyPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profileSetting" element={<ProfileSettingPage />} />
