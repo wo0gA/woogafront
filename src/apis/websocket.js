@@ -12,6 +12,13 @@ export const fetchChatRooms = async (email, type) => {
 	return response.data;
 };
 
+export const fetchMessages = async (roomId) => {
+	const response = await axios.get(
+		`https://${SERVER_URL}/chat/${roomId}/messages/`
+	);
+	return response.data;
+};
+
 /**
  * 새로운 채팅방을 생성하는 함수
  */
