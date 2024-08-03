@@ -7,7 +7,7 @@ import ReturnProductModal from "./ReturnProductModal";
 
 const SERVER_URL = "server.templ.es";
 
-const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
+const ChatRoom = ({ roomData, currentUser }) => {
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState("");
 	const [rentalHistory, setRentalHistory] = useState(null);
@@ -15,28 +15,28 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 
 	const getMessage = async () => {
 		const fetchMsg = await fetchMessages(roomData.id);
-		fetchMsg.map((message) => {
+		fetchMsg.map((message) =>
 			setMessages((prevMessages) => [
 				...prevMessages,
 				{ sender_username: message.sender.username, message: message.text },
-			]);
-			return 0; //배포 때문에 이 줄 추가함!!!문제가 될 수도?@@@@@
-		});
+			])
+		);
 	};
 
 	const fetchRentalHistory = async () => {
 		const rentalHistoryRes = await axios.get(
 			`https://${SERVER_URL}/rentalhistories/?product=${roomData.product.id}&renter=${roomData.visitor_user.id}`
 		);
+		console.log(rentalHistoryRes);
 		if (rentalHistoryRes.data.length !== 0) {
 			setRentalHistory(rentalHistoryRes.data[0]);
+		} else {
+			setRentalHistory(null);
 		}
 	};
 
 	useEffect(() => {
-		if (messages.length === 0) {
-			getMessage();
-		}
+		getMessage();
 		fetchRentalHistory();
 
 		// WebSocket 연결 설정
@@ -50,7 +50,7 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 			webSocketService.disconnect();
 			setMessages([]);
 		};
-	}, ); //@@@@@원래 있던 의존성 배열 삭제했음!!! 문제가 될 수도?@@@@@
+	}, [roomData]);
 
 	useEffect(() => {
 		messageEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -60,16 +60,12 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 		e.preventDefault();
 		// WebSocket을 통해 새 메시지 전송
 		webSocketService.sendMessage({
-			sender_email: currentUserEmail,
+			sender_email: currentUser.email,
 			message: newMessage,
 			room_id: roomData.id,
 		});
 		setNewMessage("");
 	};
-
-	// const handleReturnSubmit = (e) => {
-	// 	e.preventDefault();
-	// };
 
 	return (
 		<>
@@ -88,7 +84,7 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 									? roomData.opponent_username
 									: "상대방"}
 							</span>
-							<span class="font-light text-sm text-muted-foreground">
+							<span class="text-sm text-muted-foreground">
 								{timeAgo(roomData.latest_message_timestamp)}
 							</span>
 						</div>
@@ -98,7 +94,7 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 							<div class="mr-4">이미지</div>
 							<div class="text-left">
 								<div class="text-lg font-semibold">{roomData.product.name}</div>
-								<div class="flex font-light">
+								<div class="flex">
 									<div class="mr-4">
 										일&nbsp;&nbsp;
 										{numberWithCommas(roomData.product.rental_fee_for_a_day)}원
@@ -116,7 +112,10 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 								rentalHistory={rentalHistory}
 								onSignal={fetchRentalHistory}
 							/>
-							<ReturnProductModal rentalHistory={rentalHistory} />
+							<ReturnProductModal
+								rentalHistory={rentalHistory}
+								onSignal={fetchRentalHistory}
+							/>
 						</div>
 					</div>
 					<div class="flex-1 p-4 overflow-y-auto bg-yellow-50 border">
@@ -125,22 +124,25 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 								2024년 7월 30일
 							</div> */}
 							<div class="flex flex-col">
-								{currentUserName === roomData.visitor_user.username && (
-									<div class="self-start bg-[#FEF3C7] animate-slideInRight p-2 mt-4 rounded-xl border max-w-[75%] text-left">
-										<p>
-											<div class="font-semibold text-lg inline">
-												{roomData.product.name}
-											</div>
-											&nbsp;에 대한 대화를 시작해보세요.
-										</p>
-										<p>등록자와의 대화를 통해 대여 일정과 가격을 확정하세요.</p>
-									</div>
-								)}
+								<div class="self-start bg-[#FEF3C7] animate-slideInRight p-2 mt-4 rounded-xl border max-w-[75%] text-left">
+									<p>
+										<div class="font-semibold text-lg inline">
+											{roomData.product.name}
+										</div>
+										&nbsp;에 대한 대화를 시작해보세요.
+									</p>
+									<p>
+										{currentUser.username === roomData.visitor_user.username
+											? "등록자"
+											: "대여자"}
+										와의 대화를 통해 대여 일정과 가격을 확정하세요.
+									</p>
+								</div>
 
 								{messages.map((message) => (
 									<div
 										class={
-											(message.sender_username === currentUserName
+											(message.sender_username === currentUser.username
 												? "self-end bg-white animate-slideInLeft"
 												: "self-start bg-[#FEF3C7] animate-slideInRight") +
 											" p-2 mt-4 rounded-xl border max-w-[75%] text-left"

@@ -20,6 +20,7 @@ const ChangeDateModal = ({ roomData, rentalHistory, onSignal }) => {
 				);
 				alert("일정을 변경하였습니다.");
 			} catch (err) {
+				console.log(err);
 				alert("에러 발생! 일정을 변경하지 못했습니다.");
 			}
 		} else {
