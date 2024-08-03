@@ -15,7 +15,8 @@ const GoodsDetailMain = () => {
   const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
 
   // 물건 관련 상태(정보)들(화면에서 위에부터)
-  const [productCategory, setProductCategory] = useState('');
+  const [firstCategory, setFirstCategory] = useState('');
+  const [secondCategory, setSecondCategory] = useState('');
   const [productName, setProductName] = useState('');
   const [ownerName, setOwnerName] = useState('');
   const [userLocation, setUserLocation] = useState('');
@@ -51,8 +52,8 @@ const GoodsDetailMain = () => {
   // const ownerName = "잉잉";
   // const description = "아이 방과후 용으로 샀던 배드민턴 세트입니다. 훼르자 브륄란떼 제품이고, 용용감 무지 적어요. 반납 후에 관리도 꼼꼼히 해주고 있습니다. 새 셔틀콕도 같이 넣어드려요! 채팅으로 연락주세요.";
 
-  const firstCategory = "구기 스포츠";
-  const secondCategory = "테니스 및 라켓";
+  // const firstCategory = "구기 스포츠";
+  // const secondCategory = "테니스 및 라켓";
 
   const { setDailyRate } = useContext(RentalFeeContext);
 
@@ -72,7 +73,8 @@ const GoodsDetailMain = () => {
       .then((productInfo) => {
         console.log('<<<상품 정보>>>:', productInfo);
         // 상품 정보 세팅
-        setProductCategory(productInfo.category.sort);
+        
+        setSecondCategory(productInfo.category.sort);
         setProductName(productInfo.name);
         setOwnerName(productInfo.owner.username);
         // setUserLocation(productInfo.owner.location); // 임시로 주석 처리
@@ -138,7 +140,7 @@ const GoodsDetailMain = () => {
           <NotRentalBtnContainer>
           <GoodsTitle>
             <GoodsTitleCategory>
-              {productCategory}
+              {secondCategory}
             </GoodsTitleCategory>
             <GoodsTitleName>
               {productName}
@@ -174,7 +176,7 @@ const GoodsDetailMain = () => {
                 <Right>{transaction}</Right>
               </GoodsDeliveryFee>
               <GoodsTransactionPlace>
-                <Left>직거래 장소</Left>
+                <Left>직거래</Left>
                 <Right>{transactionPlace}</Right>
               </GoodsTransactionPlace>
             </GoodsDescriptionRight>
