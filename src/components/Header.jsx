@@ -11,7 +11,7 @@ const Header = () => {
     const [searchValue, setSearchValue] = useState('')
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     // const username = localStorage.getItem('username');
-    const [username, setUsername] = useState(localStorage.getItem('username'));
+    const [username] = useState(localStorage.getItem('username'));
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value)
@@ -42,7 +42,7 @@ const Header = () => {
         if (username) {
         setIsLoggedIn(true);
         }
-    }, );
+    }, [username]);
 
     return (
         <Wrapper>

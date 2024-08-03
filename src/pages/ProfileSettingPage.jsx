@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import React from 'react'
 import Header from "../components/Header";
-import Main from "../components/MainMain";
 import ProfileSettingMain from "../components/ProfileSettingMain";
 
 const LoginPage = () => {

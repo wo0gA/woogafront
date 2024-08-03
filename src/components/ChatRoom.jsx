@@ -20,6 +20,7 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 				...prevMessages,
 				{ sender_username: message.sender.username, message: message.text },
 			]);
+			return 0; //배포 때문에 이 줄 추가함!!!문제가 될 수도?@@@@@
 		});
 	};
 
@@ -49,7 +50,7 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 			webSocketService.disconnect();
 			setMessages([]);
 		};
-	}, []);
+	}, ); //@@@@@원래 있던 의존성 배열 삭제했음!!! 문제가 될 수도?@@@@@
 
 	useEffect(() => {
 		messageEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -66,9 +67,9 @@ const ChatRoom = ({ roomData, currentUserEmail, currentUserName }) => {
 		setNewMessage("");
 	};
 
-	const handleReturnSubmit = (e) => {
-		e.preventDefault();
-	};
+	// const handleReturnSubmit = (e) => {
+	// 	e.preventDefault();
+	// };
 
 	return (
 		<>

@@ -321,13 +321,3 @@ const ProfileImage = styled.img`
   cursor: pointer;  
 `;
 
-
-const EditIcon = styled.svg`
-  background-color: #fff874;
-  border-radius: 50%;
-  padding: 3px;
-  cursor: pointer;
-  &:hover {
-    background-color: #5d5d5d;
-  }
-`;
