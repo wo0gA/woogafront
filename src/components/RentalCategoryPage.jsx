@@ -167,15 +167,7 @@ const CatTitle = styled.div`
     font-size: 14px;
     font-weight: 550;
     margin-bottom: 10px;
-    color: #000;
-
-/* head 2 
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: 150%; /* 30px */
-`;
+    color: #000`;
 
 const Contentarr = styled.div`
     display: flex;
@@ -206,20 +198,6 @@ const SearchResultBox = styled.div`
     justify-content: space-between;
     `;
 
-const SearchResultCards = styled.div`
-    margin-top: 20px;
-    text-align: left;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    height: 200px;
-    width: 200px;
-    background-color: #bfbfbf;
-
-    margin-inline: 5px;
-`;
-
 const Magazines = styled.div`
     width: 100%;
     display: flex;
@@ -241,31 +219,6 @@ const MagazinesItem = styled.div`
     font-weight: 400;
     margin-inline: 5px; 
     padding-bottom: 20px;
-`;
-
-const MorePop = styled.div`
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center; 
-    background-color: #8ec18b; 
-    color: black; 
-    border: none; 
-    border-radius: 30px; 
-    padding: 10px 30px; 
-    font-size: 16px; 
-    font-weight: bold; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
-    margin-bottom: 25px;
-
-    &:hover {
-        background-color: #8bb06f;
-    }
-    
-    &:focus {
-        outline: none; 
-    }
-
 `;
 
 const CategoryItem = styled.div`

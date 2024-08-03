@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 const Header = ( { onSearch } ) => {
     const [inputValue, setInputValue] = useState('');
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
       setInputValue(e.target.value);
@@ -10,6 +12,7 @@ const Header = ( { onSearch } ) => {
   
     const handleSearchClick = () => {
       onSearch(inputValue);
+      navigate('/rentalCategory');
     };
 
   return (

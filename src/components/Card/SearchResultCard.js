@@ -51,7 +51,7 @@ const SearchResultCards = styled.div`
     align-items: center;
     justify-content: flex-start;
     height: auto;
-    width: 200px;
+    width: 13rem;
     background-color: #bfbfbf;
     margin-inline: 5px;
     margin-right: 1rem;
