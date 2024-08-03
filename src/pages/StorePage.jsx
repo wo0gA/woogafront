@@ -2,8 +2,8 @@
 import styled from "styled-components";
 import React from 'react'
 import Header from "../components/Header";
-import Main from "../components/MainMain";
 import Footer from "../components/Footer";
+import StoreMain from "../components/StoreMain";
 
 const MainPage = () => {
   return (
@@ -11,9 +11,9 @@ const MainPage = () => {
       <Header>
         
       </Header> 
-      <Main>
+      <StoreMain>
         
-      </Main>
+      </StoreMain>
       <Footer>
 
       </Footer>

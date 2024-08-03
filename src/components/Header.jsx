@@ -196,7 +196,7 @@ const Nav = styled.div`
         color: #8f8f8f;
     }
     &:active {
-        color: #595959;
+        color: #000000;
     }
 `;
 
