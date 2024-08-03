@@ -3,12 +3,16 @@ import styled from 'styled-components';
 import levelpic from '../images/image 59.png';
 
 const MypageMain = () => {
+  const accessToken = 'your_access_token_here'; // Replace this with your actual access token
+
   const [userData, setUserData] = useState(null);
   const [isRentSelected, setIsRentSelected] = useState(true);
+  const [historyData, setHistoryData] = useState(null);
+  const [RegisterData, setRegiserData] = useState(null);
 
-  const fetchDataFromAPI = async () => {
+  const fetchHistoryDataFromAPI = async () => {
     try {
-      const response = await fetch('https://server.templ.es/accounts/');
+      const response = await fetch('https://server.templ.es/rentalhistories/rental/');
       const data = await response.json();
       console.log(data);
       return data;
@@ -20,11 +24,57 @@ const MypageMain = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await fetchDataFromAPI();
+      const data = await fetchHistoryDataFromAPI();
       setUserData(data);
     };
     getData();
   }, []);
+
+  const fetchRegisterDataFromAPI = async () => {
+    try {
+      const response = await fetch('https://server.templ.es/rentalhistories/rental/');
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await fetchRegisterDataFromAPI();
+      setUserData(data);
+    };
+    getData();
+  }, []);
+
+  const fetchDataFromAPI = async (accessToken) => {
+    try {
+      const response = await fetch('https://server.templ.es/accounts/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
+  useEffect(() => {
+    const getData = async () => {
+      const data = await fetchDataFromAPI(accessToken);
+      setUserData(data);
+    };
+    getData();
+  }, [accessToken]); 
+
 
   const showRent = () => {
     setIsRentSelected(true);
@@ -37,8 +87,22 @@ const MypageMain = () => {
   function Rent() {
     return (
       <Wrapper>
-        <RecordText>대여 기록</RecordText>
-        <p>여기에 대여하기 관련 내용이 표시됩니다.</p>
+        <GoodsRecord>
+          <RecordText>대여 기록</RecordText>
+
+          <GoodsItems>
+            <GoodsCard>
+              <GoodsPic>
+                <GoodsDday>D- 5</GoodsDday>
+              </GoodsPic>
+              <GoodsDescription>
+                <GoodsName>아동용 자전거</GoodsName>
+                <GoodsDate>24.07.24 ~ 2024.07.30</GoodsDate>
+              </GoodsDescription>
+            </GoodsCard>
+            {/* Other GoodsCard components... */}
+          </GoodsItems>
+        </GoodsRecord>   
       </Wrapper>
     );
   }
@@ -46,8 +110,21 @@ const MypageMain = () => {
   function Register() {
     return (
       <Wrapper>
-        <RecordText>등록 관리</RecordText>
-        <p>여기에 등록하기 관련 내용이 표시됩니다.</p>
+        <GoodsRecord>
+          <RecordText>등록 기록</RecordText>
+          <GoodsItems>
+            <GoodsCard>
+              <GoodsPic>
+                <GoodsDday>D- 5</GoodsDday>
+              </GoodsPic>
+              <GoodsDescription>
+                <GoodsName>아동용 자전거</GoodsName>
+                <GoodsDate>24.07.24 ~ 2024.07.30</GoodsDate>
+              </GoodsDescription>
+            </GoodsCard>
+            {/* Other GoodsCard components... */}
+          </GoodsItems>
+        </GoodsRecord>   
       </Wrapper>
     );
   }
@@ -123,105 +200,7 @@ const MypageMain = () => {
           <main>
             {isRentSelected ? <Rent /> : <Register />}
           </main>
-        </MainComponents>
-
-        <GoodsRecord>
-          <RecordText>대여 기록</RecordText>
-          <Process>
-            <ProcessCard>
-              <ProcessGoods>3</ProcessGoods>
-              <OnProcess>대여 신청</OnProcess>
-            </ProcessCard>
-            <ProfileIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M8.30664 26.9734L10.6666 29.3334L24 16.0001L10.6666 2.66675L8.30664 5.02675L19.28 16.0001L8.30664 26.9734Z" fill="#71717A"/>
-              </svg>
-            </ProfileIcon>
-            <ProcessCard>
-              <ProcessGoods>1</ProcessGoods>
-              <OnProcess>거래 승인</OnProcess>
-            </ProcessCard>
-            <ProfileIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M8.30664 26.9734L10.6666 29.3334L24 16.0001L10.6666 2.66675L8.30664 5.02675L19.28 16.0001L8.30664 26.9734Z" fill="#71717A"/>
-              </svg>
-            </ProfileIcon>
-            <ProcessCard>
-              <ProcessGoods>0</ProcessGoods>
-              <OnProcess>사용중</OnProcess>
-            </ProcessCard>
-            <ProfileIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M8.30664 26.9734L10.6666 29.3334L24 16.0001L10.6666 2.66675L8.30664 5.02675L19.28 16.0001L8.30664 26.9734Z" fill="#71717A"/>
-              </svg>
-            </ProfileIcon>
-            <ProcessCard>
-              <ProcessGoods>12</ProcessGoods>
-              <OnProcess>반납 완료</OnProcess>
-            </ProcessCard>
-          </Process>
-          <GoodsItems>
-            <GoodsCard>
-              <GoodsPic>
-                <GoodsDday>D- 5</GoodsDday>
-              </GoodsPic>
-              <GoodsDescription>
-                <GoodsName>아동용 자전거</GoodsName>
-                <GoodsDate>24.07.24 ~ 2024.07.30</GoodsDate>
-              </GoodsDescription>
-            </GoodsCard>
-            {/* Other GoodsCard components... */}
-          </GoodsItems>
-        </GoodsRecord>
-        <UnderBar />
-        <GoodsRecord>
-          <RecordText>등록 기록</RecordText>
-          <Process>
-            <ProcessCard>
-              <ProcessGoods>3</ProcessGoods>
-              <OnProcess>등록 물품</OnProcess>
-            </ProcessCard>
-            <ProfileIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M8.30664 26.9734L10.6666 29.3334L24 16.0001L10.6666 2.66675L8.30664 5.02675L19.28 16.0001L8.30664 26.9734Z" fill="#71717A"/>
-              </svg>
-            </ProfileIcon>
-            <ProcessCard>
-              <ProcessGoods>1</ProcessGoods>
-              <OnProcess>거래 승인</OnProcess>
-            </ProcessCard>
-            <ProfileIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M8.30664 26.9734L10.6666 29.3334L24 16.0001L10.6666 2.66675L8.30664 5.02675L19.28 16.0001L8.30664 26.9734Z" fill="#71717A"/>
-              </svg>
-            </ProfileIcon>
-            <ProcessCard>
-              <ProcessGoods>0</ProcessGoods>
-              <OnProcess>사용중</OnProcess>
-            </ProcessCard>
-            <ProfileIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M8.30664 26.9734L10.6666 29.3334L24 16.0001L10.6666 2.66675L8.30664 5.02675L19.28 16.0001L8.30664 26.9734Z" fill="#71717A"/>
-              </svg>
-            </ProfileIcon>
-            <ProcessCard>
-              <ProcessGoods>12</ProcessGoods>
-              <OnProcess>반납 완료</OnProcess>
-            </ProcessCard>
-          </Process>
-          <GoodsItems>
-            <GoodsCard>
-              <GoodsPic>
-                <GoodsDday>D- 5</GoodsDday>
-              </GoodsPic>
-              <GoodsDescription>
-                <GoodsName>아동용 자전거</GoodsName>
-                <GoodsDate>24.07.24 ~ 2024.07.30</GoodsDate>
-              </GoodsDescription>
-            </GoodsCard>
-            {/* Other GoodsCard components... */}
-          </GoodsItems>
-        </GoodsRecord>
+        </MainComponents>     
       </Wrapper>
     </div>
   );
