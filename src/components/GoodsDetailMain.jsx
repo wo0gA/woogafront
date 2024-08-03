@@ -7,11 +7,28 @@ import RentalFeeDisplay from './RentalFeeDisplay'
 import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 import { formatDate } from '../utils/formatDate'
+import { getProductInfo } from '../apis/product'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
   const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
+
+  // 물건 관련 상태(정보)들(화면에서 위에부터)
+  const [productCategory, setProductCategory] = useState('');
+  const [productName, setProductName] = useState('');
+  const [ownerName, setOwnerName] = useState('');
+  const [userLocation, setUserLocation] = useState('');
+  const [productState, setProductState] = useState('');
+  const [dayPrice, setDayPrice] = useState('');
+  const [weekPrice, setWeekPrice] = useState('');
+  const [modelName, setModelName] = useState('');
+  const [transaction, setTransaction] = useState('');
+  const [transactionPlace, setTransactionPlace] = useState('');
+
+  const [viewCount, setViewCount] = useState(0);
+  
+  const [description, setDescription] = useState('');
 
   // 현재 페이지의 리뷰 데이터 가져오기
   const indexOfLastReview = currentPage * reviewsPerPage;
@@ -23,16 +40,16 @@ const GoodsDetailMain = () => {
 
   const productID = 1; // 임시로 1로 설정
   const imsiPrice = 1000;
-  const dayPrice = imsiPrice.toLocaleString();
-  const weekPrice = imsiPrice.toLocaleString();
-  const viewCount = 100;
-  const userLocation = "서울시 동작구 상도동";
-  const transactionPlace = "중앙대학교 정문 앞";
-  const modelName = "훼르자 브릴란떼";
-  const transanction = "포함";
-  const goodsName = "배드민턴 세트";
-  const ownerName = "잉잉";
-  const description = "아이 방과후 용으로 샀던 배드민턴 세트입니다. 훼르자 브륄란떼 제품이고, 용용감 무지 적어요. 반납 후에 관리도 꼼꼼히 해주고 있습니다. 새 셔틀콕도 같이 넣어드려요! 채팅으로 연락주세요.";
+  // const dayPrice = imsiPrice.toLocaleString();
+  // const weekPrice = imsiPrice.toLocaleString();
+  // const viewCount = 100;
+  // const userLocation = "서울시 동작구 상도동";
+  // const transactionPlace = "중앙대학교 정문 앞";
+  // const modelName = "훼르자 브릴란떼";
+  // const transanction = "포함";
+  // const productName = "배드민턴 세트";
+  // const ownerName = "잉잉";
+  // const description = "아이 방과후 용으로 샀던 배드민턴 세트입니다. 훼르자 브륄란떼 제품이고, 용용감 무지 적어요. 반납 후에 관리도 꼼꼼히 해주고 있습니다. 새 셔틀콕도 같이 넣어드려요! 채팅으로 연락주세요.";
 
   const firstCategory = "구기 스포츠";
   const secondCategory = "테니스 및 라켓";
@@ -49,12 +66,41 @@ const GoodsDetailMain = () => {
     }
   };
 
+  // @@@@@@상품 정보 받아온 후 -> 변수들에 세팅하는 함수@@@@@@@
+  const setProductInfo = (productID) => {
+    getProductInfo(productID)
+      .then((productInfo) => {
+        console.log('<<<상품 정보>>>:', productInfo);
+        // 상품 정보 세팅
+        setProductCategory(productInfo.category.sort);
+        setProductName(productInfo.name);
+        setOwnerName(productInfo.owner.username);
+        // setUserLocation(productInfo.owner.location); // 임시로 주석 처리
+        setProductState(productInfo.state);
+        setDayPrice(productInfo.rental_fee_for_a_day);
+        setWeekPrice(productInfo.rental_fee_for_a_week);
+        setModelName(productInfo.model_name);
+        setTransaction(productInfo.direct_dealing_is_allowed ? "가능" : "불가능");
+        setTransactionPlace(productInfo.direct_dealing_place); //@@이거 나중에 시군구로 수정하기@@
+        
+        setViewCount(productInfo.views);
+
+        setDescription(productInfo.description);
+      })
+      .catch((error) => {
+        console.error('상품 정보 가져오기 실패:', error);
+      });
+  }
+
   useEffect(() => {
     // 기준 요금 설정
     setDailyRate(imsiPrice);
 
     // 리뷰 데이터 가져오기
     fetchReviews(productID);
+
+    // 상품 정보 불러오고 세팅
+    setProductInfo(productID);
   }, [setDailyRate, productID]);
 
   return (
@@ -92,10 +138,10 @@ const GoodsDetailMain = () => {
           <NotRentalBtnContainer>
           <GoodsTitle>
             <GoodsTitleCategory>
-              {secondCategory}
+              {productCategory}
             </GoodsTitleCategory>
             <GoodsTitleName>
-              {goodsName}
+              {productName}
             </GoodsTitleName>
             <GoodsTitleRegistrant>
               <ResistrantName>{ownerName} 님</ResistrantName>
@@ -106,7 +152,7 @@ const GoodsDetailMain = () => {
             <GoodsDescriptionLeft>
               <GoodsState>
                 <Left>상품 상태</Left>
-                <Right><GoodsStateBtn>거의 새 것</GoodsStateBtn></Right>
+                <Right><GoodsStateBtn>{productState}</GoodsStateBtn></Right>
               </GoodsState>
               <GoodsCost>
                 <Left>대여료</Left>
@@ -125,7 +171,7 @@ const GoodsDetailMain = () => {
               </GoodsModel>
               <GoodsDeliveryFee>
                 <Left>배송비</Left>
-                <Right>{transanction}</Right>
+                <Right>{transaction}</Right>
               </GoodsDeliveryFee>
               <GoodsTransactionPlace>
                 <Left>직거래 장소</Left>

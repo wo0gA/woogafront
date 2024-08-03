@@ -5,10 +5,6 @@ import styled from 'styled-components';
 const RentalFeeDisplay = () => {
   const { rentalFee, dailyRate, totalDays, selectedRange } = useContext(RentalFeeContext);
 
-  //확인용
-  useEffect(() => {
-    console.log(typeof(rentalFee));
-  });
 
   return (
 

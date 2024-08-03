@@ -18,7 +18,10 @@ const Header = () => {
     }
     const handleSearchClick = () => {
         console.log(`Search value: ${searchValue}`);
-        searchProducts(searchValue);
+        searchProducts(searchValue); //나중에는 지울듯?(다음 페이지에서 찾게 해서)
+        if (searchValue.trim()) { // 검색어가 비어있지 않다면
+            navigate(`/rentalSearch?search=${encodeURIComponent(searchValue)}`); //검색어를 query로 넘겨주면서 rentalSearch 페이지로 이동
+        }
     }
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -31,7 +34,6 @@ const Header = () => {
     };
 
     const handleNavClick = (path) => () => {
-        console.log(`Navigating to ${path}`);
         setActiveNav(path); // nav 클릭 시 활성화된 nav 경로를 업데이트
         navigate(path);
     };
@@ -74,7 +76,7 @@ const Header = () => {
             </FirstRow>
             <SecondRow>
                 <Navigation>
-                    <Nav onClick={handleNavClick('/search')} active={activeNav === '/search'}>물품 대여</Nav>
+                    <Nav onClick={handleNavClick('/rentalSearch')} active={activeNav === '/rentalSearch'}>물품 대여</Nav>
                     <Nav onClick={handleNavClick('/register')} active={activeNav === '/register'}>물품 등록</Nav>
                     <Nav onClick={handleNavClick('/health')} active={activeNav === '/health'}>건강 AtoZ</Nav>
                     <Nav onClick={handleNavClick('/goodsDetail')} active={activeNav === '/nearby'}>어디GO</Nav>

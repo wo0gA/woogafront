@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { searchProducts, searchByCategory } from '../test/test'
 
 import bannerImage from '../images/banner.png'
-import nearbyImage from '../images/main_nearby.png'
+import magazineNavImage from '../images/magazineNavImage.png'
 
 import footsalImage from '../images/footsal.png'
 import badmintonImage from '../images/badminton.png'
@@ -14,7 +14,6 @@ import pingpongImage from '../images/pingpong.png'
 import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
 
-import { MdDirectionsBike } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
@@ -37,6 +36,11 @@ const Main = () => {
         console.log(`Category ID: ${categoryID}`);
         searchByCategory(categoryID);
     }
+
+    //nav
+    const handleNavClick = (path) => () => {
+        navigate(path);
+    };
 
 
     return (
@@ -289,9 +293,9 @@ const Main = () => {
                     </Rankings>
                 </Ranking>
                 <Nearby>
-                    <Title>주변 운동공간</Title>
-                    <Description>운동용품 빌리GO, 내 주변 운동공간에서 운동하GO</Description>
-                    <NearbyImage src={nearbyImage} />
+                    <Title>건강 A to Z</Title>
+                    <Description>수많은 운동들과 운동물품, 처음부터 끝까지 다 알려드려요.</Description>
+                    <NearbyImage src={magazineNavImage} onClick={handleNavClick('/magazine')} />
                 </Nearby>
             </RankingAndNearby>
         </Contents>
@@ -569,10 +573,4 @@ const Description = styled.div`
     width: 100%;
     font-size: 20px;
     font-weight: 400;
-`;
-
-///////////////////////////////////// Icons ///////////////////////////////////////
-const BikeIcon = styled(MdDirectionsBike)`
-    width: 50%;
-    height: 50%;
 `;
