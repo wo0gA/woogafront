@@ -1,17 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import SportItem from '../images/main_card_image.png'
 import categories from './data/categories';
+import SearchResultCard from './Card/SearchResultCard';
+import CategoryComponent from './CategoryComponent';
+import mag1 from '../images/Mask group1.png'
+import mag2 from '../images/Mask group2.png'
+import mag3 from '../images/Mask group3.png'
 
-const RentalCategoryPage = ( { selectedItem }) => {
-    const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+const RentalCategoryPage = ( { searchTerm, onClearSearch } ) => {
+    const [selectedMainCategory, setSelectedMainCategory] = useState();
+    const [resultCard, setResultCard] = useState();
+    const [selectedItem, setSelectedItem] = useState();
 
     const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
   };
 
+  const handleItemSelect = (item) => {
+    setSelectedItem(item);
+    onClearSearch();
+  };
+
     return (
     <Wrapper>
+           <CategoryComponent onItemSearch = {handleMainCategoryClick} onItemSelect={handleItemSelect} />
         <Contents>
             <Category>
             <CatTitle>카테고리</CatTitle>
@@ -31,52 +43,35 @@ const RentalCategoryPage = ( { selectedItem }) => {
             </Category>
             <Contentarr>
                 <SearchResult>
-                <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
+                        {/* Display search term results */}
+                        {searchTerm && (
+                            <Title>'{searchTerm}'에 대한 검색결과</Title>
+                        )}
+                        {/* Display category results */}
+                        {selectedItem && !searchTerm && (
+                            <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
+                        )}
                 <SearchNavigation>
-                    <Nav>관련도순</Nav>
-                    <Nav>판매순</Nav>
+                    <Nav>최신순</Nav>
+                    <Nav>인기순</Nav>
                     <Nav>낮은 가격순</Nav>
-                    <Nav>매너지수 높은순</Nav>
-                    <Nav>장기대여 가능순</Nav>
-                    <Nav>최근 등록순</Nav>
                 </SearchNavigation>
                 <SearchResultBox>
-                    <SearchResultCards>
-                        <ResultImage src={SportItem}  alt='운동 용품 이미지' />
-                        <ResultDesciption>
-                            <ResultName>배드민턴 세트</ResultName>
-                            <ResultPrice>일 1,000원<br/>주 4,000원</ResultPrice>
-                        </ResultDesciption>
-                    </SearchResultCards>
-                    <SearchResultCards>
-                        <ResultImage src={SportItem}  alt='운동 용품 이미지' />
-                        <ResultDesciption>
-                            <ResultName>배드민턴 세트</ResultName>
-                            <ResultPrice>일 1,000원<br/>주 4,000원</ResultPrice>
-                        </ResultDesciption>
-                    </SearchResultCards>
-                    <SearchResultCards>
-                        <ResultImage src={SportItem}  alt='운동 용품 이미지' />
-                        <ResultDesciption>
-                            <ResultName>배드민턴 세트</ResultName>
-                            <ResultPrice>일 1,000원<br/>주 4,000원</ResultPrice>
-                        </ResultDesciption>
-                    </SearchResultCards>
+                        <SearchResultCard setResultCard={setResultCard} />
                 </SearchResultBox>
                 </SearchResult>
                 <Popular>
                 <Title>빌리GO의 제안</Title>
                 <Magazines>
-                    <MagazinesItem>집에서도<br/>건강하게<br/>홈트레이닝</MagazinesItem>
-                    <MagazinesItem>풋살 & 축구,<br/>그 차이점을<br/>알아보다</MagazinesItem>
-                    <MagazinesItem>뜨거운 여름<br/>레저스포츠가<br/>제격</MagazinesItem>
+                    <MagazinesItem><img src={mag1} width='200px'/></MagazinesItem>
+                    <MagazinesItem><img src={mag2} width='200px'/></MagazinesItem>
+                    <MagazinesItem><img src={mag3} width='200px'/></MagazinesItem>
                 </Magazines>
-                <MorePop $button={true}>더보기</MorePop>
                 </Popular>
             </Contentarr>
         </Contents>
     </Wrapper>
-  )
+);
 }
 
 export default RentalCategoryPage
@@ -172,15 +167,7 @@ const CatTitle = styled.div`
     font-size: 14px;
     font-weight: 550;
     margin-bottom: 10px;
-    color: #000;
-
-/* head 2 
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: 150%; /* 30px */
-`;
+    color: #000`;
 
 const Contentarr = styled.div`
     display: flex;
@@ -194,12 +181,10 @@ const SearchNavigation = styled.div`
     margin-top: 15px;
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-evenly;
-    width: 80%;
+    width: 35%;
     height: 100%;
-    font-size: 14px;
-`;
+    font-size: 14px;`;
 
 const SearchResult = styled.div`
     width: 100%;
@@ -213,58 +198,11 @@ const SearchResultBox = styled.div`
     justify-content: space-between;
     `;
 
-const SearchResultCards = styled.div`
-    margin-top: 20px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    height: 200px;
-    width: 200px;
-    background-color: #bfbfbf;
-
-    margin-inline: 5px;
-`;
-
-const ResultImage = styled.img`
-    flex: 3;
-    width: 100%;
-    height: auto;
-`;
-
-const ResultDesciption = styled.div`
-    flex: 1;
-    position: relative;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
-    height: auto;
-    background-color: beige;
-`;
-
-const ResultName = styled.div`
-    top: 10px;
-    left: 10px;
-    font-weight: bold;
-`;
-
-const ResultPrice = styled.div`
-    top: 10px;
-    right: 10px;
-    display: flex;
-    align-items: flex-start; /* 상단 정렬 */
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    position: absolute;
-    font-size: 12px;
-    text-align: right;
-`;
-
 const Magazines = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    margin-bottom: 25px;
+    margin-bottom: 6rem;
     justify-content: space-between;
 
 `;
@@ -277,36 +215,10 @@ const MagazinesItem = styled.div`
     justify-content: space-evenly;
     height: 200px;
     width: 200px;
-    background-color: beige;
     font-size: 27px;
     font-weight: 400;
     margin-inline: 5px; 
     padding-bottom: 20px;
-`;
-
-const MorePop = styled.div`
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center; 
-    background-color: #8ec18b; 
-    color: black; 
-    border: none; 
-    border-radius: 30px; 
-    padding: 10px 30px; 
-    font-size: 16px; 
-    font-weight: bold; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
-    margin-bottom: 25px;
-
-    &:hover {
-        background-color: #8bb06f;
-    }
-    
-    &:focus {
-        outline: none; 
-    }
-
 `;
 
 const CategoryItem = styled.div`

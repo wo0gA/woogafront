@@ -13,7 +13,6 @@ import ChatPage from "./pages/ChatPage";
 import RegistrationPage from './pages/RegistrationPage';
 import { RentalFeeProvider } from './context/RentalFeeContext';
 
-
 function App() {
 
   return (
