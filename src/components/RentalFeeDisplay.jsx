@@ -32,7 +32,7 @@ const RentalFeeDisplay = () => {
               </Row>
             )}
           <Row>
-            선택 일수 <span>{rentalFee.toLocaleString('ko-KR')} 일</span>
+            선택 일수 <span>{totalDays.toLocaleString('ko-KR')} 일</span>
           </Row>
         </Contents>
       </Wrapper>
