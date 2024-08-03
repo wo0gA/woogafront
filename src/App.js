@@ -12,8 +12,6 @@ import CategoryPage from './pages/CategoryPage';
 import ChatPage from "./pages/ChatPage";
 import RegistrationPage from './pages/RegistrationPage';
 import { RentalFeeProvider } from './context/RentalFeeContext';
-import MagazinePage from './pages/MagazinePage';
-import StorePage from './pages/StorePage';
 
 function App() {
 
@@ -34,8 +32,6 @@ function App() {
           <Route path="/profileSetting" element={<ProfileSettingPage />} />
           <Route path="/register" element={<RegistrationPage />} />
           <Route path='/loading' element={<></>} /> 
-          <Route path='/magazine' element={<MagazinePage />} />
-          <Route path='/store' element={<StorePage/>} />
         </Routes>
       </div>
     </RentalFeeProvider>

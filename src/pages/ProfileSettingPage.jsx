@@ -1,27 +1,23 @@
-import GoogleLoginButton from "../components/Google";
+
 import styled from "styled-components";
 import React from 'react'
 import Header from "../components/Header";
-import Main from "../components/Main";
-import Footer from "../components/Footer";
+import ProfileSettingMain from "../components/ProfileSettingMain";
 
-const Test = () => {
-  return (
-    <Wrapper>
-      <Header>
-        
-      </Header> 
-      <Main>
+const LoginPage = () => {
+    return (
+        <Wrapper>
+            <Header>
+                
+            </Header> 
+            <ProfileSettingMain>
 
-      </Main>
-      <Footer>
-
-      </Footer>
-    </Wrapper>
-  )
+            </ProfileSettingMain>
+        </Wrapper>
+    )
 }
 
-export default Test
+export default LoginPage
 
 const Wrapper = styled.div`
   display: flex;
