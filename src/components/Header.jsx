@@ -77,7 +77,7 @@ const Header = () => {
                     <Nav onClick={handleNavClick('/search')} active={activeNav === '/search'}>물품 대여</Nav>
                     <Nav onClick={handleNavClick('/register')} active={activeNav === '/register'}>물품 등록</Nav>
                     <Nav onClick={handleNavClick('/health')} active={activeNav === '/health'}>건강 AtoZ</Nav>
-                    <Nav onClick={handleNavClick('/nearby')} active={activeNav === '/nearby'}>어디GO</Nav>
+                    <Nav onClick={handleNavClick('/goodsDetail')} active={activeNav === '/nearby'}>어디GO</Nav>
                     <Nav onClick={handleNavClick('/chatting')} active={activeNav === '/chatting'}>채팅</Nav>
                 </Navigation>
                 <Search>
