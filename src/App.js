@@ -2,31 +2,43 @@ import './App.css';
 import GoodsDetailPage from './pages/GoodsDetailPage';
 import MainPage from './pages/MainPage';
 import { Routes, Route } from 'react-router-dom';
+import SearchPage from './pages/SearchPage';
 import MyPage from './pages/MyPage';
 import TestPage from './pages/TestPage';
-import Chatting from './apis/Chatting';
+import NearbyPage from './pages/NearbyPage';
+import LoginPage from './pages/LoginPage';
+import ProfileSettingPage from './pages/ProfileSettingPage';
 import CategoryPage from './pages/CategoryPage';
+import ChatPage from "./pages/ChatPage";
 import RegistrationPage from './pages/RegistrationPage';
-import RegistrationDetailPage from './pages/RegistrationDetailPage';
-import RegistrationDetail2Page from './pages/RegistrationDetail2Page';
+import { RentalFeeProvider } from './context/RentalFeeContext';
+import MagazinePage from './pages/MagazinePage';
+import StorePage from './pages/StorePage';
 
 function App() {
 
   return (
-    <div className="App">
-      <Routes>
-        {/* 일단 바꿔둠 */}
-      <Route path="/" element={<TestPage />} /> 
-        <Route path="/myPage" element={<MyPage />} />
-        <Route path="/goodsDetail" element={<GoodsDetailPage />} />
-        <Route path="/rentalCategory" element={<CategoryPage />} />
-        <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/registrationdetail" element={<RegistrationDetailPage />} />
-        <Route path="/registrationdetail2" element={<RegistrationDetail2Page/>} />
-        <Route path="/test" element={<TestPage />} />
-        <Route path="/chatting" element={<Chatting />} />
-      </Routes>
-    </div>
+    <RentalFeeProvider>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<MainPage />} /> 
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/goodsDetail" element={<GoodsDetailPage />} />
+          <Route path="/rentalSearch" element={<SearchPage />} />
+          <Route path="/rentalCategory" element={<CategoryPage />} />
+          <Route path="/test" element={<TestPage />} />
+          <Route path="/chatting" element={<ChatPage />} />
+          <Route path="/nearby" element={<NearbyPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/profileSetting" element={<ProfileSettingPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path='/loading' element={<></>} /> 
+          <Route path='/magazine' element={<MagazinePage />} />
+          <Route path='/store' element={<StorePage/>} />
+        </Routes>
+      </div>
+    </RentalFeeProvider>
 
   );
 }
