@@ -2,17 +2,23 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import levelpic from '../images/image 59.png';
 
-const MypageMain = () => {
-  const accessToken = 'your_access_token_here'; // Replace this with your actual access token
 
+const MypageMain = () => {
+	const accessToken = localStorage.getItem("access");
   const [userData, setUserData] = useState(null);
   const [isRentSelected, setIsRentSelected] = useState(true);
   const [historyData, setHistoryData] = useState(null);
-  const [RegisterData, setRegiserData] = useState(null);
+  const [registerData, setRegisterData] = useState(null);
 
-  const fetchHistoryDataFromAPI = async () => {
+  const fetchHistoryDataFromAPI = async (accessToken) => {
     try {
-      const response = await fetch('https://server.templ.es/rentalhistories/rental/');
+      const response = await fetch('https://server.templ.es/rentalhistories/rental/', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
       const data = await response.json();
       console.log(data);
       return data;
@@ -22,17 +28,15 @@ const MypageMain = () => {
     }
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      const data = await fetchHistoryDataFromAPI();
-      setUserData(data);
-    };
-    getData();
-  }, []);
-
-  const fetchRegisterDataFromAPI = async () => {
+  const fetchRegisterDataFromAPI = async (accessToken) => {
     try {
-      const response = await fetch('https://server.templ.es/rentalhistories/rental/');
+      const response = await fetch('https://server.templ.es/accounts/products/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
       const data = await response.json();
       console.log(data);
       return data;
@@ -41,14 +45,6 @@ const MypageMain = () => {
       return null;
     }
   };
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await fetchRegisterDataFromAPI();
-      setUserData(data);
-    };
-    getData();
-  }, []);
 
   const fetchDataFromAPI = async (accessToken) => {
     try {
@@ -67,14 +63,18 @@ const MypageMain = () => {
       return null;
     }
   };
+
   useEffect(() => {
     const getData = async () => {
-      const data = await fetchDataFromAPI(accessToken);
-      setUserData(data);
+      const userData = await fetchDataFromAPI(accessToken);
+      setUserData(userData);
+      const historyData = await fetchHistoryDataFromAPI(accessToken);
+      setHistoryData(historyData);
+      const registerData = await fetchRegisterDataFromAPI(accessToken);
+      setRegisterData(registerData);
     };
     getData();
-  }, [accessToken]); 
-
+  }, [accessToken]);
 
   const showRent = () => {
     setIsRentSelected(true);
@@ -89,20 +89,18 @@ const MypageMain = () => {
       <Wrapper>
         <GoodsRecord>
           <RecordText>대여 기록</RecordText>
-
           <GoodsItems>
             <GoodsCard>
-              <GoodsPic>
-                <GoodsDday>D- 5</GoodsDday>
+              <GoodsPic><img src={historyData.thumbnail}/>
+                <GoodsDday>{historyData.remaining_days}</GoodsDday>
               </GoodsPic>
               <GoodsDescription>
-                <GoodsName>아동용 자전거</GoodsName>
-                <GoodsDate>24.07.24 ~ 2024.07.30</GoodsDate>
+                <GoodsName>{historyData.name}</GoodsName>
+                <GoodsDate>{historyData.retal_start_date} ~ {historyData.rental_end_date}</GoodsDate>
               </GoodsDescription>
             </GoodsCard>
-            {/* Other GoodsCard components... */}
           </GoodsItems>
-        </GoodsRecord>   
+        </GoodsRecord>
       </Wrapper>
     );
   }
@@ -110,21 +108,18 @@ const MypageMain = () => {
   function Register() {
     return (
       <Wrapper>
-        <GoodsRecord>
+        <RegisterRecord>
           <RecordText>등록 기록</RecordText>
-          <GoodsItems>
-            <GoodsCard>
-              <GoodsPic>
-                <GoodsDday>D- 5</GoodsDday>
-              </GoodsPic>
-              <GoodsDescription>
-                <GoodsName>아동용 자전거</GoodsName>
-                <GoodsDate>24.07.24 ~ 2024.07.30</GoodsDate>
-              </GoodsDescription>
-            </GoodsCard>
-            {/* Other GoodsCard components... */}
-          </GoodsItems>
-        </GoodsRecord>   
+          <ItemBox>
+          <RegisterItem>
+            <Itempic><img src={registerData.photos}/></Itempic>
+            <Itemname>{registerData.name}</Itemname>
+            <Itemprice>일 {registerData.rental_fee_for_a_day}원  주 {registerData.rental_fee_for_a_week}</Itemprice>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M3 17.2495V20.9995H6.75L17.81 9.93951L14.06 6.18951L3 17.2495ZM20.71 7.03951C20.8027 6.947 20.8762 6.83711 20.9264 6.71614C20.9766 6.59517 21.0024 6.46548 21.0024 6.33451C21.0024 6.20355 20.9766 6.07386 20.9264 5.95289C20.8762 5.83192 20.8027 5.72203 20.71 5.62951L18.37 3.28951C18.2775 3.19681 18.1676 3.12326 18.0466 3.07308C17.9257 3.0229 17.796 2.99707 17.665 2.99707C17.534 2.99707 17.4043 3.0229 17.2834 3.07308C17.1624 3.12326 17.0525 3.19681 16.96 3.28951L15.13 5.11951L18.88 8.86951L20.71 7.03951Z" fill="#A1A1AA"/></svg>
+          </RegisterItem>
+          </ItemBox>
+        </RegisterRecord>
       </Wrapper>
     );
   }
@@ -200,13 +195,13 @@ const MypageMain = () => {
           <main>
             {isRentSelected ? <Rent /> : <Register />}
           </main>
-        </MainComponents>     
+        </MainComponents>
       </Wrapper>
     </div>
   );
 };
 
-export default MypageMain
+export default MypageMain;
 
 const MainComponents = styled.div`
 display: flex;
@@ -374,4 +369,24 @@ const Greeting = styled.div`
   padding: 10px;
   font-size: 12px;
   text-align: left;
+`;
+
+const RegisterRecord = styled.div`
+  
+`;
+
+const ItemBox = styled.div`
+  
+`;
+const RegisterItem = styled.div`
+  
+`;
+const Itempic = styled.div`
+  
+`;
+const Itemname = styled.div`
+  
+`;
+const Itemprice = styled.div`
+  
 `;
