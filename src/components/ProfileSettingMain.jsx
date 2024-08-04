@@ -8,19 +8,29 @@ const ProfileSettingMain = () => {
   const [message, setMessage] = useState('');
   const token = localStorage.getItem('access');
 
+  let reader = new FileReader();
+
   const handleProfileImgChange = (e) => {
     const file = e.target.files[0];
+    console.log(file); //잘 첨부됐는지 확인용
     if (file) {
-      const imgUrl = URL.createObjectURL(file);
-      setProfileImg(imgUrl);
-    }
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setProfileImg(reader.result);
+        const previewImgUrl = reader.result;
+        console.log(previewImgUrl); //잘 첨부됐는지 확인용
+      };
+    };
   };
+
+
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
+    console.log(nickname);//잘 입력되는지 확인용
   };
 
-  const handleSignUp = async () => {
+  const handleSubmit = async () => {
     const formData = new FormData();
     formData.append('username', nickname);
     formData.append('profile', profileImg);
@@ -65,7 +75,7 @@ const ProfileSettingMain = () => {
               </ImgLeft>
               <ImgRight>
                 <FileInputWrapper>
-                  <FileInput type="file" id="file-input" onChange={handleProfileImgChange} />
+                  <FileInput type="file" id="file-input" accept="image/*" onChange={(e) => handleProfileImgChange(e)} />
                   <FileInputLabel onClick={triggerFileInput}>
                     {profileImg ? (
                       <ProfileImage src={profileImg} alt="Profile Preview" />
@@ -103,7 +113,7 @@ const ProfileSettingMain = () => {
                 <DuplicateCheckButton onClick={handleDuplicateCheck}>중복 확인</DuplicateCheckButton>
               </NicknameRight>
             </Nickname>
-            <SignUpBtn onClick={handleSignUp}>
+            <SignUpBtn onClick={handleSubmit}>
               회원가입 완료
             </SignUpBtn>
           </RightContainer>
