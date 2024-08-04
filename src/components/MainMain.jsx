@@ -82,7 +82,7 @@ const Main = () => {
         </MainSearch>
         <Contents>
             <Category>
-                <Title>카테고리 분류</Title>
+                <CategoryTitle>카테고리 분류</CategoryTitle>
                 <CategoryContents>
                     <Sports>
                         <Eclipse>
@@ -287,27 +287,64 @@ const Main = () => {
             <RankingAndNearby>
                 <Ranking>
                     <Title>인기 순위</Title>
-                    <Description>다른 사람들은 이런 운동에 관심있어요!</Description>
+                    <Description>다른 사람들은 이런 운동에 관심있어요.</Description>
                     <Rankings>
-                        <RankingItem>
-                            <RankingNumber>1</RankingNumber>
+                        <RankingItem id='1'>
+                            <RankingNumber>1
+                            <svg xmlns="http://www.w3.org/2000/svg" width="49" height="70" viewBox="0 0 49 70" fill="none">
+                                <path d="M28.6909 69.6255L35.1925 59.3276C35.3758 59.0374 35.7232 58.8956 36.0572 58.9748L47.9071 61.7852C48.5427 61.9359 49.0831 61.3051 48.8363 60.7001L38.7775 36.0459L17.209 44.8458L27.2678 69.5C27.5149 70.1053 28.3421 70.1782 28.6909 69.6255Z" fill="#F41943"/>
+                                <path d="M32.2903 47.7168L25.2585 64.5755L18.3809 47.7168H32.2903Z" fill="#BA0F38"/>
+                                <path d="M31.6872 44.8453L30.5158 47.7166L26.1846 58.3321L26.0056 58.7696L24.4482 62.5887L21.6281 69.4995C21.3813 70.1042 20.5544 70.1772 20.2047 69.6253L13.7037 59.328C13.5215 59.0381 13.1736 58.8957 12.8387 58.9752L0.988853 61.7853C0.354385 61.9359 -0.185727 61.3046 0.061026 60.6999L10.1199 36.0454L31.6872 44.8453Z" fill="#F41943"/>
+                                <path d="M41.7276 43.2745C40.7867 44.1128 34.1326 49.8507 24.4498 49.8507C22.6273 49.8507 20.8045 49.6615 19.0218 49.2823C14.6368 48.3505 10.5181 46.2555 7.17188 43.2745L10.1212 36.0454L13.498 37.4239L13.8045 37.5497L24.45 41.8906L35.0956 37.5497L35.4021 37.4239L38.7789 36.0454L41.7276 43.2745Z" fill="#BA0F38"/>
+                                <path d="M24.4486 47.7175C37.6254 47.7175 48.3073 37.0356 48.3073 23.8587C48.3073 10.6819 37.6254 0 24.4486 0C11.2718 0 0.589844 10.6819 0.589844 23.8587C0.589844 37.0356 11.2718 47.7175 24.4486 47.7175Z" fill="#F9B906"/>
+                                <path d="M24.4481 45.5959C36.4532 45.5959 46.1853 35.8639 46.1853 23.8588C46.1853 11.8536 36.4532 2.12158 24.4481 2.12158C12.443 2.12158 2.71094 11.8536 2.71094 23.8588C2.71094 35.8639 12.443 45.5959 24.4481 45.5959Z" fill="#E8A615"/>
+                                <path d="M24.4478 44.2657C35.7181 44.2657 44.8545 35.1293 44.8545 23.8589C44.8545 12.5886 35.7181 3.45215 24.4478 3.45215C13.1774 3.45215 4.04102 12.5886 4.04102 23.8589C4.04102 35.1293 13.1774 44.2657 24.4478 44.2657Z" fill="#F9B906"/>
+                                <path d="M34.7714 6.25945L6.1174 32.823C4.789 30.1162 4.04102 27.0725 4.04102 23.8581C4.04102 21.4741 4.45218 19.1861 5.20645 17.058L19.541 4.04867C21.113 3.65867 22.7583 3.45166 24.4492 3.45166C28.2134 3.45195 31.7415 4.47556 34.7714 6.25945Z" fill="#FFC943"/>
+                                <path d="M43.4302 16.3667L15.5442 42.2192C12.7353 40.8514 10.2858 38.8587 8.37695 36.4215L38.5055 9.07764C40.6365 11.1051 42.3303 13.5867 43.4302 16.3667Z" fill="#FFC943"/>
+                                </svg>
+                            </RankingNumber>
                             <RankingName>{popularCategories[0]}</RankingName>
                         </RankingItem>
-                        <RankingItem>
-                            <RankingNumber>2</RankingNumber>
+                        <RankingItem id='2'>
+                            <RankingNumber>2
+                            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="60" viewBox="0 0 42 60" fill="none">
+                                <path d="M24.5936 59.679L30.1664 50.8523C30.3235 50.6035 30.6213 50.482 30.9075 50.5498L41.0646 52.9587C41.6094 53.0879 42.0726 52.5472 41.8611 52.0286L33.2392 30.8965L14.752 38.4393L23.3738 59.5714C23.5853 60.0903 24.2946 60.1528 24.5936 59.679Z" fill="#F41943"/>
+                                <path d="M27.6785 40.8999L21.6512 55.3502L15.7559 40.8999H27.6785Z" fill="#BA0F38"/>
+                                <path d="M27.161 38.439L26.157 40.9001L22.4445 49.9992L22.2911 50.3741L20.9561 53.6476L18.5389 59.5712C18.3274 60.0895 17.6187 60.152 17.3189 59.679L11.7461 50.8525C11.59 50.604 11.2917 50.482 11.0047 50.5501L0.847673 52.9587C0.303844 53.0879 -0.159354 52.5467 0.052394 52.0284L8.67426 30.896L27.161 38.439Z" fill="#F41943"/>
+                                <path d="M35.7657 37.0923C34.9592 37.8109 29.2557 42.7291 20.9561 42.7291C19.394 42.7291 17.8316 42.5669 16.3035 42.2419C12.545 41.4432 9.01464 39.6475 6.14648 37.0923L8.67447 30.896L11.5688 32.0775L11.8316 32.1854L20.9561 35.9066L30.0809 32.1858L30.3436 32.078L33.238 30.8965L35.7657 37.0923Z" fill="#BA0F38"/>
+                                <path d="M20.9562 40.9007C32.2506 40.9007 41.4066 31.7448 41.4066 20.4504C41.4066 9.15594 32.2506 0 20.9562 0C9.66179 0 0.505859 9.15594 0.505859 20.4504C0.505859 31.7448 9.66179 40.9007 20.9562 40.9007Z" fill="#EBF2F2"/>
+                                <path d="M20.9561 39.0821C31.2462 39.0821 39.588 30.7403 39.588 20.4502C39.588 10.1601 31.2462 1.81836 20.9561 1.81836C10.666 1.81836 2.32422 10.1601 2.32422 20.4502C2.32422 30.7403 10.666 39.0821 20.9561 39.0821Z" fill="#C3DBDA"/>
+                                <path d="M20.9564 37.942C30.6167 37.942 38.4479 30.1108 38.4479 20.4505C38.4479 10.7902 30.6167 2.95898 20.9564 2.95898C11.2961 2.95898 3.46484 10.7902 3.46484 20.4505C3.46484 30.1108 11.2961 37.942 20.9564 37.942Z" fill="#EBF2F2"/>
+                                <path d="M29.8049 5.36541L5.2446 28.1345C4.10597 25.8143 3.46484 23.2054 3.46484 20.4503C3.46484 18.4068 3.81727 16.4457 4.46379 14.6215L16.7506 3.47071C18.098 3.13642 19.5082 2.95898 20.9576 2.95898C24.184 2.95898 27.2081 3.83637 29.8049 5.36541Z" fill="white"/>
+                                <path d="M37.2254 14.0286L13.3231 36.1878C10.9154 35.0154 8.81583 33.3074 7.17969 31.2184L33.0041 7.78076C34.8307 9.51862 36.2828 11.6457 37.2254 14.0286Z" fill="white"/>
+                            </svg>
+
+                            </RankingNumber>
                             <RankingName>{popularCategories[1]}</RankingName>
                         </RankingItem>
-                        <RankingItem>
-                            <RankingNumber>3</RankingNumber>
+                        <RankingItem id='3'>
+                            <RankingNumber>3
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="50" viewBox="0 0 35 50" fill="none">
+                                <path d="M20.4943 49.7325L25.1384 42.3769C25.2693 42.1696 25.5174 42.0683 25.756 42.1249L34.2202 44.1323C34.6742 44.2399 35.0602 43.7893 34.8839 43.3572L27.699 25.7471L12.293 32.0327L19.4779 49.6428C19.6543 50.0752 20.2452 50.1273 20.4943 49.7325Z" fill="#F41943"/>
+                                <path d="M23.0642 34.0835L18.0415 46.1254L13.1289 34.0835H23.0642Z" fill="#BA0F38"/>
+                                <path d="M22.6341 32.0324L21.7974 34.0833L18.7037 41.6659L18.5758 41.9783L17.4634 44.7063L15.449 49.6426C15.2728 50.0745 14.6821 50.1266 14.4324 49.7324L9.78832 42.377C9.65823 42.1699 9.40968 42.0682 9.17052 42.125L0.706323 44.1322C0.253131 44.2398 -0.132662 43.7889 0.04359 43.3569L7.22848 25.7466L22.6341 32.0324Z" fill="#F41943"/>
+                                <path d="M29.8057 30.9102C29.1336 31.509 24.3807 35.6075 17.4644 35.6075C16.1626 35.6075 14.8606 35.4723 13.5872 35.2015C10.4551 34.5359 7.51318 33.0395 5.12305 30.9102L7.2297 25.7466L9.64168 26.7312L9.86062 26.821L17.4646 29.9217L25.0686 26.821L25.2875 26.7312L27.6995 25.7466L29.8057 30.9102Z" fill="#BA0F38"/>
+                                <path d="M17.4638 34.0839C26.8758 34.0839 34.5058 26.454 34.5058 17.042C34.5058 7.62994 26.8758 0 17.4638 0C8.05182 0 0.421875 7.62994 0.421875 17.042C0.421875 26.454 8.05182 34.0839 17.4638 34.0839Z" fill="#E37F22"/>
+                                <path d="M17.464 32.5687C26.0391 32.5687 32.9906 25.6172 32.9906 17.0422C32.9906 8.4671 26.0391 1.51562 17.464 1.51562C8.88897 1.51562 1.9375 8.4671 1.9375 17.0422C1.9375 25.6172 8.88897 32.5687 17.464 32.5687Z" fill="#BA6017"/>
+                                <path d="M17.463 31.6183C25.5132 31.6183 32.0392 25.0923 32.0392 17.0421C32.0392 8.99183 25.5132 2.46582 17.463 2.46582C9.41273 2.46582 2.88672 8.99183 2.88672 17.0421C2.88672 25.0923 9.41273 31.6183 17.463 31.6183Z" fill="#E37F22"/>
+                                <path d="M24.8368 4.47118L4.36985 23.4454C3.42099 21.5119 2.88672 19.3379 2.88672 17.0419C2.88672 15.339 3.18041 13.7047 3.71917 12.1846L13.9582 2.89226C15.081 2.61368 16.2562 2.46582 17.464 2.46582C20.1525 2.46582 22.6725 3.19697 24.8368 4.47118Z" fill="#F79A4D"/>
+                                <path d="M31.0224 11.6904L11.1039 30.1564C9.09749 29.1794 7.34783 27.7561 5.98438 26.0152L27.5047 6.48389C29.0269 7.9321 30.2367 9.70463 31.0224 11.6904Z" fill="#F79A4D"/>
+                            </svg>
+                            </RankingNumber>
                             <RankingName>{popularCategories[2]}</RankingName>
                         </RankingItem>  
-                        <RankingItem>
+                        <RankingItem id='4'>
                             <RankingNumber>4</RankingNumber>
-                            <RankingName>{popularCategories[3]}</RankingName>
+                            <RankingName id='4'>{popularCategories[3]}</RankingName>
                         </RankingItem>
-                        <RankingItem>
+                        <RankingItem id='5'>
                             <RankingNumber>5</RankingNumber>
-                            <RankingName>{popularCategories[4]}</RankingName>
+                            <RankingName id='5'>{popularCategories[4]}</RankingName>
                         </RankingItem> 
                     </Rankings>
                 </Ranking>
@@ -362,7 +399,7 @@ const MainSearch = styled.div`
     width: 70%;
     height: 60px;
 
-    border: 1px solid black;
+    border: 1px solid #E4E4E7;
     border-radius: 50px;
     padding-left: 20px;
     padding-right: 20px;
@@ -375,7 +412,9 @@ const MainSearchInput = styled.input`
     border: none;
     outline: none;
     font-size: 16px;
+    color: #52525B
 `;
+
 const MainSearchIcon = styled.button`
     background-color: transparent;
     border: none;
@@ -403,9 +442,19 @@ const Category = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 100%;
-
+    & > Title {
+        font-size: 24px;
+    }
     /* border: 1px solid black; */
 `;
+const CategoryTitle = styled.div`
+    text-align: left;
+    width: 100%;
+    font-size: 24px;
+    font-weight: 550;
+    margin-bottom: 10px;
+`;
+
 const CategoryContents = styled.div`
     display: flex;
     flex-direction: row;
@@ -421,11 +470,12 @@ const Sports = styled.div`
 `;
 const SportsDescription = styled.div`
     margin-top: 10px;
+    font-size: 18px;
 `;
 const Eclipse = styled.button`
     width: 80px;
     aspect-ratio: 1/1;
-    border: 2px solid black;
+    border: 1px solid #E4E4E7;
     border-radius: 50%;
     background-color: #FEFCE8;
 
@@ -472,11 +522,18 @@ const PopularItem = styled.div`
     margin-bottom: 20px; // 아이템 사이의 세로 간격 설정
     margin-left: 5px;
     margin-right: 5px;
+    padding: 10px;
+    border: 1px solid #E4E4E7;
     &:nth-child(4n + 1) {
         margin-left: 0;
     }
     &:nth-child(4n) {
         margin-right: 0;
+    }
+
+    & > img {
+        width: 100%;
+        aspect-ratio: 1/1;
     }
 `;
 const PopularImage = styled.img`
@@ -492,18 +549,21 @@ const PolularText = styled.div`
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
+    font-size: 20px;
+    font-weight: 600;
 `;
 const PopularPrice = styled.div`
     display: flex;
     flex-direction: row;    
     width: 100%;
     align-items: center;
-    font-weight: bold;
+    font-weight: 600;
     justify-content: space-between;
 `;
 const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
+    font-size: 16px;
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
@@ -511,6 +571,7 @@ const PopularPriceWeek = styled.div`
 `;
 const Unit = styled.div`
     margin-right: 5px;
+    font-weight: 400;
 `;
 const Price = styled.div`
 `;
@@ -522,6 +583,7 @@ const RankingAndNearby = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
+    margin-bottom: 80px;
     /* border: 1px solid black; */
 `;
 
@@ -541,25 +603,40 @@ const Rankings = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
+    border: 1px solid #E4E4E7;
+    margin-top: 10px;
 `;
 const RankingItem = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    box-sizing: border-box;
     width: 100%;
-    height: 50px;
+    height: auto;
     padding-right: 20px;
     padding-left: 20px;
-    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E4E4E7;
+
+    svg {
+        margin-left: 20px;
+    }
+
 `;
 const RankingNumber = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     font-size: 20px;
-    font-weight: 400;
+    font-weight: bold;
 `;
 const RankingName = styled.div`
     font-size: 20px;
     font-weight: 400;
+
 `;
 
 
@@ -583,7 +660,7 @@ const NearbyImage = styled.img`
 const Title = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 24px;
+    font-size: 36px;
     font-weight: 550;
     margin-bottom: 10px;
 `;

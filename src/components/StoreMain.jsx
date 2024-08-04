@@ -14,12 +14,14 @@ import { getUserInfo } from '../apis/user'
 const StoreMain = () => {
    const [level, setLevel] = useState('');
    const [username, setName] = useState('');
+   const [mannerScore, setMannerScore] = useState(0); //초기 매너지수는 0
 
    useEffect(() => {
       //test
       getUserInfo().then((data) => {
          setLevel(data.level);
          setName(data.username);
+         setMannerScore(data.manner_score);
       });
    }, []);
 
@@ -54,11 +56,14 @@ const StoreMain = () => {
             </ProfileName>
             <MannerScore>
                <MannerText>
-                  매너 바로미터 <span>100</span>
+                  매너 바로미터 <span>{mannerScore}</span>
                </MannerText>
-               <MannerBar>
-                  <RealMannerBar/>
-               </MannerBar>
+               {/* 매너지수가 0이면 바 대신에 텍스트 출력 */}
+                  {mannerScore === 0 
+                  ? '아직 거래가 없어요.' 
+                  : <MannerBar>
+                        <RealMannerBar mannerScore={mannerScore}/>
+                     </MannerBar>}
             </MannerScore>
          </Profile>
          <Stat>
@@ -379,7 +384,9 @@ const MannerBar = styled.div`
    background-color: #D4D4D8;
 `; 
 const RealMannerBar = styled.div`
-   width: 80%; //@@@@이거 나중에 변수로 바꿔주기@@@@@@
+   //매너지수에 따라 길이가 변하도록 설정
+   width: ${(props) => props.mannerScore}%;   
+   transition: width 0.3s ease-in-out; //매너지수 변화에 따라 부드럽게 변하도록 설정
    height: 100%;
    background-color: #FCFF5D;
    border-radius: 50px;
@@ -418,27 +425,6 @@ const DownTitle = styled.div`
    border-bottom: 1px solid black;
    font-weight: bold;
    padding-bottom: 5px;
-`;
-
-const RegisteredItems = styled.div`
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: space-between;
-   width: 100%;
-   height: 100%;
-   box-sizing: border-box;
-`;
-
-const Item = styled.div`
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   width: 20%;
-   height: 100%;
-   box-sizing: border-box;
-   border: 1px solid #4a1717;
 `;
 
 

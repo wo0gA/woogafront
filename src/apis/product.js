@@ -74,3 +74,5 @@ export const getPopularFiveCategories = async () => {
       throw error; // 에러가 발생하면 호출자에게 전달
    }
 }
+
+//한 사용자의 모든 등록 물품 불러오는 함수(상점 기능)
