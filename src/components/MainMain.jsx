@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { searchProducts, searchByCategory } from '../test/test'
 
 import bannerImage from '../images/banner.png'
-import nearbyImage from '../images/main_nearby.png'
+import magazineNavImage from '../images/magazineNavImage.png'
 
 import footsalImage from '../images/footsal.png'
 import badmintonImage from '../images/badminton.png'
@@ -14,13 +14,15 @@ import pingpongImage from '../images/pingpong.png'
 import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
 
-import { MdDirectionsBike } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { getPopularProducts, getRentalHistory, getPopularFiveCategories } from '../apis/product'
 
 const Main = () => {
     const navigate = useNavigate();
 
     const [searchValue, setSearchValue] = useState('')
+    const [popularCategories, setPopularCategories] = useState(["", "", "", "", ""]) //인기 카테고리 5개
+
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value)
     }
@@ -37,6 +39,27 @@ const Main = () => {
         console.log(`Category ID: ${categoryID}`);
         searchByCategory(categoryID);
     }
+
+    //nav
+    const handleNavClick = (path) => () => {
+        navigate(path);
+    };
+
+    useEffect(() => {
+        // getPopularProducts(); -> 500 오류나서 일단 보류
+
+        getPopularFiveCategories().then((data) => {
+            let popularCategories = [];
+            //응답을 순회하면서 인기 순위 카테고리 이름 세팅
+            data.forEach((category, index) => {
+                console.log(`${index + 1}: ${category.sort}`);
+                popularCategories.push(category.sort);
+            });
+            setPopularCategories(popularCategories);
+        });
+        //popularCategories 잘 설정 됐는지 확인
+        console.log("popular",popularCategories);
+    }, popularCategories)
 
 
     return (
@@ -264,34 +287,34 @@ const Main = () => {
             <RankingAndNearby>
                 <Ranking>
                     <Title>인기 순위</Title>
-                    <Description>순위 확인하세영</Description>
+                    <Description>다른 사람들은 이런 운동에 관심있어요!</Description>
                     <Rankings>
                         <RankingItem>
                             <RankingNumber>1</RankingNumber>
-                            <RankingName>요가매트</RankingName>
+                            <RankingName>{popularCategories[0]}</RankingName>
                         </RankingItem>
                         <RankingItem>
                             <RankingNumber>2</RankingNumber>
-                            <RankingName>요가복</RankingName>
+                            <RankingName>{popularCategories[1]}</RankingName>
                         </RankingItem>
                         <RankingItem>
                             <RankingNumber>3</RankingNumber>
-                            <RankingName>요가벨트</RankingName>
+                            <RankingName>{popularCategories[2]}</RankingName>
                         </RankingItem>  
                         <RankingItem>
                             <RankingNumber>4</RankingNumber>
-                            <RankingName>덤벨</RankingName>
+                            <RankingName>{popularCategories[3]}</RankingName>
                         </RankingItem>
                         <RankingItem>
                             <RankingNumber>5</RankingNumber>
-                            <RankingName>수영모</RankingName>
+                            <RankingName>{popularCategories[4]}</RankingName>
                         </RankingItem> 
                     </Rankings>
                 </Ranking>
                 <Nearby>
-                    <Title>주변 운동공간</Title>
-                    <Description>운동용품 빌리GO, 내 주변 운동공간에서 운동하GO</Description>
-                    <NearbyImage src={nearbyImage} />
+                    <Title>건강 A to Z</Title>
+                    <Description>수많은 운동들과 운동물품, 처음부터 끝까지 다 알려드려요.</Description>
+                    <NearbyImage src={magazineNavImage} onClick={handleNavClick('/magazine')} />
                 </Nearby>
             </RankingAndNearby>
         </Contents>
@@ -569,10 +592,4 @@ const Description = styled.div`
     width: 100%;
     font-size: 20px;
     font-weight: 400;
-`;
-
-///////////////////////////////////// Icons ///////////////////////////////////////
-const BikeIcon = styled(MdDirectionsBike)`
-    width: 50%;
-    height: 50%;
 `;
