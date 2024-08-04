@@ -11,7 +11,7 @@ export const getUserInfo = async () => {
                   Authorization: `Bearer ${localStorage.getItem('access')}`
                }
          });
-         console.log(response.data);
+         console.log('사용자 정보:', response.data);
          return response.data;  // 사용자 정보 반환
       } catch (error) {
          console.error(error);

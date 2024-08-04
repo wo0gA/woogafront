@@ -56,3 +56,21 @@ export const getRentalHistory = async (productID) => {
       throw error; // 에러가 발생하면 호출자에게 전달
    }
 }
+
+//인기 '카테고리' 상위 5개 순위 가져오는 함수
+export const getPopularFiveCategories = async () => {
+   const API_URL = `https://${SERVER_URL}/products/categories/popularity/`;
+   try {
+      const response = await axios.get(API_URL, {
+         headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`
+         }
+      });
+      console.log('인기 카테고리 목록:', response.data);
+      return response.data; // 인기 카테고리 목록 반환
+   }
+   catch (error) {
+      // console.error(error);
+      throw error; // 에러가 발생하면 호출자에게 전달
+   }
+}

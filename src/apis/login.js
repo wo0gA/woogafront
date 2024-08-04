@@ -13,6 +13,9 @@ export const sendGoogleCode = async (code) => {
         localStorage.setItem('username', response.data.user.username);
         //첫 로그인 여부도 저장
         localStorage.setItem('first_login', response.data.first_login);
+        //이메일도 저장
+        localStorage.setItem('email', response.data.user.email);
+
 
     } catch (error) {
         console.error("구글 인증 처리 중 오류 발생:", error);
@@ -32,6 +35,8 @@ export const sendKakaoCode = async (code) => {
         localStorage.setItem('username', response.data.user.username);
         //첫 로그인 여부도 저장
         localStorage.setItem('first_login', response.data.first_login);
+        //이메일도 저장
+        localStorage.setItem('email', response.data.user.email);
 
     } catch (error) {
         console.error("구글 인증 처리 중 오류 발생:", error);

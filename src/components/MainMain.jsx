@@ -15,12 +15,14 @@ import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
 
 import { useNavigate } from 'react-router-dom';
-import { getPopularProducts, getRentalHistory } from '../apis/product'
+import { getPopularProducts, getRentalHistory, getPopularFiveCategories } from '../apis/product'
 
 const Main = () => {
     const navigate = useNavigate();
 
     const [searchValue, setSearchValue] = useState('')
+    const [popularCategories, setPopularCategories] = useState(["", "", "", "", ""]) //인기 카테고리 5개
+
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value)
     }
@@ -45,8 +47,19 @@ const Main = () => {
 
     useEffect(() => {
         // getPopularProducts(); -> 500 오류나서 일단 보류
-    }
-    , [])
+
+        getPopularFiveCategories().then((data) => {
+            let popularCategories = [];
+            //응답을 순회하면서 인기 순위 카테고리 이름 세팅
+            data.forEach((category, index) => {
+                console.log(`${index + 1}: ${category.sort}`);
+                popularCategories.push(category.sort);
+            });
+            setPopularCategories(popularCategories);
+        });
+        //popularCategories 잘 설정 됐는지 확인
+        console.log("popular",popularCategories);
+    }, popularCategories)
 
 
     return (
@@ -274,27 +287,27 @@ const Main = () => {
             <RankingAndNearby>
                 <Ranking>
                     <Title>인기 순위</Title>
-                    <Description>순위 확인하세영</Description>
+                    <Description>다른 사람들은 이런 운동에 관심있어요!</Description>
                     <Rankings>
                         <RankingItem>
                             <RankingNumber>1</RankingNumber>
-                            <RankingName>요가매트</RankingName>
+                            <RankingName>{popularCategories[0]}</RankingName>
                         </RankingItem>
                         <RankingItem>
                             <RankingNumber>2</RankingNumber>
-                            <RankingName>요가복</RankingName>
+                            <RankingName>{popularCategories[1]}</RankingName>
                         </RankingItem>
                         <RankingItem>
                             <RankingNumber>3</RankingNumber>
-                            <RankingName>요가벨트</RankingName>
+                            <RankingName>{popularCategories[2]}</RankingName>
                         </RankingItem>  
                         <RankingItem>
                             <RankingNumber>4</RankingNumber>
-                            <RankingName>덤벨</RankingName>
+                            <RankingName>{popularCategories[3]}</RankingName>
                         </RankingItem>
                         <RankingItem>
                             <RankingNumber>5</RankingNumber>
-                            <RankingName>수영모</RankingName>
+                            <RankingName>{popularCategories[4]}</RankingName>
                         </RankingItem> 
                     </Rankings>
                 </Ranking>
