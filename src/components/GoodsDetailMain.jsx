@@ -133,7 +133,7 @@ const GoodsDetailMain = () => {
       setName(userInfo.username);
       setMannerScore(userInfo.manner_score);
       setSellerEmail(userInfo.email);
-      setSellerID(1); //이거아님!!! seller의 id를 세팅해야함
+      setSellerID(1); //@@이거아님!!! seller의 id를 세팅해야함
       console.log('sellerID',sellerID); //확인용
     }
     ).catch((error) => {

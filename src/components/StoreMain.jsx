@@ -116,7 +116,7 @@ const StoreMain = () => {
             ))}
          </PopularContents>
 
-         <DownTitle>리뷰</DownTitle>
+         <DownTitle>물품 리뷰</DownTitle>
          <ReviewContainer>
             {reviews.map((review) => (
                <Review key={review.id}>
@@ -126,7 +126,7 @@ const StoreMain = () => {
                         {review.product_name}
                      </ReviewFirstRow>
                      <ReviewSecondRow>
-                        {review.username} 님 <span>{review.rental_period}</span>
+                        {review.writer.username} 님 <span>{review.created_at.substring(0,10)}</span>
                      </ReviewSecondRow>
                      <ReviewThirdRow>
                         {review.comment}
@@ -313,11 +313,19 @@ const PopularItem = styled.div`
     margin-bottom: 20px; // 아이템 사이의 세로 간격 설정
     margin-left: 5px;
     margin-right: 5px;
+    padding: 10px;
+    border: 1px solid #E4E4E7;
+    cursor: pointer;
     &:nth-child(4n + 1) {
         margin-left: 0;
     }
     &:nth-child(4n) {
         margin-right: 0;
+    }
+
+    & > img {
+        width: 100%;
+        aspect-ratio: 1/1;
     }
 `;
 const PopularImage = styled.img`
@@ -333,18 +341,21 @@ const PolularText = styled.div`
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
+    font-size: 20px;
+    font-weight: 600;
 `;
 const PopularPrice = styled.div`
     display: flex;
     flex-direction: row;    
     width: 100%;
     align-items: center;
-    font-weight: bold;
+    font-weight: 600;
     justify-content: space-between;
 `;
 const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
+    font-size: 16px;
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
@@ -352,6 +363,7 @@ const PopularPriceWeek = styled.div`
 `;
 const Unit = styled.div`
     margin-right: 5px;
+    font-weight: 400;
 `;
 const Price = styled.div`
 `;
