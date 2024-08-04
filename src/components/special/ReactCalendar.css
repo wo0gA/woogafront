@@ -176,8 +176,11 @@
 }
 
 .highlight {
-  background-color: #ffeb3b !important;
-  color: white;
+  /* background-color: #ffeb3b !important; */
+  color: rgb(183, 183, 183);
+  /*이미 대여 기록이 있는 날짜에 취소선을 긋기 위한 속성*/
+  text-decoration: line-through;
+  
 }
 
 .react-calendar__navigation__label__labelText {

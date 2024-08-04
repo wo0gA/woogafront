@@ -3,6 +3,10 @@ export function numberWithCommas(number) {
 }
 
 export function timeAgo(timestamp) {
+	if (!timestamp) {
+		return "";
+	}
+
 	const now = new Date();
 	const then = new Date(timestamp);
 	const diffInSeconds = (now - then) / 1000;

@@ -20,12 +20,13 @@ export const fetchMessages = async (roomId) => {
 };
 
 /**
- * 새로운 채팅방을 생성하는 함수
+ * 새로운 채팅방을 생성 또는 조회하는 함수
  */
 export const createChatRoom = async (shop_user_email, visitor_user_email) => {
 	const response = await axios.post(`https://${SERVER_URL}/chat/rooms/`, {
 		shop_user_email: shop_user_email,
 		visitor_user_email: visitor_user_email,
+		product: 1,
 	});
 	return response.data;
 };

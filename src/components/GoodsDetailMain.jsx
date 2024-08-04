@@ -7,37 +7,55 @@ import RentalFeeDisplay from './RentalFeeDisplay'
 import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 import { formatDate } from '../utils/formatDate'
+import { getProductInfo, getRentalHistory } from '../apis/product'
+import { getUserInfo } from '../apis/user'
+import { useNavigate } from 'react-router-dom'
+import { createChatRoom } from '../apis/websocket'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
   const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
+  const [level, setLevel] = useState('');
+  const [username, setName] = useState('');
+  const [mannerScore, setMannerScore] = useState(0);
+  const [sellerEmail, setSellerEmail] = useState('');
+  const [buyerEmail, setBuyerEmail] = useState('');
+
+
+  // 물건 관련 상태(정보)들(화면에서 위에부터)
+  const [firstCategory, setFirstCategory] = useState('');
+  const [secondCategory, setSecondCategory] = useState('');
+  const [productName, setProductName] = useState('');
+  const [ownerName, setOwnerName] = useState('');
+  const [userLocation, setUserLocation] = useState('');
+  const [productState, setProductState] = useState('');
+  const [dayPrice, setDayPrice] = useState('');
+  const [weekPrice, setWeekPrice] = useState('');
+  const [modelName, setModelName] = useState('');
+  const [transaction, setTransaction] = useState('');
+  const [transactionPlace, setTransactionPlace] = useState('');
+
+  const [viewCount, setViewCount] = useState(0);
+  
+  const [description, setDescription] = useState('');
 
   // 현재 페이지의 리뷰 데이터 가져오기
   const indexOfLastReview = currentPage * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
-
-  // 페이지 번호 클릭 핸들러kk
+  // 페이지 번호 클릭 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const productID = 1; // 임시로 1로 설정
+  const productID = 2; // @@@@임시로 상수로 설정@@@@
   const imsiPrice = 1000;
-  const dayPrice = imsiPrice.toLocaleString();
-  const weekPrice = imsiPrice.toLocaleString();
-  const viewCount = 100;
-  const userLocation = "서울시 동작구 상도동";
-  const transactionPlace = "중앙대학교 정문 앞";
-  const modelName = "훼르자 브릴란떼";
-  const transanction = "포함";
-  const goodsName = "배드민턴 세트";
-  const ownerName = "잉잉";
-  const description = "아이 방과후 용으로 샀던 배드민턴 세트입니다. 훼르자 브륄란떼 제품이고, 용용감 무지 적어요. 반납 후에 관리도 꼼꼼히 해주고 있습니다. 새 셔틀콕도 같이 넣어드려요! 채팅으로 연락주세요.";
+  const { setDailyRate, highlightRanges, setHighlightRanges } = useContext(RentalFeeContext); //전역 상태 불러오기(RntalFeeContext)
 
-  const firstCategory = "구기 스포츠";
-  const secondCategory = "테니스 및 라켓";
-
-  const { setDailyRate } = useContext(RentalFeeContext);
+  //navigate 하는 기본 함수
+  const navigate = useNavigate();
+  const handleNavClick = (path) => () => {
+    navigate(path);
+  };
+    
 
   // 리뷰 데이터 가져오기
   const fetchReviews = async (productID) => {
@@ -49,13 +67,71 @@ const GoodsDetailMain = () => {
     }
   };
 
+  // @@@@@@상품 정보 받아온 후 -> 변수들에 세팅하는 함수@@@@@@@
+  const setProductInfo = (productID) => {
+    getProductInfo(productID)
+      .then((productInfo) => {
+        // 상품 정보 세팅
+        
+        setSecondCategory(productInfo.category.sort);
+        setProductName(productInfo.name);
+        setOwnerName(productInfo.owner.username);
+        // setUserLocation(productInfo.owner.location); // 임시로 주석 처리
+        setProductState(productInfo.state);
+        setDayPrice(productInfo.rental_fee_for_a_day);
+        setWeekPrice(productInfo.rental_fee_for_a_week);
+        setModelName(productInfo.model_name);
+        setTransaction(productInfo.direct_dealing_is_allowed ? "가능" : "불가능");
+        setTransactionPlace(productInfo.direct_dealing_place); //@@이거 나중에 시군구로 수정하기@@
+        
+        setViewCount(productInfo.views);
+
+        setDescription(productInfo.description);
+      })
+      .catch((error) => {
+        console.error('상품 정보 가져오기 실패:', error);
+      });
+  }
+
+  //대여 버튼 눌러서, 채팅방 만들면서 & 페이지 여는 함수
+  const handleRentBtnClick = (sellerEmail, buyerEmail) => {
+    createChatRoom(sellerEmail, buyerEmail).then((response) => {
+      console.log('채팅방 생성:', response);
+      //채팅방 생성 후, 채팅방으로 이동
+      navigate(`/chatting?chatRoomID=${response.id}`);
+    }
+    ).catch((error) => {
+      console.error('채팅방 생성 실패:', error);
+    });
+  }
+
+
   useEffect(() => {
+    //사용자 이메일 세팅
+    setBuyerEmail(localStorage.getItem('email'));
+
     // 기준 요금 설정
     setDailyRate(imsiPrice);
 
     // 리뷰 데이터 가져오기
     fetchReviews(productID);
-  }, [setDailyRate, productID]);
+
+    // 상품 정보 불러오고 세팅
+    setProductInfo(productID);
+
+    // 상점 정보 불러오고 세팅
+    getUserInfo().then((userInfo) => {
+      setLevel(userInfo.level);
+      setName(userInfo.username);
+      setMannerScore(userInfo.manner_score);
+      setSellerEmail(userInfo.email);
+    }
+    ).catch((error) => {
+      console.error('사용자 정보 가져오기 실패:', error);
+    });
+
+
+  }, setDailyRate);
 
   return (
     <Wrapper>
@@ -95,18 +171,18 @@ const GoodsDetailMain = () => {
               {secondCategory}
             </GoodsTitleCategory>
             <GoodsTitleName>
-              {goodsName}
+              {productName}
             </GoodsTitleName>
             <GoodsTitleRegistrant>
               <ResistrantName>{ownerName} 님</ResistrantName>
-              <ResistrantLocation>{userLocation}</ResistrantLocation>
+              {/* <ResistrantLocation>{userLocation}</ResistrantLocation> 이거 안할듯!!!*/}
             </GoodsTitleRegistrant>
           </GoodsTitle>
           <GoodsDescription>
             <GoodsDescriptionLeft>
               <GoodsState>
                 <Left>상품 상태</Left>
-                <Right><GoodsStateBtn>거의 새 것</GoodsStateBtn></Right>
+                <Right><GoodsStateBtn>{productState}</GoodsStateBtn></Right>
               </GoodsState>
               <GoodsCost>
                 <Left>대여료</Left>
@@ -125,10 +201,10 @@ const GoodsDetailMain = () => {
               </GoodsModel>
               <GoodsDeliveryFee>
                 <Left>배송비</Left>
-                <Right>{transanction}</Right>
+                <Right>{transaction}</Right>
               </GoodsDeliveryFee>
               <GoodsTransactionPlace>
-                <Left>직거래 장소</Left>
+                <Left>직거래</Left>
                 <Right>{transactionPlace}</Right>
               </GoodsTransactionPlace>
             </GoodsDescriptionRight>
@@ -137,7 +213,7 @@ const GoodsDetailMain = () => {
           <RentalBtnContainer>
             <RantalBtnText>정확한 대여기간과 대여료는 등록자와의 채팅으로 확정해보세요.</RantalBtnText>
             <RentalBtnRow>            
-              <RentalBtn>대여 문의하기</RentalBtn>
+              <RentalBtn onClick={() => handleRentBtnClick(sellerEmail, buyerEmail)}>대여 문의하기</RentalBtn>
               <ViewCount>
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
                 <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#A1A1AA"/>
@@ -209,6 +285,39 @@ const GoodsDetailMain = () => {
                   상품 등록자의 상점을 방문해보세요.
                 </LittleTitle>
                 <LittleContents>
+                <ProfileImg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 140 140" fill="none">
+                        <g filter="url(#filter0_d_1054_8014)">
+                          <circle cx="70.5" cy="70" r="50" fill="#D9D9D9"/>
+                          <circle cx="70.5" cy="57" r="16" fill="#A1A1AA"/>
+                          <path fillRule="evenodd" clipRule="evenodd" d="M32.5005 97.8261C38.3783 86.8096 53.0873 79 70.3027 79C87.9183 79 102.91 87.1768 108.5 98.5994C99.7769 110.402 86.125 118 70.7806 118C55.1036 118 41.1933 110.069 32.5005 97.8261Z" fill="#A1A1AA"/>
+                        </g>
+                        <defs>
+                          <filter id="filter0_d_1054_8014" x="0.5" y="0" width="140" height="140" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                              <feOffset/>
+                              <feGaussianBlur stdDeviation="10"/>
+                              <feComposite in2="hardAlpha" operator="out"/>
+                              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1054_8014"/>
+                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1054_8014" result="shape"/>
+                          </filter>
+                        </defs>
+                    </svg>
+                  </ProfileImg>
+                  <ProfileName>
+                    <Level>{level}</Level>
+                    <Name><span>{username}</span>님</Name>
+                  </ProfileName>
+                  <MannerScore>
+                    <MannerText>
+                        매너 바로미터 <span>{mannerScore}</span>
+                    </MannerText>
+                    <MannerBar>
+                        <RealMannerBar/>
+                    </MannerBar>
+                  </MannerScore>
                 </LittleContents>
               </Contents>
             </OwnerStore>
@@ -524,6 +633,13 @@ const RentalBtn = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #faff70;
+  cursor: pointer;
+  &:hover {
+    background-color: #d7d7d7;
+  }
+  &:active {
+    background-color: #b8b8b8;
+  }
 `; 
 
 const ViewCount = styled.div`
@@ -662,6 +778,12 @@ const LittleTitle = styled.div`
 const LittleContents = styled.div`  
   line-height: 1.5;
   font-size: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 `;
 
 const OneReview = styled.div`
@@ -714,4 +836,73 @@ const Writer = styled.span`
 const Date = styled.span`
   font-size: 12px;
   color: #A1A1AA;
+`;
+
+
+
+// @@@@
+const ProfileImg = styled.div`
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   box-sizing: border-box;
+`;
+
+const ProfileName = styled.div`
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-evenly;
+   width: 60%;
+   height: 20%;
+   box-sizing: border-box;
+`;
+const Level = styled.div`
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: grey;
+    border: 1px solid grey;
+    padding: 2px 5px;
+    font-size: 10px;
+`;
+const Name = styled.div`
+   box-sizing: border-box;
+
+   span {
+      font-weight: bold;
+      font-size: 15px;
+      margin-right: 8px;
+   }
+`;
+
+const MannerScore = styled.div`
+   width: 70%;
+   height: 30%;
+   box-sizing: border-box;
+`; 
+const MannerText = styled.div`
+   width: 100%;
+   height: 50%;
+   box-sizing: border-box;
+   text-align: left;
+   margin-top: 15px;
+
+   span {   
+      font-weight: bold;
+   }
+`;
+const MannerBar = styled.div`
+   width: 100%;
+   height: 15px;
+   box-sizing: border-box;
+   border-radius: 50px;
+   background-color: #D4D4D8;
+`; 
+const RealMannerBar = styled.div`
+   width: 80%; //@@@@이거 나중에 변수로 바꿔주기@@@@@@
+   height: 100%;
+   background-color: #FCFF5D;
+   border-radius: 50px;
 `;

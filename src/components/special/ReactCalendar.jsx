@@ -1,19 +1,17 @@
 import moment from 'moment';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ReactCalendar.css';
 import { RentalFeeContext } from '../../context/RentalFeeContext';
 import { calculateRentalFee } from '../../utils/calculateRentalFee';
+import { getRentalHistory } from '../../apis/product';
+import axios from 'axios';
 
 const ReactCalendar = () => {
   const { setRentalFee, dailyRate, setTotalDays, setSelectedRange } = useContext(RentalFeeContext);
   const [value, setValue] = useState(new Date());
-
-  const highlightRanges = [
-    { start: new Date(2024, 6, 4), end: new Date(2024, 6, 10) },
-    { start: new Date(2024, 6, 15), end: new Date(2024, 6, 20) },
-  ];
+  const [highlightRanges, setHighlightRanges] = useState([]);
 
   const isWithinAnyRange = (date, ranges) => {
     return ranges.some(range => moment(date).isBetween(range.start, range.end, 'day', '[]'));
@@ -68,13 +66,34 @@ const ReactCalendar = () => {
     return null;
   };
 
-  const formatDateRange = (value) => {
-    if (Array.isArray(value)) {
-      const [start, end] = value;
-      return `${moment(start).format('YYYY년 MM월 DD일')} - ${moment(end).format('YYYY년 MM월 DD일')}`;
-    }
-    return moment(value).format('YYYY년 MM월 DD일');
-  };
+  useEffect(() => {
+    // 대여 기록을 불러와서 highlightRanges 상태 업데이트
+    getRentalHistory(2).then((data) => {
+      const newRanges = data.map((history) => {
+        const startYear = history.rental_start_date.substring(0, 4);
+        const startMonth = history.rental_start_date.substring(5, 7);
+        const startDay = history.rental_start_date.substring(8, 10);
+        const endYear = history.rental_end_date.substring(0, 4);
+        const endMonth = history.rental_end_date.substring(5, 7);
+        const endDay = history.rental_end_date.substring(8, 10);
+
+        return {
+          start: new Date(startYear, startMonth - 1, startDay),
+          end: new Date(endYear, endMonth - 1, endDay),
+        };
+      });
+
+      setHighlightRanges(newRanges);
+    }).catch((error) => {
+      console.error('대여 정보 가져오기 실패:', error);
+    });
+  }, []);
+
+  useEffect(() => {
+    // highlightRanges가 업데이트된 후에 로그 출력
+    console.log("<highlightRanges>");
+    console.log(highlightRanges);
+  }, [highlightRanges]);
 
   return (
     <div>
@@ -85,9 +104,6 @@ const ReactCalendar = () => {
         formatDay={(locale, date) => moment(date).format('D')}
         tileClassName={tileClassName}
       />
-      {/* <div className="text-gray-500 mt-4">
-        {/* {formatDateRange(value)} 
-      </div> */}
     </div>
   );
 };

@@ -9,7 +9,9 @@ const RentalFeeProvider = ({ children }) => {
   const [selectedRange, setSelectedRange] = useState(null);
 
   return (
-    <RentalFeeContext.Provider value={{ rentalFee, setRentalFee, dailyRate, setDailyRate , totalDays, setTotalDays, selectedRange, setSelectedRange }}>
+    <RentalFeeContext.Provider value={{ 
+      rentalFee, setRentalFee, dailyRate, setDailyRate , totalDays, setTotalDays, 
+      selectedRange, setSelectedRange}}>
       {children}
     </RentalFeeContext.Provider>
   );

@@ -39,6 +39,7 @@ export async function logout() {
     localStorage.removeItem('access');
     localStorage.removeItem('loginType');
     localStorage.removeItem('first_login');
+    localStorage.removeItem('email');
 
     // 화면을 새로고침
     window.location.reload();
