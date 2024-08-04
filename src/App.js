@@ -11,6 +11,7 @@ import CategoryPage from './pages/CategoryPage';
 import ChatPage from "./pages/ChatPage";
 import RegistrationPage from './pages/RegistrationPage';
 import { RentalFeeProvider } from './context/RentalFeeContext';
+import RegistrationDetailPage from './pages/RegistrationDetailPage'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profileSetting" element={<ProfileSettingPage />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/registrationdetail" element={<RegistrationDetailPage/>} />
           <Route path='/loading' element={<></>} /> 
         </Routes>
       </div>
