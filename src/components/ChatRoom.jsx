@@ -27,7 +27,6 @@ const ChatRoom = ({ roomData, currentUser }) => {
 		const rentalHistoryRes = await axios.get(
 			`https://${SERVER_URL}/rentalhistories/?product=${roomData.product.id}&renter=${roomData.visitor_user.id}`
 		);
-		console.log(rentalHistoryRes);
 		if (rentalHistoryRes.data.length !== 0) {
 			setRentalHistory(rentalHistoryRes.data[0]);
 		} else {
