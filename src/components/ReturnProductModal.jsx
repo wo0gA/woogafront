@@ -3,13 +3,58 @@ import axios from "axios";
 
 const SERVER_URL = "server.templ.es";
 
-const ReturnProductModal = ({ rentalHistory }) => {
+const ReturnProductModal = ({ rentalHistory, onSignal }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [review, setReview] = useState("");
 	const [rating, setRating] = useState(0);
 	const [hoveredStar, setHoveredStar] = useState(0);
 
+	const openModal = () => {
+		if (rentalHistory) {
+			setIsOpen(true);
+		}
+	};
+
 	const handleSubmit = async () => {
+		if (review === "" || rating === 0) {
+			alert("리뷰와 별점을 모두 작성해주세요!");
+			return;
+		}
+
+		const accessToken = localStorage.getItem("access");
+		try {
+			await axios.put(
+				`https://${SERVER_URL}/rentalhistories/${rentalHistory.id}/`,
+				{ state: "RETURNED" },
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+		} catch (err) {
+			alert("에러 발생! 반납을 완료하지 못했습니다.");
+			return;
+		}
+
+		try {
+			await axios.post(
+				`https://${SERVER_URL}/products/${rentalHistory.product.id}/reviews/`,
+				{ star: rating, comment: review },
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+		} catch (err) {
+			alert("에러 발생! 반납 후 리뷰를 작성하지 못했습니다.");
+			setIsOpen(false);
+			return;
+		}
+
+		alert("반납을 완료하였습니다.");
+		onSignal();
 		setIsOpen(false);
 	};
 
@@ -20,7 +65,7 @@ const ReturnProductModal = ({ rentalHistory }) => {
 					(rentalHistory ? "bg-[#FFD56A]" : "bg-gray-300 text-gray-400") +
 					" font-medium p-2 rounded-lg"
 				}
-				onClick={() => setIsOpen(true)}
+				onClick={openModal}
 			>
 				반납 완료
 			</button>
@@ -29,7 +74,7 @@ const ReturnProductModal = ({ rentalHistory }) => {
 					<div class="w-[40rem] rounded-lg bg-white p-6 shadow-lg animate-slideInUp">
 						<div class="space-y-4">
 							<div class="text-center">
-								<h2 class="text-2xl font-bold">반납이 완료되었습니다.</h2>
+								<h2 class="text-2xl font-bold">반납 하시겠습니까?</h2>
 								<p class="text-gray-500">
 									상품에 대한 한 줄 리뷰와 등록자에 대한 별점 리뷰를
 									작성해주세요!
@@ -73,7 +118,7 @@ const ReturnProductModal = ({ rentalHistory }) => {
 								type="submit"
 								onClick={handleSubmit}
 							>
-								{rentalHistory ? "변경" : "설정"}
+								반납하기
 							</button>
 							<button
 								class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
