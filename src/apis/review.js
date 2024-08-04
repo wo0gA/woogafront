@@ -10,7 +10,7 @@ export const getReviewsOfProduct = async (productID) => {
                 Authorization: `Bearer ${localStorage.getItem('access')}`
             }
         });
-        console.log(response.data);
+        // console.log(response.data);
         return response.data; // 리뷰 목록 반환
     } catch (error) {
         console.error(error);

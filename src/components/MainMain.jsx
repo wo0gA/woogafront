@@ -15,6 +15,7 @@ import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
 
 import { useNavigate } from 'react-router-dom';
+import { getPopularProducts, getRentalHistory } from '../apis/product'
 
 const Main = () => {
     const navigate = useNavigate();
@@ -41,6 +42,11 @@ const Main = () => {
     const handleNavClick = (path) => () => {
         navigate(path);
     };
+
+    useEffect(() => {
+        // getPopularProducts(); -> 500 오류나서 일단 보류
+    }
+    , [])
 
 
     return (

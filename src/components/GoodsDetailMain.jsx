@@ -7,12 +7,17 @@ import RentalFeeDisplay from './RentalFeeDisplay'
 import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 import { formatDate } from '../utils/formatDate'
-import { getProductInfo } from '../apis/product'
+import { getProductInfo, getRentalHistory } from '../apis/product'
+import { getUserInfo } from '../apis/user'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
   const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
+  const [level, setLevel] = useState('');
+  const [username, setName] = useState('');
+  const [mannerScore, setMannerScore] = useState(0);
+
 
   // 물건 관련 상태(정보)들(화면에서 위에부터)
   const [firstCategory, setFirstCategory] = useState('');
@@ -36,24 +41,11 @@ const GoodsDetailMain = () => {
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 
-  // 페이지 번호 클릭 핸들러kk
+  // 페이지 번호 클릭 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const productID = 1; // 임시로 1로 설정
+  const productID = 2; // @@@@임시로 상수로 설정@@@@
   const imsiPrice = 1000;
-  // const dayPrice = imsiPrice.toLocaleString();
-  // const weekPrice = imsiPrice.toLocaleString();
-  // const viewCount = 100;
-  // const userLocation = "서울시 동작구 상도동";
-  // const transactionPlace = "중앙대학교 정문 앞";
-  // const modelName = "훼르자 브릴란떼";
-  // const transanction = "포함";
-  // const productName = "배드민턴 세트";
-  // const ownerName = "잉잉";
-  // const description = "아이 방과후 용으로 샀던 배드민턴 세트입니다. 훼르자 브륄란떼 제품이고, 용용감 무지 적어요. 반납 후에 관리도 꼼꼼히 해주고 있습니다. 새 셔틀콕도 같이 넣어드려요! 채팅으로 연락주세요.";
-
-  // const firstCategory = "구기 스포츠";
-  // const secondCategory = "테니스 및 라켓";
 
   const { setDailyRate } = useContext(RentalFeeContext);
 
@@ -71,7 +63,6 @@ const GoodsDetailMain = () => {
   const setProductInfo = (productID) => {
     getProductInfo(productID)
       .then((productInfo) => {
-        console.log('<<<상품 정보>>>:', productInfo);
         // 상품 정보 세팅
         
         setSecondCategory(productInfo.category.sort);
@@ -103,6 +94,23 @@ const GoodsDetailMain = () => {
 
     // 상품 정보 불러오고 세팅
     setProductInfo(productID);
+
+    // 상점 정보 불러오고 세팅
+    getUserInfo().then((userInfo) => {
+      setLevel(userInfo.level);
+      setName(userInfo.username);
+      setMannerScore(userInfo.manner_score);
+    }
+    ).catch((error) => {
+      console.error('사용자 정보 가져오기 실패:', error);
+    });
+
+    // 대여 정보 불러오고 세팅
+    getRentalHistory(productID).then((rentalHistory) => {
+    }).catch((error) => {
+      console.error('대여 정보 가져오기 실패:',
+      error);
+    });
   }, [setDailyRate, productID]);
 
   return (
@@ -257,6 +265,39 @@ const GoodsDetailMain = () => {
                   상품 등록자의 상점을 방문해보세요.
                 </LittleTitle>
                 <LittleContents>
+                <ProfileImg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 140 140" fill="none">
+                        <g filter="url(#filter0_d_1054_8014)">
+                          <circle cx="70.5" cy="70" r="50" fill="#D9D9D9"/>
+                          <circle cx="70.5" cy="57" r="16" fill="#A1A1AA"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32.5005 97.8261C38.3783 86.8096 53.0873 79 70.3027 79C87.9183 79 102.91 87.1768 108.5 98.5994C99.7769 110.402 86.125 118 70.7806 118C55.1036 118 41.1933 110.069 32.5005 97.8261Z" fill="#A1A1AA"/>
+                        </g>
+                        <defs>
+                          <filter id="filter0_d_1054_8014" x="0.5" y="0" width="140" height="140" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                              <feOffset/>
+                              <feGaussianBlur stdDeviation="10"/>
+                              <feComposite in2="hardAlpha" operator="out"/>
+                              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1054_8014"/>
+                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1054_8014" result="shape"/>
+                          </filter>
+                        </defs>
+                    </svg>
+                  </ProfileImg>
+                  <ProfileName>
+                    <Level>{level}</Level>
+                    <Name><span>{username}</span>님</Name>
+                  </ProfileName>
+                  <MannerScore>
+                    <MannerText>
+                        매너 바로미터 <span>{mannerScore}</span>
+                    </MannerText>
+                    <MannerBar>
+                        <RealMannerBar/>
+                    </MannerBar>
+                  </MannerScore>
                 </LittleContents>
               </Contents>
             </OwnerStore>
@@ -710,6 +751,12 @@ const LittleTitle = styled.div`
 const LittleContents = styled.div`  
   line-height: 1.5;
   font-size: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 `;
 
 const OneReview = styled.div`
@@ -762,4 +809,73 @@ const Writer = styled.span`
 const Date = styled.span`
   font-size: 12px;
   color: #A1A1AA;
+`;
+
+
+
+// @@@@
+const ProfileImg = styled.div`
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   box-sizing: border-box;
+`;
+
+const ProfileName = styled.div`
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-evenly;
+   width: 60%;
+   height: 20%;
+   box-sizing: border-box;
+`;
+const Level = styled.div`
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: grey;
+    border: 1px solid grey;
+    padding: 2px 5px;
+    font-size: 10px;
+`;
+const Name = styled.div`
+   box-sizing: border-box;
+
+   span {
+      font-weight: bold;
+      font-size: 15px;
+      margin-right: 8px;
+   }
+`;
+
+const MannerScore = styled.div`
+   width: 70%;
+   height: 30%;
+   box-sizing: border-box;
+`; 
+const MannerText = styled.div`
+   width: 100%;
+   height: 50%;
+   box-sizing: border-box;
+   text-align: left;
+   margin-top: 15px;
+
+   span {   
+      font-weight: bold;
+   }
+`;
+const MannerBar = styled.div`
+   width: 100%;
+   height: 15px;
+   box-sizing: border-box;
+   border-radius: 50px;
+   background-color: #D4D4D8;
+`; 
+const RealMannerBar = styled.div`
+   width: 80%; //@@@@이거 나중에 변수로 바꿔주기@@@@@@
+   height: 100%;
+   background-color: #FCFF5D;
+   border-radius: 50px;
 `;
