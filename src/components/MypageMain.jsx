@@ -91,8 +91,8 @@ const MypageMain = () => {
           <RecordText>대여 기록</RecordText>
           <GoodsItems>
             <GoodsCard>
-              <GoodsPic><img src={historyData.thumbnail}/>
-                <GoodsDday>{historyData.remaining_days}</GoodsDday>
+              <GoodsPic>{/*<img src={historyData.thumbnails} /> */}
+               <GoodsDday>{historyData.remaining_days}</GoodsDday>
               </GoodsPic>
               <GoodsDescription>
                 <GoodsName>{historyData.name}</GoodsName>
@@ -248,32 +248,6 @@ const RecordText = styled.div`
   font-weight: 500;
 `;
 
-const Process = styled.div`
-    background-color: #e4e3e3;
-    display: flex;
-    height: 8rem;
-    width: 75%;
-    align-items: center;
-    border-radius: 15px;
-    justify-content: space-evenly;
-    margin-bottom: 0.5rem;
-`;
-
-const OnProcess = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-`;
-
-const ProcessCard = styled.div`
-
-`;
-
-const ProcessGoods = styled.div`
-      font-size: 30px;
-      font-weight: 450;
-      margin-bottom: 1rem;
-`;
-
 const GoodsItems = styled.div`
   margin-bottom: 5rem;
   display: flex;
@@ -330,16 +304,6 @@ const GoodsDate = styled.div`
   text-align: left;
 `;
 
-const ProfileIcon = styled.div`
-  
-`;
-
-const UnderBar = styled.div`
-  width: 85%;
-  background-color: #e4e4e4;
-  height: 0.7rem;
-  margin-bottom: 2.5rem;
-`;
 const Buttons = styled.div`
 display: flex;
 flex-direction: row;

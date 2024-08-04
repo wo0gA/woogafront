@@ -12,11 +12,7 @@ const RegistrationMain = () => {
 
     const navigate = useNavigate();
     const handleSubmit = (event) => {
-        if (selectedCategory) {
-            navigate(`/registrationdetail?category=${selectedCategory}`);
-        } else {
-            alert('카테고리를 선택해주세요.');
-        }
+        if (selectedCategory) navigate(`/registrationdetail`);
      }
 
      const handleCategoryClick = (event, category) => {
