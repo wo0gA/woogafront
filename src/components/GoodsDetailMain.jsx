@@ -10,6 +10,7 @@ import { formatDate } from '../utils/formatDate'
 import { getProductInfo, getRentalHistory } from '../apis/product'
 import { getUserInfo } from '../apis/user'
 import { useNavigate } from 'react-router-dom'
+import { createChatRoom } from '../apis/websocket'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +50,7 @@ const GoodsDetailMain = () => {
   const imsiPrice = 1000;
   const { setDailyRate, highlightRanges, setHighlightRanges } = useContext(RentalFeeContext); //전역 상태 불러오기(RntalFeeContext)
 
-  //navigate 하는 함수
+  //navigate 하는 기본 함수
   const navigate = useNavigate();
   const handleNavClick = (path) => () => {
     navigate(path);
@@ -92,8 +93,23 @@ const GoodsDetailMain = () => {
       });
   }
 
+  //대여 버튼 눌러서, 채팅방 만들면서 & 페이지 여는 함수
+  const handleRentBtnClick = (sellerEmail, buyerEmail) => {
+    createChatRoom(sellerEmail, buyerEmail).then((response) => {
+      console.log('채팅방 생성:', response);
+      //채팅방 생성 후, 채팅방으로 이동
+      navigate(`/chatting?chatRoomID=${response.id}`);
+    }
+    ).catch((error) => {
+      console.error('채팅방 생성 실패:', error);
+    });
+  }
+
 
   useEffect(() => {
+    //사용자 이메일 세팅
+    setBuyerEmail(localStorage.getItem('email'));
+
     // 기준 요금 설정
     setDailyRate(imsiPrice);
 
@@ -113,35 +129,6 @@ const GoodsDetailMain = () => {
     ).catch((error) => {
       console.error('사용자 정보 가져오기 실패:', error);
     });
-
-// 대여 정보 불러오기
-// getRentalHistory(productID).then((rentalHistory) => {
-//   let ranges = [];
-//   console.log("<<<대여 기록>>>");
-//   rentalHistory.forEach((history, index) => {
-//     // 인덱스부터 출력
-//     console.log(`<< ${index + 1}번째 대여 기록 >>`);
-//     console.log(history.rental_start_date);
-//     console.log(history.rental_end_date);
-
-//     const startYear = parseInt(history.rental_start_date.substring(0, 4), 10);
-//     const startMonth = parseInt(history.rental_start_date.substring(5, 7), 10) - 1; // 월 값을 0부터 시작하도록 조정
-//     const startDay = parseInt(history.rental_start_date.substring(8, 10), 10);
-//     const endYear = parseInt(history.rental_end_date.substring(0, 4), 10);
-//     const endMonth = parseInt(history.rental_end_date.substring(5, 7), 10) - 1; // 월 값을 0부터 시작하도록 조정
-//     const endDay = parseInt(history.rental_end_date.substring(8, 10), 10);
-
-//      // Date 생성자 사용 확인
-//      console.log('Start Date:', new Date(startYear, startMonth, startDay));
-//      console.log('End Date:', new Date(endYear, endMonth, endDay));
-
-//     ranges.push({ start: new Date(2021, 2, 3), end: new Date(2021, 12, 12) });
-//   });
-//   setHighlightRanges(ranges);
-// }).catch((error) => {
-//   console.error('대여 정보 가져오기 실패:', error);
-// });
-
 
 
   }, setDailyRate);
@@ -226,7 +213,7 @@ const GoodsDetailMain = () => {
           <RentalBtnContainer>
             <RantalBtnText>정확한 대여기간과 대여료는 등록자와의 채팅으로 확정해보세요.</RantalBtnText>
             <RentalBtnRow>            
-              <RentalBtn onClick={handleNavClick('/chat')}>대여 문의하기</RentalBtn>
+              <RentalBtn onClick={() => handleRentBtnClick(sellerEmail, buyerEmail)}>대여 문의하기</RentalBtn>
               <ViewCount>
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
                 <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#A1A1AA"/>

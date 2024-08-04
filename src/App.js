@@ -28,7 +28,7 @@ function App() {
           <Route path="/rentalSearch" element={<SearchPage />} />
           <Route path="/rentalCategory" element={<CategoryPage />} />
           <Route path="/test" element={<TestPage />} />
-          {/* <Route path="/chatting" element={<ChatPage />} /> */}
+          <Route path="/chatting" element={<ChatPage />} />
           <Route path="/nearby" element={<NearbyPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profileSetting" element={<ProfileSettingPage />} />
