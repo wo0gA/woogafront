@@ -4,6 +4,7 @@ const SERVER_URL = 'server.templ.es';
 
 // 단일 상품 정보 가져오는 함수
 export const getProductInfo = async (productID) => {
+   console.log('productID:', productID);
    const API_URL = `https://${SERVER_URL}/products/${productID}/`;
    try {
       const response = await axios.get(API_URL, {

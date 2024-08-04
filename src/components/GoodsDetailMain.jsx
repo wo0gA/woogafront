@@ -9,7 +9,7 @@ import { getReviewsOfProduct } from '../apis/review'
 import { formatDate } from '../utils/formatDate'
 import { getProductInfo, getRentalHistory } from '../apis/product'
 import { getUserInfo } from '../apis/user'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { createChatRoom } from '../apis/websocket'
 
 const GoodsDetailMain = () => {
@@ -21,6 +21,7 @@ const GoodsDetailMain = () => {
   const [mannerScore, setMannerScore] = useState(0);
   const [sellerEmail, setSellerEmail] = useState('');
   const [buyerEmail, setBuyerEmail] = useState('');
+  const {productID} = useParams();
 
 
   // 물건 관련 상태(정보)들(화면에서 위에부터)
@@ -46,7 +47,7 @@ const GoodsDetailMain = () => {
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
   // 페이지 번호 클릭 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const productID = 2; // @@@@임시로 상수로 설정@@@@
+  // const productID = 2; // @@@@임시로 상수로 설정@@@@
   const imsiPrice = 1000;
   const { setDailyRate, highlightRanges, setHighlightRanges } = useContext(RentalFeeContext); //전역 상태 불러오기(RntalFeeContext)
 

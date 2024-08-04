@@ -64,8 +64,8 @@ const Main = () => {
         console.log("popular", popularCategories);
     }, []);
 
-    const handleItemClick = (itemId) => {
-        navigate(`/goodsDetail/${itemId}`);
+    const handleItemClick = (productID) => {
+        navigate(`/goodsDetail/${productID}`);
     };
 
     return (

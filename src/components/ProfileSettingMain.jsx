@@ -30,10 +30,11 @@ const ProfileSettingMain = () => {
     console.log(nickname);//잘 입력되는지 확인용
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const formData = new FormData();
     formData.append('username', nickname);
-    formData.append('profile', profileImg);
+    formData.append('profile', new Blob([profileImg], { type: "multipart/form-data" }));
 
     try {
       const response = await axios.put('https://server.templ.es/accounts/', formData, {
