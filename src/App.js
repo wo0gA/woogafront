@@ -13,11 +13,13 @@ import RegistrationPage from './pages/RegistrationPage';
 import { RentalFeeProvider } from './context/RentalFeeContext';
 import MagazinePage from './pages/MagazinePage';
 import StorePage from './pages/StorePage';
+import { NavProvider } from './context/NavContext';
 
 function App() {
 
   return (
     <RentalFeeProvider>
+      <NavProvider>
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />} /> 
@@ -26,8 +28,7 @@ function App() {
           <Route path="/goodsDetail" element={<GoodsDetailPage />} />
           <Route path="/rentalCategory" element={<CategoryPage />} />
           <Route path="/test" element={<TestPage />} />
-{/*          <Route path="/chatting" element={<ChatPage />} />
-*/}          <Route path="/nearby" element={<NearbyPage />} />
+          <Route path="/chatting" element={<ChatPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profileSetting" element={<ProfileSettingPage />} />
           <Route path="/register" element={<RegistrationPage />} />
@@ -36,6 +37,7 @@ function App() {
           <Route path='/store' element={<StorePage/>} />
         </Routes>
       </div>
+      </NavProvider>
     </RentalFeeProvider>
 
   );

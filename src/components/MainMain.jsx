@@ -46,8 +46,7 @@ const Main = () => {
     };
 
     useEffect(() => {
-        // getPopularProducts(); -> 500 오류나서 일단 보류
-
+        getPopularProducts(); 
         getPopularFiveCategories().then((data) => {
             let popularCategories = [];
             //응답을 순회하면서 인기 순위 카테고리 이름 세팅
