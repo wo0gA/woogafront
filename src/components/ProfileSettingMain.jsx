@@ -1,40 +1,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileSettingMain = () => {
   const [profileImg, setProfileImg] = useState(null);
+  const [profileImgUrl, setProfileImgUrl] = useState('');
   const [nickname, setNickname] = useState('');
   const [message, setMessage] = useState('');
   const token = localStorage.getItem('access');
 
-  let reader = new FileReader();
+  const navigate = useNavigate();
 
   const handleProfileImgChange = (e) => {
     const file = e.target.files[0];
     console.log(file); //잘 첨부됐는지 확인용
-    if (file) {
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setProfileImg(reader.result);
-        const previewImgUrl = reader.result;
-        console.log(previewImgUrl); //잘 첨부됐는지 확인용
-      };
-    };
+    setProfileImg(file);
+    setProfileImgUrl(URL.createObjectURL(file));
   };
 
 
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
-    console.log(nickname);//잘 입력되는지 확인용
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('username', nickname);
-    formData.append('profile', new Blob([profileImg], { type: "multipart/form-data" }));
+    formData.append('profile', profileImg);
 
     try {
       const response = await axios.put('https://server.templ.es/accounts/', formData, {
@@ -45,6 +40,8 @@ const ProfileSettingMain = () => {
       });
 
       console.log('Success:', response.data);
+      localStorage.setItem('username', nickname); //이름 업데이트
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
     }
@@ -78,8 +75,8 @@ const ProfileSettingMain = () => {
                 <FileInputWrapper>
                   <FileInput type="file" id="file-input" accept="image/*" onChange={(e) => handleProfileImgChange(e)} />
                   <FileInputLabel onClick={triggerFileInput}>
-                    {profileImg ? (
-                      <ProfileImage src={profileImg} alt="Profile Preview" />
+                    {profileImgUrl ? (
+                      <ProfileImage src={profileImgUrl} alt="Profile Preview" />
                     ) : (
                       <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 112 112" fill="none">
                         <g filter="url(#filter0_d_574_5895)">

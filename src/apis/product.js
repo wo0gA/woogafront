@@ -74,3 +74,21 @@ export const getPopularFiveCategories = async () => {
       return []; // 에러 발생 시 빈 배열 반환       
    }
 }
+
+// 전체에서 랜덤 4개 추천하는 함수
+export const getFourRecommendProducts = async () => {
+   const API_URL = `https://${SERVER_URL}/products/recommendation/`;
+   try {
+      const response = await axios.get(API_URL, {
+         headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`
+         }
+      });
+      console.log('추천 상품 목록:', response.data);
+      return response.data; // 추천 상품 목록 반환
+   }
+   catch (error) {
+      console.error('추천 상품 목록을 가져오는 중 오류 발생:', error); // 콘솔에 에러 출력
+      return []; // 에러 발생 시 빈 배열 반환
+   }
+}

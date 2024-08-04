@@ -7,11 +7,13 @@ import { RentalFeeContext } from '../../context/RentalFeeContext';
 import { calculateRentalFee } from '../../utils/calculateRentalFee';
 import { getRentalHistory } from '../../apis/product';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const ReactCalendar = () => {
   const { setRentalFee, dailyRate, setTotalDays, setSelectedRange } = useContext(RentalFeeContext);
   const [value, setValue] = useState(new Date());
   const [highlightRanges, setHighlightRanges] = useState([]);
+  const {productID} = useParams();
 
   const isWithinAnyRange = (date, ranges) => {
     return ranges.some(range => moment(date).isBetween(range.start, range.end, 'day', '[]'));
@@ -68,7 +70,7 @@ const ReactCalendar = () => {
 
   useEffect(() => {
     // 대여 기록을 불러와서 highlightRanges 상태 업데이트
-    getRentalHistory(2).then((data) => {
+    getRentalHistory(productID).then((data) => {
       const newRanges = data.map((history) => {
         const startYear = history.rental_start_date.substring(0, 4);
         const startMonth = history.rental_start_date.substring(5, 7);
