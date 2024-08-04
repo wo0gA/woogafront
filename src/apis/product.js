@@ -46,6 +46,10 @@ export const getRentalHistory = async (productID) => {
          }
       });
       console.log('대여 기록:', response.data);
+      //순회하면서 대여 기록 출력
+      response.data.forEach((history, index) => {
+         console.log(`${index + 1}: ${history.rental_start_date} ~ ${history.rental_end_date}`);
+      });
       return response.data; // 대여 기록 반환
    } catch (error) {
       // console.error(error);

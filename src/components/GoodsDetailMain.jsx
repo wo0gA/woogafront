@@ -47,7 +47,7 @@ const GoodsDetailMain = () => {
   const productID = 2; // @@@@임시로 상수로 설정@@@@
   const imsiPrice = 1000;
 
-  const { setDailyRate } = useContext(RentalFeeContext);
+  const { setDailyRate, highlightRanges, setHighlightRanges } = useContext(RentalFeeContext); //전역 상태 불러오기(RntalFeeContext)
 
   // 리뷰 데이터 가져오기
   const fetchReviews = async (productID) => {
@@ -105,13 +105,37 @@ const GoodsDetailMain = () => {
       console.error('사용자 정보 가져오기 실패:', error);
     });
 
-    // 대여 정보 불러오고 세팅
-    getRentalHistory(productID).then((rentalHistory) => {
-    }).catch((error) => {
-      console.error('대여 정보 가져오기 실패:',
-      error);
-    });
-  }, [setDailyRate, productID]);
+// 대여 정보 불러오기
+// getRentalHistory(productID).then((rentalHistory) => {
+//   let ranges = [];
+//   console.log("<<<대여 기록>>>");
+//   rentalHistory.forEach((history, index) => {
+//     // 인덱스부터 출력
+//     console.log(`<< ${index + 1}번째 대여 기록 >>`);
+//     console.log(history.rental_start_date);
+//     console.log(history.rental_end_date);
+
+//     const startYear = parseInt(history.rental_start_date.substring(0, 4), 10);
+//     const startMonth = parseInt(history.rental_start_date.substring(5, 7), 10) - 1; // 월 값을 0부터 시작하도록 조정
+//     const startDay = parseInt(history.rental_start_date.substring(8, 10), 10);
+//     const endYear = parseInt(history.rental_end_date.substring(0, 4), 10);
+//     const endMonth = parseInt(history.rental_end_date.substring(5, 7), 10) - 1; // 월 값을 0부터 시작하도록 조정
+//     const endDay = parseInt(history.rental_end_date.substring(8, 10), 10);
+
+//      // Date 생성자 사용 확인
+//      console.log('Start Date:', new Date(startYear, startMonth, startDay));
+//      console.log('End Date:', new Date(endYear, endMonth, endDay));
+
+//     ranges.push({ start: new Date(2021, 2, 3), end: new Date(2021, 12, 12) });
+//   });
+//   setHighlightRanges(ranges);
+// }).catch((error) => {
+//   console.error('대여 정보 가져오기 실패:', error);
+// });
+
+
+
+  }, setDailyRate);
 
   return (
     <Wrapper>
@@ -270,11 +294,11 @@ const GoodsDetailMain = () => {
                         <g filter="url(#filter0_d_1054_8014)">
                           <circle cx="70.5" cy="70" r="50" fill="#D9D9D9"/>
                           <circle cx="70.5" cy="57" r="16" fill="#A1A1AA"/>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32.5005 97.8261C38.3783 86.8096 53.0873 79 70.3027 79C87.9183 79 102.91 87.1768 108.5 98.5994C99.7769 110.402 86.125 118 70.7806 118C55.1036 118 41.1933 110.069 32.5005 97.8261Z" fill="#A1A1AA"/>
+                          <path fillRule="evenodd" clipRule="evenodd" d="M32.5005 97.8261C38.3783 86.8096 53.0873 79 70.3027 79C87.9183 79 102.91 87.1768 108.5 98.5994C99.7769 110.402 86.125 118 70.7806 118C55.1036 118 41.1933 110.069 32.5005 97.8261Z" fill="#A1A1AA"/>
                         </g>
                         <defs>
-                          <filter id="filter0_d_1054_8014" x="0.5" y="0" width="140" height="140" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                          <filter id="filter0_d_1054_8014" x="0.5" y="0" width="140" height="140" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
                               <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
                               <feOffset/>
                               <feGaussianBlur stdDeviation="10"/>
