@@ -15,7 +15,8 @@ export const sendGoogleCode = async (code) => {
         localStorage.setItem('first_login', response.data.first_login);
         //이메일도 저장
         localStorage.setItem('email', response.data.user.email);
-
+        //userID 저장
+        localStorage.setItem('userID', response.data.user.id);
 
     } catch (error) {
         console.error("구글 인증 처리 중 오류 발생:", error);

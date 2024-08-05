@@ -11,6 +11,7 @@ import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
 import { getOwnerProducts, getOwnerReviews, getUserInfo } from '../apis/user'
 import { useParams } from 'react-router-dom'
+import { getStoreInfo } from '../apis/store'
 
 const StoreMain = () => {
    const [level, setLevel] = useState('');
@@ -23,7 +24,7 @@ const StoreMain = () => {
    const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
 
    useEffect(() => {
-      getUserInfo().then((data) => {
+      getUserInfo().then((data) => { //@@이게 아니라 상점 기능 api로 바꿔야함무!!! (이걸로하면 어떤 상점을 들어가든 본인 상점이 뜸;;)
          setLevel(data.level);
          setName(data.username);
          setMannerScore(data.manner_score);
@@ -38,6 +39,8 @@ const StoreMain = () => {
          setReviews(data); // 리뷰 데이터 설정
          setDealCount(data.length); // 리뷰 수 설정
       });
+
+      getStoreInfo(userID);
 
    }, [userID]);
 
