@@ -1,31 +1,64 @@
 import styled from "styled-components";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import RentalCategoryPage from "../components/RentalCategoryPage";
-import CategoryComponent from "../components/CategoryComponent";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const SERVER_URL = "server.templ.es";
 
 const CategoryPage = () => {
+  const navigate = useNavigate;
+	const location = useLocation();
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedItem, setselectedItem] = useState('');
+  const [selectedItem, setSelectedItem] = useState('');
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-  };
+	const updateCategoryParam = (categoryName) => {
+		const searchParams = new URLSearchParams(location.search);
+		searchParams.set("category", categoryName);
+		navigate(`?${searchParams.toString()}`);
+	};
 
-  const handleClearSearch = () => {
-    setSearchTerm(null);
-  }    
+	useEffect(() => {
+		const searchParams = new URLSearchParams(location.search);
+		const categoryParam = searchParams.get("category");
+		const keywordParam = searchParams.get("keyword");
+		if (categoryParam) {
+			fetchProducts("category", categoryParam);
+			setSelectedItem(categoryParam);
+      setSearchTerm('')
+		} else if (keywordParam) {
+			fetchProducts("keyword", keywordParam);
+			setSearchTerm(keywordParam);
+      setSelectedItem('')
+		}
+	}, [location.search]);
+
+	const fetchProducts = async (param, categoryName) => {
+		const trimmedName = categoryName.replaceAll(" ", "");
+		try {
+			const response = await axios.get(
+				`https://${SERVER_URL}/products/?${param}=${trimmedName}`
+			);
+			setSelectedProducts(response.data);
+		} catch (err) {
+			setSelectedProducts([]);
+		}
+	};
+
   return (
     <Wrapper>
-      <Header onSearch={handleSearch}>
+      <Header>
         
       </Header> 
 
       <RentalCategoryPage
+      searchTerm={searchTerm}
       selectedItem={selectedItem}
-      searchTerm= {searchTerm}
-      onClearSearch={handleClearSearch} />
+      onItemSelect={updateCategoryParam} />
       <Footer>
        
       </Footer>

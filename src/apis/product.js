@@ -37,7 +37,7 @@ export const getPopularProducts = async () => {
    }
 }
 
-// 단일 물품에 대한 대여 기록 가져오는 함수(달력에 표시하려고)
+// 단일 물품에 대한 '대여 기록' 가져오는 함수(달력에 표시하려고)
 export const getRentalHistory = async (productID) => {
    const API_URL = `https://${SERVER_URL}/products/${productID}/rentalhistories/`;
    try {

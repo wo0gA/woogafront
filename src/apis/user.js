@@ -19,6 +19,8 @@ export const getUserInfo = async () => {
       }
 };
 
+//
+
 //주인의 상점 '물품들' 조회하는 함수
 export const getOwnerProducts = async (userID) => {
    const API_URL = `https://${SERVER_URL}/accounts/${userID}/store/products/`;

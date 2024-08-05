@@ -7,23 +7,17 @@ import mag1 from '../images/Mask group1.png'
 import mag2 from '../images/Mask group2.png'
 import mag3 from '../images/Mask group3.png'
 
-const RentalCategoryPage = ( { searchTerm, onClearSearch } ) => {
+const RentalCategoryPage = ( { searchTerm, selectedItem, onItemSelect } ) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState();
     const [resultCard, setResultCard] = useState();
-    const [selectedItem, setSelectedItem] = useState();
 
     const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
   };
 
-  const handleItemSelect = (item) => {
-    setSelectedItem(item);
-    onClearSearch();
-  };
-
     return (
     <Wrapper>
-           <CategoryComponent onItemSearch = {handleMainCategoryClick} onItemSelect={handleItemSelect} />
+           <CategoryComponent onItemSearch = {handleMainCategoryClick} onItemSelect={onItemSelect} />
         <Contents>
             <Category>
             <CatTitle>카테고리</CatTitle>
