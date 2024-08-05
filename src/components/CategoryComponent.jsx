@@ -78,27 +78,28 @@ const CategoryContainer = styled.div`
   flex-direction: row;
   font-size: 12px;
     width: 80%;
-    background-color: #f0f0f0;
+    background-color: rgb(244,244,245);
+    border: 1px solid var(--zinc-300, #D4D4D8);
 `;
 
 const MainCategories = styled.div`
   width: 20%;
-  margin-right: 20px;
+  margin-right: 1rem;
   text-align: left;
-  border: 1px solid var(--zinc-300, #D4D4D8);
+  border-right: 1px solid var(--zinc-300, #D4D4D8);
 `;
 
 const SubCategories = styled.div`
-  width: 35%;
-  margin-right: 20px;
+  width: 40%;
+  margin-right: 1rem;
   text-align: left;
-  border: 1px solid var(--zinc-300, #D4D4D8);
+  border-right: 1px solid var(--zinc-300, #D4D4D8);
 `;
 
 const CategoryItem = styled.div`
   padding: 0.5rem;
   cursor: pointer;
-  background-color: ${(props) => (props.selected ? 'white' : '#f0f0f0')};
+  background-color: ${(props) => (props.selected ? '#F5FA25' : 'transparent')};
   font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
 `;
 
@@ -106,12 +107,18 @@ const SubCategoryItem = styled.div`
   padding: 10px;
   cursor: pointer;
   font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+  text-decoration: ${(props) => (props.selected ? 'underline' : 'normal')};
+  color: ${(props) => (props.selected ? '#FFD56A' : 'black')};
   width: 45%;
 `;
 
 const Items = styled.div`
   text-align: left;
-  border: 1px solid var(--zinc-300, #D4D4D8);
+  cursor: pointer;
+  font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+  text-decoration: ${(props) => (props.selected ? 'underline' : 'normal')};
+  color: ${(props) => (props.selected ? '#FFD56A' : 'black')};
+//  border: 1px solid var(--zinc-300, #D4D4D8);
   flex-grow: 1;
 `;
 
@@ -127,5 +134,4 @@ const CatTitle = styled.div`
     font-weight: 550;
     margin: 10px 10px 10px 10px;
     color: #000;
-    //border-bottom: 1px solid var(--zinc-300, #D4D4D8);
 `;

@@ -25,10 +25,10 @@ const SearchResultCard = ({selectedProducts}) => {
                             <ResultImage src={selectedProducts.photos} alt={selectedProducts.name} />
                             <ResultDescription>
                                 <ResultName>{selectedProducts.name}</ResultName>
-                                <ResultPrice>
-                                    일: {selectedProducts.rental_fee_for_a_day}원 <br />
-                                    주: {selectedProducts.rental_fee_for_a_week}원
-                                </ResultPrice>
+                                <PriceWrapper>
+                                <ResultPrice>일: {selectedProducts.rental_fee_for_a_day}원</ResultPrice>
+                                <ResultPrice>주: {selectedProducts.rental_fee_for_a_week}원</ResultPrice>
+                                </PriceWrapper>
                             </ResultDescription>
                         </SearchResultCards>
                     ))}
@@ -40,10 +40,10 @@ const SearchResultCard = ({selectedProducts}) => {
                             <ResultImage src={item.photos} alt={item.name} />
                             <ResultDescription>
                                 <ResultName>{item.name}</ResultName>
-                                <ResultPrice>
-                                    일: {item.rental_fee_for_a_day}원 <br />
-                                    주: {item.rental_fee_for_a_week}원
-                                </ResultPrice>
+                                <PriceWrapper>
+                                <ResultPrice>일: {item.rental_fee_for_a_day}원</ResultPrice>
+                                <ResultPrice>주: {item.rental_fee_for_a_week}원</ResultPrice>
+                                </PriceWrapper>
                             </ResultDescription>
                         </SearchResultCards>
                     ))}
@@ -69,9 +69,9 @@ const SearchResultCards = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: auto;
-    width: 13rem;
-    background-color: #bfbfbf;
+    height: 15rem;
+    width: 12rem;
+//    background-color: #bfbfbf;
     margin-inline: 5px;
     margin-right: 1rem;
 `;
@@ -85,7 +85,7 @@ const ResultDescription = styled.div`
     padding: 10px;
     box-sizing: border-box;
     width: 100%;
-    background-color: beige;
+//    background-color: beige;
 `;
 
 const ResultName = styled.div`
@@ -93,7 +93,12 @@ const ResultName = styled.div`
 `;
 
 const ResultPrice = styled.div`
-    font-size: 12px;
+    font-size: 10px;
     text-align: left;
     margin-top: 5px;
+`;
+const PriceWrapper = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
 `;
