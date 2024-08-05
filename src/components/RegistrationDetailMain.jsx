@@ -115,18 +115,17 @@ const RegistrationDetailMain = ({ item }) => {
 
   return (
     <Wrapper>
-      <Banner>상품 정보<br />입력</Banner>
+      <Banner>물품 등록<ExplainationText2>상품 정보와<br/>대여 정보를<br/>입력해주세요</ExplainationText2></Banner>
       <Contents>
-        <ProcessBar><img src={bar1} alt="Process Bar" /></ProcessBar>
         <form onSubmit={handleSubmit}>
           <Detail>
             <W1>
               <Title>상품<br />이미지</Title>
               <PhotoBox>
                 <PhotoArr>
-                  <PreviewImg src={cam1} width='140px' alt="Camera Icon" />
+                  <PreviewImg src={cam1} width='140px' />
                   <label htmlFor="imageInput">
-                    <img src={previewImg || cam1} width='140px' alt="Camera Icon" style={{ cursor: 'pointer' }} />
+                    <img src={previewImg || cam1} width='140px' style={{ cursor: 'pointer' }} />
                     <input
                       type="file"
                       accept="image/*"
@@ -152,14 +151,14 @@ const RegistrationDetailMain = ({ item }) => {
               </InputText>
             </W1>
             <W1>
-              <Title>카테고리</Title>
+              <Title>카테고리</Title><W3>
               <CategoryComponent 
                 key={item}
                 name="category"
                 value={state.category} 
                 onItemSelect={handleCategoryChange} 
               />
-              <ExplainationText>선택한 카테고리 : {state.category}</ExplainationText>
+              <ExplainationText>선택한 카테고리 : {state.category}</ExplainationText></W3>
               </W1>
             <W1>
               <Title>상품 상태</Title>
@@ -177,7 +176,7 @@ const RegistrationDetailMain = ({ item }) => {
               </InputText>
             </W1>
             <W1>
-              <Title>모델명</Title>
+              <Title>모델명</Title><W3>
               <InputText>
                 <input 
                   type="text" 
@@ -187,10 +186,10 @@ const RegistrationDetailMain = ({ item }) => {
                   placeholder="모델명을 입력해주세요."
                 />
               </InputText>
-              <ExplainationText>모델명 항목은 선택 입력사항입니다.</ExplainationText>
+              <ExplainationText>모델명 항목은 선택 입력사항입니다.</ExplainationText></W3>
             </W1>
     <W1>
-    <Title>대여 가격</Title>
+    <Title>대여 가격</Title><W3>
     <InputText>
                 일<input 
                   type="text"
@@ -208,7 +207,7 @@ const RegistrationDetailMain = ({ item }) => {
                   onChange={handleChange} 
                   placeholder="1주 대여 가격을 입력해주세요."
                 />원
-              </InputText>
+              </InputText></W3>
     </W1>
             <W1>
     <Title>상세 설명</Title>
@@ -259,7 +258,7 @@ const RegistrationDetailMain = ({ item }) => {
               </div>
     </W1>
     <W1>
-    <Title>직거래</Title> 
+    <Title>직거래</Title> <W3>
     <div>
                 <label>
                   <input
@@ -290,14 +289,12 @@ const RegistrationDetailMain = ({ item }) => {
                   onChange={handleChange} 
                   placeholder="직거래 선호 지역을 입력해주세요."
                 />
-              </InputText>
+              </InputText></W3>
     </W1>
     <W1>
-    <ExplainationText>모델명 항목은 선택 입력사항입니다.</ExplainationText>
     </W1></Detail>
           <Buttons>
-            <LeftArrow />
-            <Button onClick={handleSubmit} type="submit">다음 페이지</Button>
+            <Button onClick={handleSubmit} type="submit">등록 완료</Button>
             </Buttons>
         </form>
       </Contents>
@@ -309,44 +306,50 @@ export default RegistrationDetailMain;
 const Button = styled.div`
 display: flex;
 width: 8rem;
-height: 1rem;
+height: 2rem;
 padding: 10px;
 justify-content: center;
 align-items: center;
 gap: 10px;
 font-weight: 500;
-background-color: #FCFF5D;`;
+background-color: #FCFF5D;
+margin-bottom: 6rem;
+align-items: center;
+cursor: pointer;
+`;
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
+//    align-items: center;
     justify-content: center;
     height: 80%;
     width: 100vw;
 `;
 
 const Banner = styled.div`
-    background-color: yellow;
-    width: 100%;
+    background-color: #FCFF5D;
+    width: 7rem;
     height: 40rem;
     font-size: 18px;
     font-weight: 500;
-    padding-top: 1rem;
-    text-align: left;
-    padding-left: 1.5rem;
+    padding-top: 2rem;
+    text-align: center;
     margin-left: 2rem;
+    margin-right: 1rem;
+    margin-top: 2rem;
+    top: 0px;
+`;
+
+const ExplainationText2 = styled.div`
+  margin-top: 1rem;
+  font-size: 12px;
+  text-align: center;
 `;
 const Contents = styled.div`
     width: 80%;
     display: flex;
     flex-direction: column;
-`;
-const ProcessBar = styled.div`
-    width: 50%;
-    height: 2rem;
-    margin-bottom: 5rem;
-    margin-top: 1rem;
 `;
 const Detail = styled.div`
   display: flex;
@@ -366,31 +369,47 @@ const PhotoBox = styled.div`
 
 
 const PreviewImg = styled.div`
-    margin-right: 1.5rem;
+    //margin-right: 1.5rem;
     cursor: pointer;
-    background-color: aqua;
     width: 5rem;
 `;
 const PhotoArr = styled.div`
   display: flex;
   flex-direction: row;
-  margin-right: 2rem;
+  width: 300px;
+//  margin-right: 2rem;
 `;
-const PhotoItem2 = styled.div``;
+const PhotoItem2 = styled.div`
+`;
 const ExplainationText = styled.div`
   font-size: 10px;
 `;
-const InputText = styled.div``;
-const Buttons = styled.div``;
-const LeftArrow = styled.div``;
-const NextPage = styled.div``;
+const InputText = styled.div`
+  //border: 1px solid grey;
+  height: 2rem;
+  //width: 20rem;
+`;
+const Buttons = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`;
 
-/*const CategoryComponent = styled.div`
+{/*const CategoryComponent = styled.div`
     width: 60%;
-`;*/
+`;*/}
 
 const W1 = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+//  width: 70%;
   margin-bottom: 2rem;
+  margin-top: 3rem;
+`;
+
+const W3 = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

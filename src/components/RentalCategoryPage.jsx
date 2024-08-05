@@ -89,6 +89,7 @@ const Nav = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
 `;
 
 
@@ -111,9 +112,9 @@ const Category = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 8%;
+    width: 6rem;
     height: auto;
-    padding: 18px;
+    padding: 15px;
     z-index: 1000;
     top: 150px;
 
@@ -129,7 +130,6 @@ const CategoryContents = styled.div`
 `;
 
 const SportsDescription = styled.div`
-    margin-top: px;
     font-size: 12px;
     text-align: left;
     justify-content: space-between;
@@ -150,7 +150,7 @@ const Popular = styled.div`
 const Title = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 550;
     margin-bottom: 10px;
 `;
@@ -158,7 +158,7 @@ const Title = styled.div`
 const CatTitle = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 550;
     margin-bottom: 10px;
     color: #000`;
@@ -168,7 +168,7 @@ const Contentarr = styled.div`
     flex-direction: column;
     align-items: center;
     width: 70%;
-    padding-left: 20px;
+//    padding-left: 1rem;
 `;
 
 const SearchNavigation = styled.div`
@@ -178,7 +178,8 @@ const SearchNavigation = styled.div`
     justify-content: space-evenly;
     width: 35%;
     height: 100%;
-    font-size: 14px;`;
+    font-size: 12px;
+    `;
 
 const SearchResult = styled.div`
     width: 100%;
@@ -190,6 +191,7 @@ const SearchResultBox = styled.div`
     overflow: hidden;
     margin-top: 5px;
     justify-content: space-between;
+    width: 100%;
     `;
 
 const Magazines = styled.div`
@@ -217,4 +219,5 @@ const MagazinesItem = styled.div`
 
 const CategoryItem = styled.div`
     margin-bottom: 0.7rem;
+    font-size: 10px;
 `;

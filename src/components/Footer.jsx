@@ -1,23 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
+import wooga from '../images/WOOGA.png'
 
 const Footer = () => {
   return (
     <Wrapper>
-      <Title>Contact us</Title>
+      <UpperWrapper>
+      <Info>운동의 문턱을 낮추다, 지금 바로(borrow)하세요!</Info>
+      <div><img src={wooga} width='100rem'/></div>
+      <Info>Chung-ang University LIKELION 12th HACKATHON</Info>
+      </UpperWrapper>
       <ContentWrapper>
-        <Logo>wooga</Logo>
         <InfoBox>
-          <Info>PM 강지영 instagram @g0__kang</Info>
-          <Info>DE 양채령 instagram @d_idicoode</Info>
-        </InfoBox>
-        <InfoBox>
-          <Info>FE 박수빈 instagram @forsxygrave</Info>
-          <Info>FE 조유빈 instagram @joeyycho</Info>
-        </InfoBox>
-        <InfoBox>
-          <Info>BE 김동영 instagram @dong_yeong01</Info>
-          <Info>BE 이영주 instagram @20joo_joo</Info>
+          <Info>Project Manager<br/>강지영</Info>
+          <Info>Designer<br/>양채령</Info>
+          <Info>Front-End<br/>박수빈</Info>
+          <Info>Front-End<br/>조유빈</Info>
+          <Info>Back-End<br/>김동영</Info>
+          <Info>Back-End<br/>이영주</Info>
         </InfoBox>
       </ContentWrapper>
     </Wrapper>
@@ -33,36 +33,37 @@ const Wrapper = styled.div`
     justify-content: center;
     width: 100%;
     height: 12rem;
-    background-color: #F0F0F0;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: 550;
-  text-align: left;
-  width: 75%;
-  margin-bottom: 1rem;
+    background-color: rgb(244,244,245);
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 75%;
+  width: 90%;
   justify-content: space-between;
   text-align: left;
 `;
 
-const Logo = styled.div`
-  font-size: 20px;
-  font-weight: 550;
-  margin-right: 2rem;
-`;
-
 const InfoBox = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 `;
 
 const Info = styled.div`
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 500;
   margin-bottom: 0.5rem;
+  text-align: center;
+`;
+
+const UpperWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  padding-bottom: 1rem;
+  border-bottom: 0.1rem solid #D4D4D8;
 `;
