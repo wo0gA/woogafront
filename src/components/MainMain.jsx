@@ -27,7 +27,9 @@ const Main = () => {
     }
     const handleSearchClick = () => {
         console.log(`Search value: ${searchValue}`);
-        searchProducts(searchValue);
+        const params = new URLSearchParams({ keyword: searchValue });
+		navigate(`/rentalCategory?${params.toString()}`);
+		//searchProducts(searchValue);
     }
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {

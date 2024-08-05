@@ -20,10 +20,9 @@ const Header = () => {
 
   const handleSearchClick = () => {
     console.log(`Search value: ${searchValue}`);
-    searchProducts(searchValue); //나중에는 지울듯?(다음 페이지에서 찾게 해서)
-    if (searchValue.trim()) { // 검색어가 비어있지 않다면
-      navigate(`/rentalSearch?search=${encodeURIComponent(searchValue)}`); //검색어를 query로 넘겨주면서 rentalSearch 페이지로 이동
-    }
+    const params = new URLSearchParams({ keyword: searchValue });
+		navigate(`/rentalCategory?${params.toString()}`);
+		//searchProducts(searchValue);
   };
 
   const handleKeyPress = (event) => {
