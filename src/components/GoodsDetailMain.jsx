@@ -7,31 +7,29 @@ import RentalFeeDisplay from './RentalFeeDisplay'
 import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 import { formatDate } from '../utils/formatDate'
-import { getFourRecommendProducts, getProductInfo, getRentalHistory } from '../apis/product'
-import { getUserInfo } from '../apis/user'
+import { getFourRecommendProducts, getProductInfo } from '../apis/product'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createChatRoom } from '../apis/websocket'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
+  const [reviews, setReviews] = useState([]); 
   const reviewsPerPage = 3; // 한 페이지에 표시할 리뷰 수
-  const [level, setLevel] = useState('');
-  const [username, setName] = useState('');
-  const [mannerScore, setMannerScore] = useState(0);
+  const [sellerLevel, setSellerLevel] = useState('');
+  const [sellerUsername, setSellerUserName] = useState('');
+  const [sellerMannerScore, setSellerMannerScore] = useState(0);
   const [sellerEmail, setSellerEmail] = useState('');
   const [buyerEmail, setBuyerEmail] = useState('');
   const [sellerID, setSellerID] = useState('');
-  const {productID} = useParams();
-
-
+  const { productID } = useParams();
 
   // 물건 관련 상태(정보)들(화면에서 위에부터)
   const [firstCategory, setFirstCategory] = useState('');
   const [secondCategory, setSecondCategory] = useState('');
+  const [thirdCategory, setThirdCategory] = useState('');
+  const [productThumbnail, setProductThumbnail] = useState('');
   const [productName, setProductName] = useState('');
   const [ownerName, setOwnerName] = useState('');
-  const [userLocation, setUserLocation] = useState('');
   const [productState, setProductState] = useState('');
   const [dayPrice, setDayPrice] = useState('');
   const [weekPrice, setWeekPrice] = useState('');
@@ -59,7 +57,6 @@ const GoodsDetailMain = () => {
     navigate(path);
   };
     
-
   // 리뷰 데이터 가져오기
   const fetchReviews = async (productID) => {
     try {
@@ -75,26 +72,35 @@ const GoodsDetailMain = () => {
     getProductInfo(productID)
       .then((productInfo) => {
         // 상품 정보 세팅
-        
-        setSecondCategory(productInfo.category.sort);
+        setFirstCategory(productInfo.category.parent.parent.sort);
+        setSecondCategory(productInfo.category.parent.sort);
+        setThirdCategory(productInfo.category.sort);
+        setProductThumbnail(productInfo.thumbnails[0].thumbnail);
         setProductName(productInfo.name);
         setOwnerName(productInfo.owner.username);
-        // setUserLocation(productInfo.owner.location); // 임시로 주석 처리
         setProductState(productInfo.state);
         setDayPrice(productInfo.rental_fee_for_a_day);
         setWeekPrice(productInfo.rental_fee_for_a_week);
         setModelName(productInfo.model_name);
         setTransaction(productInfo.direct_dealing_is_allowed ? "가능" : "불가능");
         setTransactionPlace(productInfo.direct_dealing_place); //@@이거 나중에 시군구로 수정하기@@
-        
         setViewCount(productInfo.views);
-
         setDescription(productInfo.description);
+
+        // 상점 정보 세팅
+        setSellerID(productInfo.owner.id); 
+        console.log('sellerID:', productInfo.owner.id); // 확인용
+        setSellerLevel(productInfo.owner.level);
+        setSellerUserName(productInfo.owner.username);
+        setSellerMannerScore(productInfo.owner.manner_score);
+        setSellerEmail(productInfo.owner.email);
+
       })
       .catch((error) => {
         console.error('상품 정보 가져오기 실패:', error);
       });
   }
+
 
   //대여 버튼 눌러서, 채팅방 만들면서 & 페이지 여는 함수
   const handleRentBtnClick = (sellerEmail, buyerEmail) => {
@@ -110,9 +116,8 @@ const GoodsDetailMain = () => {
 
   //상점 누르면 페이지 여는 함수
   const handleStoreClick = (sellerID) => {
-    navigate(`/store/${sellerID}`);
+    window.location.href = `/store/${sellerID}`;
   }
-
 
   useEffect(() => {
     //사용자 이메일 세팅
@@ -124,25 +129,10 @@ const GoodsDetailMain = () => {
     // 리뷰 데이터 가져오기
     fetchReviews(productID);
 
-    // 상품 정보 불러오고 세팅
+    // 상품 정보를 불러오고 세팅(이때 sellerID 세팅)
     setProductInfo(productID);
+  }, [productID]);
 
-    // 상점 정보 불러오고 세팅
-    getUserInfo().then((userInfo) => {
-      setLevel(userInfo.level);
-      setName(userInfo.username);
-      setMannerScore(userInfo.manner_score);
-      setSellerEmail(userInfo.email);
-      setSellerID(1); //@@이거아님!!! seller의 id를 세팅해야함
-      console.log('sellerID',sellerID); //확인용
-    }
-    ).catch((error) => {
-      console.error('사용자 정보 가져오기 실패:', error);
-    });
-
-    // 추천 상품 4개 가져오기
-    getFourRecommendProducts();
-  }, setDailyRate);
 
   return (
     <Wrapper>
@@ -151,7 +141,7 @@ const GoodsDetailMain = () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M19 6H17C17 3.24 14.76 1 12 1C9.24 1 7 3.24 7 6H5C3.9 6 3.01 6.9 3.01 8L3 20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V8C21 6.9 20.1 6 19 6ZM12 3C13.66 3 15 4.34 15 6H9C9 4.34 10.34 3 12 3ZM12 13C9.24 13 7 10.76 7 8H9C9 9.66 10.34 11 12 11C13.66 11 15 9.66 15 8H17C17 10.76 14.76 13 12 13Z" fill="#52525B"/>
           </svg>
-          <span>물품 대여</span>
+          <span>{firstCategory}</span>
         </First>
         <Second>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -160,7 +150,7 @@ const GoodsDetailMain = () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M4.25 5.66C4.35 5.79 9.99 12.99 9.99 12.99V19C9.99 19.55 10.44 20 11 20H13.01C13.56 20 14.02 19.55 14.02 19V12.98C14.02 12.98 19.51 5.96 19.77 5.64C20.03 5.32 20 5 20 5C20 4.45 19.55 4 18.99 4H5.01C4.4 4 4 4.48 4 5C4 5.2 4.06 5.44 4.25 5.66Z" fill="#52525B"/>
           </svg>
-          <span>{firstCategory}</span>
+          <span>{secondCategory}</span>
         </Second>
         <Third>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -169,12 +159,11 @@ const GoodsDetailMain = () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M4.25 5.66C4.35 5.79 9.99 12.99 9.99 12.99V19C9.99 19.55 10.44 20 11 20H13.01C13.56 20 14.02 19.55 14.02 19V12.98C14.02 12.98 19.51 5.96 19.77 5.64C20.03 5.32 20 5 20 5C20 4.45 19.55 4 18.99 4H5.01C4.4 4 4 4.48 4 5C4 5.2 4.06 5.44 4.25 5.66Z" fill="#52525B"/>
           </svg>
-          <span>{secondCategory}</span>
+          <span>{thirdCategory}</span>
         </Third>
       </CategoryNav>
       <GoodsDetail>
-        <GoodsImage>
-        </GoodsImage>
+        <GoodsImage src= {productThumbnail} alt="상품 이미지" />
         <GoodsInfo>
           <NotRentalBtnContainer>
           <GoodsTitle>
@@ -185,8 +174,7 @@ const GoodsDetailMain = () => {
               {productName}
             </GoodsTitleName>
             <GoodsTitleRegistrant>
-              <ResistrantName>{ownerName} 님</ResistrantName>
-              {/* <ResistrantLocation>{userLocation}</ResistrantLocation> 이거 안할듯!!!*/}
+              <ResistrantName onClick={() => handleStoreClick(sellerID)}>{ownerName} 님</ResistrantName>
             </GoodsTitleRegistrant>
           </GoodsTitle>
           <GoodsDescription>
@@ -318,17 +306,20 @@ const GoodsDetailMain = () => {
                     </svg>
                   </ProfileImg>
                   <ProfileName>
-                    <Level>{level}</Level>
-                    <Name><span>{username}</span>님</Name>
+                    <Level>{sellerLevel}</Level>
+                    <Name><span>{sellerUsername}</span>님</Name>
                   </ProfileName>
                   <MannerScore>
-                    <MannerText>
-                        매너 바로미터 <span>{mannerScore}</span>
-                    </MannerText>
-                    <MannerBar>
-                        <RealMannerBar/>
-                    </MannerBar>
-                  </MannerScore>
+               <MannerText>
+                  매너 바로미터 <span>{sellerMannerScore}</span>
+               </MannerText>
+               {/* 매너지수가 0이면 바 대신에 텍스트 출력 */}
+                  {sellerMannerScore === 0 
+                  ? '아직 거래가 없어요.' 
+                  : <MannerBar>
+                        <RealMannerBar mannerScore={sellerMannerScore}/>
+                     </MannerBar>}
+            </MannerScore>
                 </LittleContents>
               </Contents>
             </OwnerStore>
@@ -360,7 +351,7 @@ const GoodsDetail = styled.div`
 
   box-sizing: border-box;
 `;
-const GoodsImage = styled.div`
+const GoodsImage = styled.img`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -368,11 +359,6 @@ const GoodsImage = styled.div`
   height: 100%;
   width: 50%;
   box-sizing: border-box;
-
-  background-image: url('${goodsimage}');
-  background-repeat: no-repeat; /* 배경 이미지 반복 안 함 */
-  background-size: cover; /* 요소 전체를 덮도록 이미지 크기 조정 */
-  background-position: center; /* 이미지가 가운데에 배치되도록 설정 */
 `;
 const GoodsInfo = styled.div`
   display: flex;
@@ -408,10 +394,8 @@ const GoodsTitleRegistrant = styled.div`
 `;
 const ResistrantName = styled.span`
   font-weight: bold;
-`;
-const ResistrantLocation = styled.span`
-  margin-left: 10px;
-  font-size: 13px;
+  border-bottom: 1.3px solid #000000;
+  cursor: pointer;
 `;
 const GoodsState = styled.div`
   display: flex;

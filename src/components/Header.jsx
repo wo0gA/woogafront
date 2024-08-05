@@ -1,7 +1,7 @@
 // Header.js
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import logo from '../images/logox2.png';
+import logo from '../images/logo.png';
 import { logoClick } from '../utils/simple';
 import { useNavigate } from 'react-router-dom';
 import { searchProducts, logout } from '../test/test';
@@ -79,7 +79,6 @@ const Header = () => {
         <Navigation>
           <Nav onClick={handleNavClick('/rentalCategory')} active={activeNav === '/rentalCategory'}>물품 대여</Nav>
           <Nav onClick={handleNavClick('/register')} active={activeNav === '/register'}>물품 등록</Nav>
-          <Nav onClick={handleNavClick('/health')} active={activeNav === '/health'}>건강 AtoZ</Nav>
           <Nav onClick={handleNavClick('/chatting')} active={activeNav === '/chatting'}>채팅</Nav>
         </Navigation>
         <Search>
@@ -122,7 +121,7 @@ const SecondRow = styled.div`
 `;
 
 const LeftHeader = styled.img`
-  width: 160px;
+  width: 180px;
   height: auto;
   cursor: pointer;
 `;
@@ -188,7 +187,7 @@ const Navigation = styled.div`
 const Nav = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   cursor: pointer;
   font-weight: ${(props) => (props.active ? '600' : 'normal')};
