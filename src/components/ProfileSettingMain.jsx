@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileSettingMain = () => {
   const [profileImg, setProfileImg] = useState(null);
+  const [profileImgUrl, setProfileImgUrl] = useState('');
   const [nickname, setNickname] = useState('');
   const [message, setMessage] = useState('');
   const token = localStorage.getItem('access');
 
+  const navigate = useNavigate();
+
   const handleProfileImgChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const imgUrl = URL.createObjectURL(file);
-      setProfileImg(imgUrl);
-    }
+    console.log(file); //잘 첨부됐는지 확인용
+    setProfileImg(file);
+    setProfileImgUrl(URL.createObjectURL(file));
   };
+
+
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
 
-  const handleSignUp = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const formData = new FormData();
     formData.append('username', nickname);
     formData.append('profile', profileImg);
@@ -34,6 +40,8 @@ const ProfileSettingMain = () => {
       });
 
       console.log('Success:', response.data);
+      localStorage.setItem('username', nickname); //이름 업데이트
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
     }
@@ -65,10 +73,10 @@ const ProfileSettingMain = () => {
               </ImgLeft>
               <ImgRight>
                 <FileInputWrapper>
-                  <FileInput type="file" id="file-input" onChange={handleProfileImgChange} />
+                  <FileInput type="file" id="file-input" accept="image/*" onChange={(e) => handleProfileImgChange(e)} />
                   <FileInputLabel onClick={triggerFileInput}>
-                    {profileImg ? (
-                      <ProfileImage src={profileImg} alt="Profile Preview" />
+                    {profileImgUrl ? (
+                      <ProfileImage src={profileImgUrl} alt="Profile Preview" />
                     ) : (
                       <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 112 112" fill="none">
                         <g filter="url(#filter0_d_574_5895)">
@@ -103,7 +111,7 @@ const ProfileSettingMain = () => {
                 <DuplicateCheckButton onClick={handleDuplicateCheck}>중복 확인</DuplicateCheckButton>
               </NicknameRight>
             </Nickname>
-            <SignUpBtn onClick={handleSignUp}>
+            <SignUpBtn onClick={handleSubmit}>
               회원가입 완료
             </SignUpBtn>
           </RightContainer>

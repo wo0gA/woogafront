@@ -7,9 +7,9 @@ import RentalFeeDisplay from './RentalFeeDisplay'
 import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 import { formatDate } from '../utils/formatDate'
-import { getProductInfo, getRentalHistory } from '../apis/product'
+import { getFourRecommendProducts, getProductInfo, getRentalHistory } from '../apis/product'
 import { getUserInfo } from '../apis/user'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { createChatRoom } from '../apis/websocket'
 
 const GoodsDetailMain = () => {
@@ -21,6 +21,9 @@ const GoodsDetailMain = () => {
   const [mannerScore, setMannerScore] = useState(0);
   const [sellerEmail, setSellerEmail] = useState('');
   const [buyerEmail, setBuyerEmail] = useState('');
+  const [sellerID, setSellerID] = useState('');
+  const {productID} = useParams();
+
 
 
   // 물건 관련 상태(정보)들(화면에서 위에부터)
@@ -46,7 +49,7 @@ const GoodsDetailMain = () => {
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
   // 페이지 번호 클릭 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const productID = 2; // @@@@임시로 상수로 설정@@@@
+  // const productID = 2; // @@@@임시로 상수로 설정@@@@
   const imsiPrice = 1000;
   const { setDailyRate, highlightRanges, setHighlightRanges } = useContext(RentalFeeContext); //전역 상태 불러오기(RntalFeeContext)
 
@@ -105,6 +108,11 @@ const GoodsDetailMain = () => {
     });
   }
 
+  //상점 누르면 페이지 여는 함수
+  const handleStoreClick = (sellerID) => {
+    navigate(`/store/${sellerID}`);
+  }
+
 
   useEffect(() => {
     //사용자 이메일 세팅
@@ -125,12 +133,15 @@ const GoodsDetailMain = () => {
       setName(userInfo.username);
       setMannerScore(userInfo.manner_score);
       setSellerEmail(userInfo.email);
+      setSellerID(1); //@@이거아님!!! seller의 id를 세팅해야함
+      console.log('sellerID',sellerID); //확인용
     }
     ).catch((error) => {
       console.error('사용자 정보 가져오기 실패:', error);
     });
 
-
+    // 추천 상품 4개 가져오기
+    getFourRecommendProducts();
   }, setDailyRate);
 
   return (
@@ -277,7 +288,7 @@ const GoodsDetailMain = () => {
               </Pagination>
             </Contents>
           </GoodsReview>            
-          <OwnerStore>
+          <OwnerStore onClick={() => handleStoreClick(sellerID)}>
               <Contents>
               <LittleTitle>
                   <span>등록자 상점</span>
@@ -559,6 +570,7 @@ const OwnerStore = styled.div`
   border: 1px solid #d5d5d5;
   border-radius: 3px;
   height: auto; /* 높이를 자동으로 조정 */
+  cursor: pointer;
 `;  
 
 

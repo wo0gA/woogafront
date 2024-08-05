@@ -34,7 +34,7 @@ function App() {
           <Route path="/register" element={<RegistrationPage />} />
           <Route path='/loading' element={<></>} /> 
           <Route path='/magazine' element={<MagazinePage />} />
-          <Route path='/store' element={<StorePage/>} />
+          <Route path='/store/:userID' element={<StorePage/>} />
         </Routes>
       </div>
       </NavProvider>

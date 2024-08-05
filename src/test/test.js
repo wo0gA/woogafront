@@ -33,7 +33,6 @@ export async function searchByCategory(categoryID) {
 
 // 로그아웃
 export async function logout() {
-    // localstorage에서 username, refresh, access, loginType, first_login 삭제
     localStorage.removeItem('username');
     localStorage.removeItem('refresh');
     localStorage.removeItem('access');
