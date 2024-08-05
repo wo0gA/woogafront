@@ -7,68 +7,74 @@ import mag1 from '../images/Mask group1.png'
 import mag2 from '../images/Mask group2.png'
 import mag3 from '../images/Mask group3.png'
 
-const RentalCategoryPage = ( { searchTerm, selectedItem, onItemSelect } ) => {
-    const [selectedMainCategory, setSelectedMainCategory] = useState();
-    const [resultCard, setResultCard] = useState();
+const RentalCategoryPage = ({ searchTerm,  onClearSearch }) => {
+    const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [resultCard, setResultCard] = useState(null);
 
     const handleMainCategoryClick = (category) => {
-    setSelectedMainCategory(category);
-  };
+        setSelectedMainCategory(category);
+    };
 
-    return (
+    const handleItemSelect = (item) => {
+        setSelectedItem(item);
+        onClearSearch();
+    };
+
+return (
     <Wrapper>
-           <CategoryComponent onItemSearch = {handleMainCategoryClick} onItemSelect={onItemSelect} />
+        <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={handleItemSelect} />
         <Contents>
             <Category>
-            <CatTitle>카테고리</CatTitle>
-            <CategoryContents>
-            <SportsDescription>
-          {Object.keys(categories).map((mainCategory) => (
-            <CategoryItem
-              key={mainCategory}
-              onClick={() => handleMainCategoryClick(mainCategory)}
-              selected={selectedMainCategory === mainCategory}
-            >
-              {mainCategory}
-            </CategoryItem>
-          ))}
-            </SportsDescription>
-            </CategoryContents>
+                <CatTitle>카테고리</CatTitle>
+                <CategoryContents>
+                    <SportsDescription>
+                        {Object.keys(categories).map((mainCategory) => (
+                            <CategoryItem
+                                key={mainCategory}
+                                onClick={() => handleMainCategoryClick(mainCategory)}
+                                selected={selectedMainCategory === mainCategory}
+                            >
+                                {mainCategory}
+                            </CategoryItem>
+                        ))}
+                    </SportsDescription>
+                </CategoryContents>
             </Category>
             <Contentarr>
                 <SearchResult>
-                        {/* Display search term results */}
-                        {searchTerm && (
-                            <Title>'{searchTerm}'에 대한 검색결과</Title>
-                        )}
-                        {/* Display category results */}
-                        {selectedItem && !searchTerm && (
-                            <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
-                        )}
-                <SearchNavigation>
-                    <Nav>최신순</Nav>
-                    <Nav>인기순</Nav>
-                    <Nav>낮은 가격순</Nav>
-                </SearchNavigation>
-                <SearchResultBox>
+                    {/* Display search term results */}
+                    {searchTerm && (
+                        <Title>'{searchTerm}'에 대한 검색결과</Title>
+                    )}
+                    {/* Display category results */}
+                    {selectedItem && !searchTerm && (
+                        <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
+                    )}
+                    <SearchNavigation>
+                        <Nav>최신순</Nav>
+                        <Nav>인기순</Nav>
+                        <Nav>낮은 가격순</Nav>
+                    </SearchNavigation>
+                    <SearchResultBox>
                         <SearchResultCard setResultCard={setResultCard} />
-                </SearchResultBox>
+                    </SearchResultBox>
                 </SearchResult>
                 <Popular>
-                <Title>빌리GO의 제안</Title>
-                <Magazines>
-                    <MagazinesItem><img src={mag1} width='200px'/></MagazinesItem>
-                    <MagazinesItem><img src={mag2} width='200px'/></MagazinesItem>
-                    <MagazinesItem><img src={mag3} width='200px'/></MagazinesItem>
-                </Magazines>
+                    <Title>빌리GO의 제안</Title>
+                    <Magazines>
+                        <MagazinesItem><img src={mag1} width='200px' /></MagazinesItem>
+                        <MagazinesItem><img src={mag2} width='200px' /></MagazinesItem>
+                        <MagazinesItem><img src={mag3} width='200px' /></MagazinesItem>
+                    </Magazines>
                 </Popular>
             </Contentarr>
         </Contents>
     </Wrapper>
 );
-}
+};
 
-export default RentalCategoryPage
+export default RentalCategoryPage;
 
 const Wrapper = styled.div`
     display: flex;

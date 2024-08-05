@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const SearchResultCard = () => {
+const SearchResultCard = ({selectedProducts}) => {
     const [data, setData] = useState([]);
 
     const getData = () => {
@@ -18,18 +18,37 @@ const SearchResultCard = () => {
 
     return (
         <Wrapper>
-            {data.map((item) => (
-                <SearchResultCards key={item.id}>
-                    <ResultImage src={item.photos} alt={item.name} />
-                    <ResultDescription>
-                        <ResultName>{item.name}</ResultName>
-                        <ResultPrice>
-                            일: {item.rental_fee_for_a_day}원 <br />
-                            주: {item.rental_fee_for_a_week}원
-                        </ResultPrice>
-                    </ResultDescription>
-                </SearchResultCards>
-            ))}
+            {selectedProducts ? (
+                <>
+                    {selectedProducts.map((selectedProducts) => (
+                        <SearchResultCards key={selectedProducts.id}>
+                            <ResultImage src={selectedProducts.photos} alt={selectedProducts.name} />
+                            <ResultDescription>
+                                <ResultName>{selectedProducts.name}</ResultName>
+                                <ResultPrice>
+                                    일: {selectedProducts.rental_fee_for_a_day}원 <br />
+                                    주: {selectedProducts.rental_fee_for_a_week}원
+                                </ResultPrice>
+                            </ResultDescription>
+                        </SearchResultCards>
+                    ))}
+                </>
+            ) : (
+                <>
+                    {data.map((item) => (
+                        <SearchResultCards key={item.id}>
+                            <ResultImage src={item.photos} alt={item.name} />
+                            <ResultDescription>
+                                <ResultName>{item.name}</ResultName>
+                                <ResultPrice>
+                                    일: {item.rental_fee_for_a_day}원 <br />
+                                    주: {item.rental_fee_for_a_week}원
+                                </ResultPrice>
+                            </ResultDescription>
+                        </SearchResultCards>
+                    ))}
+                </>
+            )}
         </Wrapper>
     );
 };

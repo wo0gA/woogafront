@@ -22,6 +22,10 @@ const CategoryPage = () => {
 		navigate(`?${searchParams.toString()}`);
 	};
 
+	const handleClearSearch = () => {
+		setSearchTerm(null);
+	  }  
+
 	useEffect(() => {
 		const searchParams = new URLSearchParams(location.search);
 		const categoryParam = searchParams.get("category");
@@ -58,7 +62,8 @@ const CategoryPage = () => {
       <RentalCategoryPage
       searchTerm={searchTerm}
       selectedItem={selectedItem}
-      onItemSelect={updateCategoryParam} />
+      onItemSelect={updateCategoryParam}
+	  onClearSearch={handleClearSearch} />
       <Footer>
        
       </Footer>
