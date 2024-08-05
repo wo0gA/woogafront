@@ -11,11 +11,17 @@ const ChangeDateModal = ({ roomData, rentalHistory, onSignal }) => {
 	const handleSubmit = async () => {
 		if (rentalHistory) {
 			try {
+				const accessToken = localStorage.getItem("access");
 				await axios.put(
 					`https://${SERVER_URL}/rentalhistories/${rentalHistory.id}/`,
 					{
 						new_rental_start_date: startDate,
 						new_rental_end_date: endDate,
+					},
+					{
+						headers: {
+							Authorization: `Bearer ${accessToken}`,
+						},
 					}
 				);
 				alert("일정을 변경하였습니다.");
@@ -24,11 +30,17 @@ const ChangeDateModal = ({ roomData, rentalHistory, onSignal }) => {
 			}
 		} else {
 			try {
+				const accessToken = localStorage.getItem("access");
 				await axios.post(
 					`https://${SERVER_URL}/rentalhistories/?product=${roomData.product.id}&renter=${roomData.visitor_user.id}`,
 					{
 						rental_start_date: startDate,
 						rental_end_date: endDate,
+					},
+					{
+						headers: {
+							Authorization: `Bearer ${accessToken}`,
+						},
 					}
 				);
 				onSignal();

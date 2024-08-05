@@ -85,7 +85,7 @@ const ChatPage = () => {
 								>
 									<span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
 										<span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
-											U
+											{roomData.opponent_username === roomData.shop_user.username ? <img src={roomData.shop_user.profile} /> : <img src={roomData.visitor_user.profile} />}
 										</span>
 									</span>
 									<div class="flex flex-col ml-4 whitespace-nowrap overflow-hidden">
@@ -110,7 +110,7 @@ const ChatPage = () => {
 					)}
 				</main>
 			) : (
-				<div class="pt-24 text-2xl font-bold">인증 안됨</div>
+				<div class="pt-24 text-2xl font-bold">로그인 후 이용 가능합니다.</div>
 			)}
 		</Wrapper>
 	);

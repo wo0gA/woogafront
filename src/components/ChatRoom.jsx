@@ -24,12 +24,22 @@ const ChatRoom = ({ roomData, currentUser }) => {
 	};
 
 	const fetchRentalHistory = async () => {
-		const rentalHistoryRes = await axios.get(
-			`https://${SERVER_URL}/rentalhistories/?product=${roomData.product.id}&renter=${roomData.visitor_user.id}`
-		);
-		if (rentalHistoryRes.data.length !== 0) {
-			setRentalHistory(rentalHistoryRes.data[0]);
-		} else {
+		try {
+			const accessToken = localStorage.getItem("access");
+			const rentalHistoryRes = await axios.get(
+				`https://${SERVER_URL}/rentalhistories/?product=${roomData.product.id}&renter=${roomData.visitor_user.id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+			if (rentalHistoryRes.data.length !== 0) {
+				setRentalHistory(rentalHistoryRes.data[0]);
+			} else {
+				setRentalHistory(null);
+			}
+		} catch {
 			setRentalHistory(null);
 		}
 	};
