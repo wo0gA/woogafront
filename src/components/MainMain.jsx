@@ -65,7 +65,7 @@ const Main = () => {
     }, []);
 
     const handleItemClick = (productID) => {
-        navigate(`/goodsDetail/${productID}`);
+        window.location.href = `/goodsDetail/${productID}`;
     };
 
     return (
@@ -162,7 +162,7 @@ const Main = () => {
                     <PopularContents>
                         {popularItems.map((item) => (
                             <PopularItem key={item.id} onClick={() => handleItemClick(item.id)}>
-                                <PopularImage src={item.imageUrl} /> {/* 이미지 경로 */}
+                                <PopularImage src={item.imageUrl} /> {/* @@@이미지 경로 */}
                                 <PolularText>
                                     <PopularName>{item.name}</PopularName>
                                     <PopularPrice>
