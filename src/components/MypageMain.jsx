@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import levelpic from '../images/image 59.png';
-
+import levelpic from '../images/ill.png';
+import empty from '../images/Frame 250.png';
 
 const MypageMain = () => {
 	const accessToken = localStorage.getItem("access");
@@ -30,7 +30,7 @@ const MypageMain = () => {
 
   const fetchRegisterDataFromAPI = async (accessToken) => {
     try {
-      const response = await fetch('https://server.templ.es/accounts/products/', {
+      const response = await fetch('https://server.templ.es/products/', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -85,13 +85,16 @@ const MypageMain = () => {
   };
 
   function Rent() {
+    if (!historyData) {
+      return <div><img src={empty} width='10rem'/></div>;
+    }
     return (
       <Wrapper>
         <GoodsRecord>
           <RecordText>대여 기록</RecordText>
           <GoodsItems>
             <GoodsCard>
-              <GoodsPic>{/*<img src={historyData.thumbnails} /> */}
+              <GoodsPic><img src={historyData.thumbnails} />
                <GoodsDday>{historyData.remaining_days}</GoodsDday>
               </GoodsPic>
               <GoodsDescription>
@@ -106,6 +109,9 @@ const MypageMain = () => {
   }
 
   function Register() {
+    if (!registerData) {
+      return <div><img src={empty} width='10rem'/></div>;
+    }  
     return (
       <Wrapper>
         <RegisterRecord>
@@ -182,7 +188,6 @@ const MypageMain = () => {
         </UpperContents>
 
         <MainComponents>
-          {/* 각각의 버튼 */}
           <Buttons>
             <button onClick={showRent}>
               대여하기
@@ -191,7 +196,6 @@ const MypageMain = () => {
               등록하기
             </button>
           </Buttons>
-          {/* 페이지 하단 토글 요소 */}
           <main>
             {isRentSelected ? <Rent /> : <Register />}
           </main>
@@ -336,21 +340,26 @@ const Greeting = styled.div`
 `;
 
 const RegisterRecord = styled.div`
-  
+  width: 40%;
+  align-items: flex-start;
 `;
 
 const ItemBox = styled.div`
   
 `;
 const RegisterItem = styled.div`
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 const Itempic = styled.div`
-  
+  width: 1rem;
 `;
 const Itemname = styled.div`
-  
+  font-size: 12px;
+  font-weight: 550;
 `;
 const Itemprice = styled.div`
+  font-size: 10px;
   
 `;

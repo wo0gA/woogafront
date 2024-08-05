@@ -31,6 +31,7 @@ const reducer = (state, action) => {
 const RegistrationDetailMain = ({ item }) => {
   const [uploadedImage, setUploadedImage] = useState('null');
   const [previewImg, setPreviewImg] = useState('null');
+  const [tags, setTags] = useState([]);
 
   const onItemSelect ={
         category : {item}};
@@ -45,32 +46,30 @@ const RegistrationDetailMain = ({ item }) => {
     if (userConfirmed) {
       const formData = new FormData();
       if (uploadedImage != null) {
-        formData.append("image", uploadedImage);
+        formData.append("thumbnails", uploadedImage);
       }
       Object.keys(state).forEach(key => {
         if (state[key]) {
           formData.append(key, state[key]);
         }
       });  
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-      }
+      tags.forEach(tag => {
+        formData.append('tags', JSON.stringify({ hashtag: tag }));
+      });
+
       try {
         const response = await axios.post('https://server.templ.es/products/', formData, {
-        method: 'POST',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data'
         }});
         console.log(response.data);
         alert("등록이 완료되었습니다.");
+        navigate('/register');
       } catch (error) {
         console.error('There was an error!', error);
-      }
-      navigate('/register');
-      console.log(formData);
     }
-  };
+  }};
 
   const insertImg = (e) => {
     let reader = new FileReader();
@@ -94,7 +93,6 @@ const RegistrationDetailMain = ({ item }) => {
 
   }
 
-
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === 'file') {
@@ -109,6 +107,10 @@ const RegistrationDetailMain = ({ item }) => {
   };
   const handleCategoryChange = (value) => {
     dispatch({ name: 'category', value });
+  };
+  const handleTagChange = (e) => {
+    const { value } = e.target;
+    setTags(value.split(',').map(tag => tag.trim()));
   };
 
   return (
@@ -226,9 +228,9 @@ const RegistrationDetailMain = ({ item }) => {
                 <input 
                   type="text"
                   name="tags"
-                  value={state.tags} 
-                  onChange={handleChange} 
-                  placeholder="태그를 입력해주세요."
+                  value={tags.join(', ')} 
+                  onChange={handleTagChange} 
+                  placeholder="콤마를 사용해서 태그를 입력해주세요."
                 />
               </InputText>
     </W1>

@@ -5,7 +5,7 @@ import categories from './data/categories';
 const CategoryComponent = ({onItemSelect}) => {
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-  
+
   const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
     setSelectedSubCategory(null);
