@@ -9,19 +9,37 @@ import helmetImage from '../images/helmet.png'
 import pingpongImage from '../images/pingpong.png'
 import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
-import { getUserInfo } from '../apis/user'
+import { getOwnerProducts, getOwnerReviews, getUserInfo } from '../apis/user'
+import { useParams } from 'react-router-dom'
 
 const StoreMain = () => {
    const [level, setLevel] = useState('');
    const [username, setName] = useState('');
+   const [mannerScore, setMannerScore] = useState(0); //초기 매너지수는 0
+   const {userID} = useParams();
+   const [goodsCount, setGoodsCount] = useState(0);
+   const [dealCount, setDealCount] = useState(0);
+   const [products, setProducts] = useState([]); // 등록 물품 상태 추가
+   const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
 
    useEffect(() => {
-      //test
       getUserInfo().then((data) => {
          setLevel(data.level);
          setName(data.username);
+         setMannerScore(data.manner_score);
       });
-   }, []);
+
+      getOwnerProducts(userID).then((data) => {
+         setProducts(data); // 등록 물품 데이터 설정
+         setGoodsCount(data.length); // 등록 물품 수 설정
+      });
+
+      getOwnerReviews(userID).then((data) => {
+         setReviews(data); // 리뷰 데이터 설정
+         setDealCount(data.length); // 리뷰 수 설정
+      });
+
+   }, [userID]);
 
   return (
    <Wrapper>
@@ -54,220 +72,68 @@ const StoreMain = () => {
             </ProfileName>
             <MannerScore>
                <MannerText>
-                  매너 바로미터 <span>100</span>
+                  매너 바로미터 <span>{mannerScore}</span>
                </MannerText>
-               <MannerBar>
-                  <RealMannerBar/>
-               </MannerBar>
+               {/* 매너지수가 0이면 바 대신에 텍스트 출력 */}
+                  {mannerScore === 0 
+                  ? '아직 거래가 없어요.' 
+                  : <MannerBar>
+                        <RealMannerBar mannerScore={mannerScore}/>
+                     </MannerBar>}
             </MannerScore>
          </Profile>
          <Stat>
-            등록
+         등록 물품
             <br/>
-            <span>7</span>
+            <span>{goodsCount}</span>
          </Stat>
          <Stat>
-            대여 중
+            물품 리뷰
             <br/>
-            <span>3</span>
-         </Stat>
-         <Stat>
-            거래 횟수
-            <br/>
-            <span>369</span>
+            <span>{dealCount}</span>
          </Stat>
       </Up>
       <Down>
          <DownTitle>등록 물품</DownTitle>
          <PopularContents>
-            <PopularItem>
-               <PopularImage src={footsalImage}/>
-               <PolularText>
-                     <PopularName>풋살화 270사이즈</PopularName>
+            {products.map((product) => (
+               <PopularItem key={product.id}>
+                  <PopularImage src={product.imageUrl} />
+                  <PolularText>
+                     <PopularName>{product.name}</PopularName>
                      <PopularPrice>
                         <PopularPriceDay>
                            <Unit>일</Unit>
-                           <Price>7,000원</Price>
+                           <Price>{product.rental_fee_for_a_day}원</Price>
                         </PopularPriceDay>
                         <PopularPriceWeek>
                            <Unit>주</Unit>
-                           <Price>40,000원</Price>
+                           <Price>{product.rental_fee_for_a_week}원</Price>
                         </PopularPriceWeek>
                      </PopularPrice>
-               </PolularText>
-            </PopularItem>
-            <PopularItem>
-               <PopularImage src={badmintonImage}/>
-               <PolularText>
-                     <PopularName>배드민턴 세트</PopularName>
-                     <PopularPrice>
-                        <PopularPriceDay>
-                           <Unit>일</Unit>
-                           <Price>7,000원</Price>
-                        </PopularPriceDay>
-                        <PopularPriceWeek>
-                           <Unit>주</Unit>
-                           <Price>40,000원</Price>
-                        </PopularPriceWeek>
-                     </PopularPrice>
-               </PolularText>
-            </PopularItem>
-            <PopularItem>
-               <PopularImage src={volleyImage}/>
-               <PolularText>
-                     <PopularName>배구공 5개</PopularName>
-                     <PopularPrice>
-                        <PopularPriceDay>
-                           <Unit>일</Unit>
-                           <Price>7,000원</Price>
-                        </PopularPriceDay>
-                        <PopularPriceWeek>
-                           <Unit>주</Unit>
-                           <Price>40,000원</Price>
-                        </PopularPriceWeek>
-                     </PopularPrice>
-               </PolularText>
-            </PopularItem>
-            <PopularItem>
-               <PopularImage src={bikeImage}/>
-               <PolularText>
-                     <PopularName>산악자전거 MX4000</PopularName>
-                     <PopularPrice>
-                        <PopularPriceDay>
-                           <Unit>일</Unit>
-                           <Price>7,000원</Price>
-                        </PopularPriceDay>
-                        <PopularPriceWeek>
-                           <Unit>주</Unit>
-                           <Price>40,000원</Price>
-                        </PopularPriceWeek>
-                     </PopularPrice>
-               </PolularText>
-            </PopularItem>
-            <PopularItem>
-               <PopularImage src={helmetImage}/>
-               <PolularText>
-                     <PopularName>라이딩헬멧</PopularName>
-                     <PopularPrice>
-                        <PopularPriceDay>
-                           <Unit>일</Unit>
-                           <Price>7,000원</Price>
-                        </PopularPriceDay>
-                        <PopularPriceWeek>
-                           <Unit>주</Unit>
-                           <Price>40,000원</Price>
-                        </PopularPriceWeek>
-                     </PopularPrice>
-               </PolularText>
-            </PopularItem>
-            <PopularItem>
-               <PopularImage src={rollerImage}/>
-               <PolularText>
-                     <PopularName>폼롤러</PopularName>
-                     <PopularPrice>
-                        <PopularPriceDay>
-                           <Unit>일</Unit>
-                           <Price>7,000원</Price>
-                        </PopularPriceDay>
-                        <PopularPriceWeek>
-                           <Unit>주</Unit>
-                           <Price>40,000원</Price>
-                        </PopularPriceWeek>
-                     </PopularPrice>
-               </PolularText>
-            </PopularItem>
-            <PopularItem>
-               <PopularImage src={campingtableImage}/>
-               <PolularText>
-                     <PopularName>캠핑 테이블</PopularName>
-                     <PopularPrice>
-                        <PopularPriceDay>
-                           <Unit>일</Unit>
-                           <Price>7,000원</Price>
-                        </PopularPriceDay>
-                        <PopularPriceWeek>
-                           <Unit>주</Unit>
-                           <Price>40,000원</Price>
-                        </PopularPriceWeek>
-                     </PopularPrice>
-               </PolularText>
-            </PopularItem>
-            <PopularItem>
-               <PopularImage src={pingpongImage}/>
-               <PolularText>
-                     <PopularName>탁구 세트</PopularName>
-                     <PopularPrice>
-                     <PopularPriceDay>
-                           <Unit>일</Unit>
-                           <Price>7,000원</Price>
-                        </PopularPriceDay>
-                        <PopularPriceWeek>
-                           <Unit>주</Unit>
-                           <Price>40,000원</Price>
-                        </PopularPriceWeek>
-                     </PopularPrice>
-               </PolularText>
-            </PopularItem>
+                  </PolularText>
+               </PopularItem>
+            ))}
          </PopularContents>
 
-         <DownTitle>리뷰</DownTitle>
+         <DownTitle>물품 리뷰</DownTitle>
          <ReviewContainer>
-            <Review>
-               <ReviewImage src={bikeImage}/>
-               <ReviewText>
-                  <ReviewFirstRow>
-                     배드민턴 라켓
-                  </ReviewFirstRow>
-                  <ReviewSecondRow>
-                     수쨩 님 <span>2024.08.02 - 2024.08.02</span>
-                  </ReviewSecondRow>
-                  <ReviewThirdRow>
-                     써보니 확실히 편해요.
-                  </ReviewThirdRow>
-               </ReviewText>
-            </Review>
-            <Review>
-               <ReviewImage src={footsalImage}/>
-               <ReviewText>
-                  <ReviewFirstRow>
-                     소니크 테니스 라켓
-                  </ReviewFirstRow>
-                  <ReviewSecondRow>
-                     잉잉 님 <span>2024.08.02 - 2024.08.02</span>
-                  </ReviewSecondRow>
-                  <ReviewThirdRow>
-                     이거 개좋아요~~~~~~~ 강추
-                  </ReviewThirdRow>
-               </ReviewText>
-            </Review>
-            <Review>
-               <ReviewImage src={bikeImage}/>
-               <ReviewText>
-                  <ReviewFirstRow>
-                     배드민턴 라켓
-                  </ReviewFirstRow>
-                  <ReviewSecondRow>
-                     수쨩 님 <span>2024.08.02 - 2024.08.02</span>
-                  </ReviewSecondRow>
-                  <ReviewThirdRow>
-                     써보니 확실히 편해요.
-                  </ReviewThirdRow>
-               </ReviewText>
-            </Review>
-            <Review>
-               <ReviewImage src={footsalImage}/>
-               <ReviewText>
-                  <ReviewFirstRow>
-                     소니크 테니스 라켓
-                  </ReviewFirstRow>
-                  <ReviewSecondRow>
-                     잉잉 님 <span>2024.08.02 - 2024.08.02</span>
-                  </ReviewSecondRow>
-                  <ReviewThirdRow>
-                     이거 개좋아요~~~~~~~ 강추
-                  </ReviewThirdRow>
-               </ReviewText>
-            </Review>
+            {reviews.map((review) => (
+               <Review key={review.id}>
+                  <ReviewImage src={review.product_image} />
+                  <ReviewText>
+                     <ReviewFirstRow>
+                        {review.product_name}
+                     </ReviewFirstRow>
+                     <ReviewSecondRow>
+                        {review.writer.username} 님 <span>{review.created_at.substring(0,10)}</span>
+                     </ReviewSecondRow>
+                     <ReviewThirdRow>
+                        {review.comment}
+                     </ReviewThirdRow>
+                  </ReviewText>
+               </Review>
+            ))}
          </ReviewContainer>
       </Down>
    </Wrapper>
@@ -379,7 +245,9 @@ const MannerBar = styled.div`
    background-color: #D4D4D8;
 `; 
 const RealMannerBar = styled.div`
-   width: 80%; //@@@@이거 나중에 변수로 바꿔주기@@@@@@
+   //매너지수에 따라 길이가 변하도록 설정
+   width: ${(props) => props.mannerScore}%;   
+   transition: width 0.3s ease-in-out; //매너지수 변화에 따라 부드럽게 변하도록 설정
    height: 100%;
    background-color: #FCFF5D;
    border-radius: 50px;
@@ -420,27 +288,6 @@ const DownTitle = styled.div`
    padding-bottom: 5px;
 `;
 
-const RegisteredItems = styled.div`
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: space-between;
-   width: 100%;
-   height: 100%;
-   box-sizing: border-box;
-`;
-
-const Item = styled.div`
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   width: 20%;
-   height: 100%;
-   box-sizing: border-box;
-   border: 1px solid #4a1717;
-`;
-
 
 // @@@/
 const PopularContents = styled.div`
@@ -466,11 +313,19 @@ const PopularItem = styled.div`
     margin-bottom: 20px; // 아이템 사이의 세로 간격 설정
     margin-left: 5px;
     margin-right: 5px;
+    padding: 10px;
+    border: 1px solid #E4E4E7;
+    cursor: pointer;
     &:nth-child(4n + 1) {
         margin-left: 0;
     }
     &:nth-child(4n) {
         margin-right: 0;
+    }
+
+    & > img {
+        width: 100%;
+        aspect-ratio: 1/1;
     }
 `;
 const PopularImage = styled.img`
@@ -486,18 +341,21 @@ const PolularText = styled.div`
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
+    font-size: 20px;
+    font-weight: 600;
 `;
 const PopularPrice = styled.div`
     display: flex;
     flex-direction: row;    
     width: 100%;
     align-items: center;
-    font-weight: bold;
+    font-weight: 600;
     justify-content: space-between;
 `;
 const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
+    font-size: 16px;
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
@@ -505,6 +363,7 @@ const PopularPriceWeek = styled.div`
 `;
 const Unit = styled.div`
     margin-right: 5px;
+    font-weight: 400;
 `;
 const Price = styled.div`
 `;

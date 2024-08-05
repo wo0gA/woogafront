@@ -4,7 +4,6 @@ import MainPage from './pages/MainPage';
 import { Routes, Route } from 'react-router-dom';
 import MyPage from './pages/MyPage';
 import TestPage from './pages/TestPage';
-import NearbyPage from './pages/NearbyPage';
 import LoginPage from './pages/LoginPage';
 import ProfileSettingPage from './pages/ProfileSettingPage';
 import CategoryPage from './pages/CategoryPage';
@@ -36,7 +35,7 @@ function App() {
           <Route path="/registerDetail" element={<RegistrationDetailPage />} />
           <Route path='/loading' element={<></>} /> 
           <Route path='/magazine' element={<MagazinePage />} />
-          <Route path='/store' element={<StorePage/>} />
+          <Route path='/store/:userID' element={<StorePage/>} />
         </Routes>
       </div>
       </NavProvider>

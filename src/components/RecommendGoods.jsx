@@ -1,28 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import footsalImage from '../images/footsal.png'
+import { getFourRecommendProducts } from '../apis/product';
+import { useNavigate } from 'react-router-dom';
 
 const RecommendGoods = () => {
+  const [recommendGoods, setRecommendGoods] = React.useState([]);
+
+  const navigate = useNavigate();
+  const handleItemClick = (productID) => {
+    // //새로고침되면서 열리도록 href 사용
+    window.location.href = `/goodsDetail/${productID}`;
+};
+
+  useEffect(() => {
+    getFourRecommendProducts().then((data) => {
+      setRecommendGoods(data);
+    });
+  }, []);
+
   return (
     <Wrapper>
         <RecommendGoodsTitle>
-            다른 운동용품들은 어때요?
+            다른 운동물품들은 어때요?
         </RecommendGoodsTitle>
         {/* RecommendGoodsList */}
         <RecommendGoodsList>
-            <RecommendGoodsCard>
-
-            </RecommendGoodsCard>
-            <RecommendGoodsCard>
-
-            </RecommendGoodsCard>
-            <RecommendGoodsCard>
-
-            </RecommendGoodsCard>
-            <RecommendGoodsCard>
-
-            </RecommendGoodsCard>
+            {recommendGoods.map((item) => (
+              <RecommendGoodsCard key={item.id} onClick={() => handleItemClick(item.id)}>
+                <RecommendGoodsImage src={item.thumbnails} alt={item.name}></RecommendGoodsImage> {/* @@@이미지 */}
+                <RecommendGoodsName>{item.name}</RecommendGoodsName>
+              </RecommendGoodsCard>
+            ))}
         </RecommendGoodsList>
-            `
     </Wrapper>
   )
 }
@@ -38,7 +48,6 @@ const Wrapper = styled.div`
   margin-top: 20px;
 
   box-sizing: border-box;
-  border: 1px solid black;
 `;
 
 const RecommendGoodsTitle = styled.div`
@@ -51,6 +60,7 @@ const RecommendGoodsTitle = styled.div`
     box-sizing: border-box;
     font-size: 20px;
     font-weight: bold;
+    margin-bottom: 10px;
 `;
 
 const RecommendGoodsList = styled.div`
@@ -65,13 +75,22 @@ const RecommendGoodsList = styled.div`
 
 const RecommendGoodsCard = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: left;
-    width: 200px;
-    height: 150px;
+    width: 20%;
+    cursor: pointer;
     box-sizing: border-box;
-    border: 1px solid black;
+`;
+const RecommendGoodsImage = styled.img`
+    width: 100%;
+    aspect-ratio: 1/1;
+`;
+const RecommendGoodsName = styled.div`
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 5px;
 `;
 
 export default RecommendGoods
