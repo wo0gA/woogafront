@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const SearchResultCard = ({selectedProducts}) => {
+const SearchResultCard = ({selectedProducts, setResultCard}) => {
     const [data, setData] = useState([]);
 
     const getData = () => {
@@ -9,7 +9,6 @@ const SearchResultCard = ({selectedProducts}) => {
             .then((response) => response.json())
             .then((data) => setData(data))
             .catch((error) => console.error('Error fetching data:', error));
-            console.log(data)
     };
 
     useEffect(() => {
@@ -18,9 +17,9 @@ const SearchResultCard = ({selectedProducts}) => {
 
     return (
         <Wrapper>
-            {selectedProducts ? (
+            { selectedProducts ? (
                 <>
-                    {selectedProducts.map((selectedProducts) => (
+                    {selectedProducts.length === 0 ? <><div style={{paddingTop: "2rem"}}>검색 결과가 없습니다.</div></> : <>{selectedProducts.map((selectedProducts) => (
                         <SearchResultCards key={selectedProducts.id}>
                             <ResultImage src={selectedProducts.photos} alt={selectedProducts.name} />
                             <ResultDescription>
@@ -31,7 +30,8 @@ const SearchResultCard = ({selectedProducts}) => {
                                 </ResultPrice>
                             </ResultDescription>
                         </SearchResultCards>
-                    ))}
+                    ))}</>}
+                    
                 </>
             ) : (
                 <>

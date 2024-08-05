@@ -9,22 +9,21 @@ import axios from "axios";
 const SERVER_URL = "server.templ.es";
 
 const CategoryPage = () => {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 	const location = useLocation();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState('');
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState(null);
 
 	const updateCategoryParam = (categoryName) => {
 		const searchParams = new URLSearchParams(location.search);
+    if (searchParams.has("keyword")) {
+      searchParams.delete("keyword");
+    }
 		searchParams.set("category", categoryName);
 		navigate(`?${searchParams.toString()}`);
 	};
-
-	const handleClearSearch = () => {
-		setSearchTerm(null);
-	  }  
 
 	useEffect(() => {
 		const searchParams = new URLSearchParams(location.search);
@@ -38,7 +37,9 @@ const CategoryPage = () => {
 			fetchProducts("keyword", keywordParam);
 			setSearchTerm(keywordParam);
       setSelectedItem('')
-		}
+		} else {
+      setSelectedProducts(null)
+    }
 	}, [location.search]);
 
 	const fetchProducts = async (param, categoryName) => {
@@ -62,8 +63,8 @@ const CategoryPage = () => {
       <RentalCategoryPage
       searchTerm={searchTerm}
       selectedItem={selectedItem}
-      onItemSelect={updateCategoryParam}
-	  onClearSearch={handleClearSearch} />
+      onItemSelect={updateCategoryParam} 
+      selectedProducts={selectedProducts}/>
       <Footer>
        
       </Footer>

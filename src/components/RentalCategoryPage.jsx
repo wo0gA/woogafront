@@ -7,23 +7,17 @@ import mag1 from '../images/Mask group1.png'
 import mag2 from '../images/Mask group2.png'
 import mag3 from '../images/Mask group3.png'
 
-const RentalCategoryPage = ({ searchTerm,  onClearSearch }) => {
+const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedProducts }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
-    const [selectedItem, setSelectedItem] = useState(null);
     const [resultCard, setResultCard] = useState(null);
 
     const handleMainCategoryClick = (category) => {
         setSelectedMainCategory(category);
     };
 
-    const handleItemSelect = (item) => {
-        setSelectedItem(item);
-        onClearSearch();
-    };
-
 return (
     <Wrapper>
-        <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={handleItemSelect} />
+        <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={onItemSelect} />
         <Contents>
             <Category>
                 <CatTitle>카테고리</CatTitle>
@@ -57,7 +51,7 @@ return (
                         <Nav>낮은 가격순</Nav>
                     </SearchNavigation>
                     <SearchResultBox>
-                        <SearchResultCard setResultCard={setResultCard} />
+                        <SearchResultCard selectedProducts={selectedProducts} setResultCard={setResultCard} />
                     </SearchResultBox>
                 </SearchResult>
                 <Popular>
