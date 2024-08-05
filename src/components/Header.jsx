@@ -48,7 +48,7 @@ const Header = () => {
   }, [username]);
 
   return (
-    <Wrapper>
+    <Wrapper><W1>
       <FirstRow>
         <LeftHeader src={logo} alt="logo" onClick={handleLogoClick}></LeftHeader>
         <RightHeader>
@@ -89,7 +89,7 @@ const Header = () => {
             </svg>
           </HeaderSearchIcon>
         </Search>
-      </SecondRow>
+      </SecondRow></W1>
     </Wrapper>
   );
 };
@@ -97,12 +97,19 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 85%;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.12);
+  margin-bottom: 10px;
+  width: 100%;
   & > * {
     margin-top: 10px;
   }
+`;
+
+const W1 = styled.div`
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const FirstRow = styled.div`
@@ -180,7 +187,7 @@ const Navigation = styled.div`
   justify-content: space-evenly;
   width: 60%;
   height: 100%;
-  font-size: 20px;
+  font-size: 16px;
   border-bottom: 1px solid black;
 `;
 
