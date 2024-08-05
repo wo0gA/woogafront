@@ -15,6 +15,8 @@ export const sendGoogleCode = async (code) => {
         localStorage.setItem('first_login', response.data.first_login);
         //이메일도 저장
         localStorage.setItem('email', response.data.user.email);
+        //id 저장
+        localStorage.setItem('userID', response.data.user.id);
 
 
     } catch (error) {

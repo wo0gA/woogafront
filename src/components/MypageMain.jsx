@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import levelpic from '../images/ill.png';
 import empty from '../images/Frame 250.png';
+import ReactCalendar from './special/ReactCalendar';
 
 const MypageMain = () => {
 	const accessToken = localStorage.getItem("access");
+  const user_id = localStorage.getItem("userID");
+  console.log(user_id);
+
   const [userData, setUserData] = useState(null);
   const [isRentSelected, setIsRentSelected] = useState(true);
   const [historyData, setHistoryData] = useState(null);
@@ -19,27 +23,28 @@ const MypageMain = () => {
         'Content-Type': 'application/json'
       }
     });
-      const data = await response.json();
-      console.log(data);
-      return data;
+      const historyData = await response.json();
+      console.log(historyData);
+      return historyData;
     } catch (error) {
       console.error('Error fetching data:', error);
       return null;
     }
   };
 
-  const fetchRegisterDataFromAPI = async (accessToken) => {
+  const fetchRegisterDataFromAPI = async (accessToken, user_id) => {
+    console.log(user_id);
     try {
-      const response = await fetch('https://server.templ.es/products/', {
+      const response = await fetch(`https://server.templ.es/accounts/${user_id}/store/products/`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         }
       });
-      const data = await response.json();
-      console.log(data);
-      return data;
+      const registerData = await response.json();
+      console.log(registerData);
+      return registerData;
     } catch (error) {
       console.error('Error fetching data:', error);
       return null;
@@ -68,9 +73,10 @@ const MypageMain = () => {
     const getData = async () => {
       const userData = await fetchDataFromAPI(accessToken);
       setUserData(userData);
-      const historyData = await fetchHistoryDataFromAPI(accessToken);
+      const historyData = await fetchHistoryDataFromAPI(accessToken, user_id);
       setHistoryData(historyData);
-      const registerData = await fetchRegisterDataFromAPI(accessToken);
+      console.log('<<historydata>>: ', historyData);
+      const registerData = await fetchRegisterDataFromAPI(accessToken, user_id);
       setRegisterData(registerData);
     };
     getData();
@@ -85,47 +91,47 @@ const MypageMain = () => {
   };
 
   function Rent() {
-    if (!historyData) {
-      return <div><img src={empty} width='10rem'/></div>;
-    }
     return (
-      <Wrapper>
+        <Wrapper>
+          {historyData ?
+        <W2>
         <GoodsRecord>
           <RecordText>대여 기록</RecordText>
           <GoodsItems>
+          {historyData.map((historyData) => (
             <GoodsCard>
-              <GoodsPic><img src={historyData.thumbnails} />
-               <GoodsDday>{historyData.remaining_days}</GoodsDday>
+              <GoodsPic><img src={historyData.product.thumbnails[0].thumbnail} />
+               <GoodsDday>D-{historyData.remaining_days}</GoodsDday>
               </GoodsPic>
               <GoodsDescription>
-                <GoodsName>{historyData.name}</GoodsName>
-                <GoodsDate>{historyData.retal_start_date} ~ {historyData.rental_end_date}</GoodsDate>
+                <GoodsName>{historyData.product.name}</GoodsName>
+                <GoodsDate>{historyData.rental_start_date} ~ {historyData.rental_end_date}</GoodsDate>
               </GoodsDescription>
-            </GoodsCard>
+            </GoodsCard>))}
           </GoodsItems>
         </GoodsRecord>
+        </W2> : <img src={empty} width='10rem'/>}
       </Wrapper>
     );
   }
 
   function Register() {
-    if (!registerData) {
-      return <div><img src={empty} width='10rem'/></div>;
-    }  
     return (
       <Wrapper>
         <RegisterRecord>
           <RecordText>등록 기록</RecordText>
           <ItemBox>
-          <RegisterItem>
+          {registerData.map((registerData) => (
+          <RegisterItem key={registerData.id}>
             <Itempic><img src={registerData.photos}/></Itempic>
             <Itemname>{registerData.name}</Itemname>
-            <Itemprice>일 {registerData.rental_fee_for_a_day}원  주 {registerData.rental_fee_for_a_week}</Itemprice>
+            <Itemprice>일 {registerData.rental_fee_for_a_day}원  주 {registerData.rental_fee_for_a_week}원</Itemprice>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M3 17.2495V20.9995H6.75L17.81 9.93951L14.06 6.18951L3 17.2495ZM20.71 7.03951C20.8027 6.947 20.8762 6.83711 20.9264 6.71614C20.9766 6.59517 21.0024 6.46548 21.0024 6.33451C21.0024 6.20355 20.9766 6.07386 20.9264 5.95289C20.8762 5.83192 20.8027 5.72203 20.71 5.62951L18.37 3.28951C18.2775 3.19681 18.1676 3.12326 18.0466 3.07308C17.9257 3.0229 17.796 2.99707 17.665 2.99707C17.534 2.99707 17.4043 3.0229 17.2834 3.07308C17.1624 3.12326 17.0525 3.19681 16.96 3.28951L15.13 5.11951L18.88 8.86951L20.71 7.03951Z" fill="#A1A1AA"/></svg>
-          </RegisterItem>
+          </RegisterItem>))}
           </ItemBox>
         </RegisterRecord>
+        <ReactCalendar/> 
       </Wrapper>
     );
   }
@@ -206,6 +212,11 @@ const MypageMain = () => {
 };
 
 export default MypageMain;
+
+const W2 = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const MainComponents = styled.div`
 display: flex;
