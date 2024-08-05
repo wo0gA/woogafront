@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import categories from './data/categories';
 
-const CategoryComponent = ({ onItemSelect }) => {
+const CategoryComponent = ({onItemSelect}) => {
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-
+  
   const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
     setSelectedSubCategory(null);
