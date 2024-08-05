@@ -14,6 +14,7 @@ import { RentalFeeProvider } from './context/RentalFeeContext';
 import MagazinePage from './pages/MagazinePage';
 import StorePage from './pages/StorePage';
 import { NavProvider } from './context/NavContext';
+import RegistrationDetailPage from './pages/RegistrationDetailPage';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profileSetting" element={<ProfileSettingPage />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/registerDetail" element={<RegistrationDetailPage />} />
           <Route path='/loading' element={<></>} /> 
           <Route path='/magazine' element={<MagazinePage />} />
           <Route path='/store' element={<StorePage/>} />
