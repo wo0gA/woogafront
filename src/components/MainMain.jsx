@@ -441,7 +441,7 @@ const PopularItem = styled.div`
 `;
 const PopularImage = styled.img`
     width: 100%;
-    
+    object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
 `;
 const PolularText = styled.div`
     display: flex;

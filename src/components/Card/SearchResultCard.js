@@ -79,6 +79,8 @@ const SearchResultCards = styled.div`
 const ResultImage = styled.img`
     width: 100%;
     height: auto;
+    object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
+
 `;
 
 const ResultDescription = styled.div`

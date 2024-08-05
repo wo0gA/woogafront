@@ -359,6 +359,7 @@ const GoodsImage = styled.img`
   height: 100%;
   width: 50%;
   box-sizing: border-box;
+  object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
 `;
 const GoodsInfo = styled.div`
   display: flex;
