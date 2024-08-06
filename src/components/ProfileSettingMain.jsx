@@ -26,6 +26,21 @@ const ProfileSettingMain = () => {
   };
 
   const handleSubmit = async (event) => {
+    //일단 confirm창 띄우기
+    if (!profileImg) {
+      alert('프로필 사진을 등록해주세요.');
+      return;
+    }
+    if (!nickname) {
+      alert('닉네임을 입력해주세요.');
+      return;
+    }
+
+    //진짜로 등록할 건지 확인
+    if (!window.confirm('프로필을 등록하시겠습니까?')) {
+      return;
+    }
+
     event.preventDefault();
     const formData = new FormData();
     formData.append('username', nickname);
@@ -112,7 +127,7 @@ const ProfileSettingMain = () => {
               </NicknameRight>
             </Nickname>
             <SignUpBtn onClick={handleSubmit}>
-              회원가입 완료
+              프로필 등록 완료
             </SignUpBtn>
           </RightContainer>
         </Right>

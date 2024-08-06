@@ -10,7 +10,7 @@ const RegistrationMain = () => {
     const [resultCard, setResultCard] = useState();
     const navigate = useNavigate();
 
-    const onClick = () => navigate('/registerdetail');
+    const onClick = () => navigate('/registerDetail');
 
   return (
     <Wrapper>

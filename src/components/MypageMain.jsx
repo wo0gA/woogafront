@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import levelpic from '../images/ill.png';
 import empty from '../images/Frame 250.png';
 import ReactCalendar from './special/ReactCalendar';
-import Calendar from 'react-calendar';
+import { useNavigate, useParams } from 'react-router-dom';
+import profileImage from '../images/profileImage.png';
+import { getRentalHistory } from '../apis/product';
 
 const MypageMain = () => {
   const accessToken = localStorage.getItem("access");
@@ -14,6 +16,19 @@ const MypageMain = () => {
   const [isRentSelected, setIsRentSelected] = useState(true);
   const [historyData, setHistoryData] = useState(null);
   const [registerData, setRegisterData] = useState(null);
+  const [activeItem, setActiveItem] = useState('');
+  const [rentalData, setRentalData] = useState(null);
+  const { productID } = useParams();
+
+  const navigate = useNavigate();
+  const switchCalendar = (productID) => {
+    console.log(productID);
+    navigate(`/myPage/${productID}`);
+  };
+
+  const handleEditClick = (productID) => {
+    navigate(`/editProduct/${productID}`);
+  };
 
   const fetchHistoryDataFromAPI = async (accessToken) => {
     try {
@@ -25,7 +40,6 @@ const MypageMain = () => {
         }
       });
       const historyData = await response.json();
-      console.log(historyData);
       return historyData;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -79,9 +93,14 @@ const MypageMain = () => {
       console.log('<<historydata>>: ', historyData);
       const registerData = await fetchRegisterDataFromAPI(accessToken, user_id);
       setRegisterData(registerData);
+
+      getRentalHistory(productID).then((data) => {
+        setRentalData(data);
+      }
+      );
     };
     getData();
-  }, [accessToken]);
+  },  [productID]);
 
   const showRent = () => {
     setIsRentSelected(true);
@@ -118,29 +137,51 @@ const MypageMain = () => {
   function Register() {
     return (
       <RegisterContainer>
-          <RegisterRecord>
-            {registerData.map((registerData) => (
-              <RegisterItem key={registerData.id}>
-                <Itempic src={registerData.thumbnails && registerData.thumbnails[0] && registerData.thumbnails[0].thumbnail ? registerData.thumbnails[0].thumbnail : ''}></Itempic>
-                <ItemDetails>
-                  <Itemname>{registerData.name}</Itemname>
-                  <Itemprice>일 {registerData.rental_fee_for_a_day}원  주 {registerData.rental_fee_for_a_week}원</Itemprice>
-                </ItemDetails>
-                <EditIcon>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M3 17.2495V20.9995H6.75L17.81 9.93951L14.06 6.18951L3 17.2495ZM20.71 7.03951C20.8027 6.947 20.8762 6.83711 20.9264 6.71614C20.9766 6.59517 21.0024 6.46548 21.0024 6.33451C21.0024 6.20355 20.9766 6.07386 20.9264 5.95289C20.8762 5.83192 20.8027 5.72203 20.71 5.62951L18.37 3.28951C18.2775 3.19681 18.1676 3.12326 18.0466 3.07308C17.9257 3.0229 17.796 2.99707 17.665 2.99707C17.534 2.99707 17.4043 3.0229 17.2834 3.07308C17.1624 3.12326 17.0525 3.19681 16.96 3.28951L15.13 5.11951L18.88 8.86951L20.71 7.03951Z" fill="#A1A1AA" />
-                  </svg>
-                </EditIcon>
-              </RegisterItem>
-            ))}
-          </RegisterRecord>
-          <CalendarContainer>
+        <RegisterRecord>
+          {registerData.map((registerData) => (
+            <RegisterItem key={registerData.id} onClick={() => switchCalendar(registerData.id)}>
+              <Itempic src={registerData.thumbnails && registerData.thumbnails[0] && registerData.thumbnails[0].thumbnail 
+                ? registerData.thumbnails[0].thumbnail 
+                : ''}></Itempic>
+              <ItemDetails>
+                <Itemname>{registerData.name}</Itemname>
+                <Itemprice>일 {registerData.rental_fee_for_a_day}원  주 {registerData.rental_fee_for_a_week}원</Itemprice>
+              </ItemDetails>
+              <EditIcon onClick={(e) => {
+                e.stopPropagation();
+                handleEditClick(registerData.id);
+              }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 17.2495V20.9995H6.75L17.81 9.93951L14.06 6.18951L3 17.2495ZM20.71 7.03951C20.8027 6.947 20.8762 6.83711 20.9264 6.71614C20.9766 6.59517 21.0024 6.46548 21.0024 6.33451C21.0024 6.20355 20.9766 6.07386 20.9264 5.95289C20.8762 5.83192 20.8027 5.72203 20.71 5.62951L18.37 3.28951C18.2775 3.19681 18.1676 3.12326 18.0466 3.07308C17.9257 3.0229 17.796 2.99707 17.665 2.99707C17.534 2.99707 17.4043 3.0229 17.2834 3.07308C17.1624 3.12326 17.0525 3.19681 16.96 3.28951L15.13 5.11951L18.88 8.86951L20.71 7.03951Z" fill="#A1A1AA" />
+                </svg>
+              </EditIcon>
+            </RegisterItem>
+          ))}
+        </RegisterRecord>
+        <CalendarContainer>
           <ReactCalendar />
-          </CalendarContainer>
+          <RentalList>
+            {rentalData && rentalData.map((rentalData) => (
+              <Rental>
+                <RentalPic src={profileImage} />
+                <RentalName>{rentalData.renter.username}</RentalName>
+                <RentalDate>{rentalData.rental_start_date} - {rentalData.rental_end_date}</RentalDate>
+                <RentalState>
+                  {rentalData.state === "SCHEDULED"
+                    ? "일정 확정"
+                    : rentalData.state === "RETURNED"
+                      ? "반납완료"
+                      : rentalData.state === "IN_USE"
+                        ? "사용중"
+                        : rentalData.state}
+                </RentalState>
+              </Rental>
+            ))}
+          </RentalList>
+        </CalendarContainer>
       </RegisterContainer>
     );
   }
-
   if (!userData) {
     return <div>Loading...</div>;
   }
@@ -149,36 +190,38 @@ const MypageMain = () => {
     <Wrapper>
       <Banner><Title>마이페이지</Title></Banner>
       <UpperContents>
-        <Picture><img src={levelpic} width="100%" /></Picture>
+        <Picture><img src={levelpic} width="100%" alt='levelPic'/></Picture>
         {/* <LevelRoad></LevelRoad> */}
         <ProfileSection>
-          <Greeting>{userData.username} 님, 반가워요!</Greeting>
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+          <Greeting><span>{userData.username}</span> 님, 반가워요!</Greeting>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', padding:'20px' }}>
             <div style={{ position: 'relative' }}>
               <img
                 src={userData.profile || 'default-profile.png'}
                 alt="Profile"
                 style={{ width: '60px', height: '60px', borderRadius: '50%' }}
               />
-              <span
+              <span onClick={() => navigate('/profileSetting')}
                 style={{
                   position: 'absolute',
                   bottom: '0',
                   right: '0',
+                  aspectRatio: '1/1',
                   backgroundColor: '#ffeb3b',
                   borderRadius: '50%',
                   padding: '5px',
+                  cursor: 'pointer',
                 }}
               >
                 ✎
               </span>
             </div>
-            <div style={{ marginLeft: '10px' }}>
-              <div>{userData.level}</div>
-              <div>{userData.username} 님</div>
+            <div style={{ marginLeft: '1px' }}>
+              <div style={{fontSize: '12px'}}>{userData.level}</div>
+              <div> <span style={{fontWeight:'bold'}}> {userData.username}</span> 님</div>
             </div>
           </div>
-          <div style={{ marginTop: '20px' }}>
+          <div style={{ marginTop: '20px', marginLeft:'20px', marginRight:'20px'}}>
             <div>바로미터 {userData.manner_score}</div>
             <div style={{ backgroundColor: '#eee', borderRadius: '10px', overflow: 'hidden', marginTop: '10px' }}>
               <div
@@ -189,10 +232,6 @@ const MypageMain = () => {
                 }}
               />
             </div>
-          </div>
-          <div>바로지금의 코멘트</div>
-          <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#f9f9f9', borderRadius: '10px' }}>
-            <div>{userData.comment}</div>
           </div>
         </ProfileSection>
       </UpperContents>
@@ -214,10 +253,6 @@ const MypageMain = () => {
 
 export default MypageMain;
 
-const W2 = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 
 const MainComponents = styled.div`
   display: flex;
@@ -374,6 +409,9 @@ const Greeting = styled.div`
   padding: 10px;
   font-size: 12px;
   text-align: left;
+  span {
+    font-weight: bold;
+  }
 `;
 
 const RegisterRecord = styled.div`
@@ -382,33 +420,35 @@ const RegisterRecord = styled.div`
   flex-direction: column;
   align-items: flex-start;
   overflow-y: auto;
-  height: 60vh;
+  height: 80vh;
   border: 1px solid #d3d3d3;
 `;
 
-// const ScrollableSection = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   overflow-y: auto;
-//   border: 1px solid #543232;
-// `;
 
 const RegisterItem = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 20%;
+  height: 14%;
   width: 100%;
   padding: 10px;
   svg {
     width: 100%;
   }
 
+  cursor: pointer;
+  &:hover {
+    background-color: #f9f9f9;
+  }
+  &:active {
+    background-color: #f0f0f0;
+  }
   border-bottom: 1px solid #eee;
 `;
 
 const Itempic = styled.img`
   aspect-ratio: 1/1;
+  cursor: pointer;
 `;
 
 const ItemDetails = styled.div`
@@ -461,4 +501,61 @@ const RegisterContainer = styled.div`
 const CalendarContainer = styled.div`
   width: 50%;
   height: 100%;
+`;
+
+const RentalList = styled.div`
+  width: 100%;
+  height: 30vh;
+  border: 1px solid #d3d3d3;
+  overflow-y: auto;
+  margin-top: 20px;
+`;
+
+const Rental = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #d3d3d3;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding: 10px;
+`;
+
+const RentalPic = styled.img`
+  width: 7%;
+  aspect-ratio: 1/1;
+`;
+
+const RentalName = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 10%; */
+  height: 100%;
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+const RentalDate = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* width: 20%; */
+  height: 100%;
+  font-size: 12px;
+`;
+
+const RentalState = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* width: 20%; */
+  height: 100%;
+  font-size: 12px;
+
 `;
