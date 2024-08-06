@@ -166,7 +166,7 @@ const MypageMain = () => {
   function Rent() {
     return (
       <RentContainer>
-        {historyData =='null' ?
+        {historyData ?
           <GoodsRecord>
             <GoodsItems>
               {historyData.map((historyData) => (
