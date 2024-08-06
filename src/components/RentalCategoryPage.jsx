@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import categories from './data/categories';
 import SearchResultCard from './Card/SearchResultCard';
 import CategoryComponent from './CategoryComponent';
-import mag1 from '../images/Mask group1.png'
-import mag2 from '../images/Mask group2.png'
-import mag3 from '../images/Mask group3.png'
+import suggest1 from '../images/suggest1.png';
+import suggest2 from '../images/suggest2.png';
+import suggest3 from '../images/suggest3.png';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -50,6 +50,12 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
         navigate(`?${searchParams.toString()}`);
     };
 
+
+    const suggestNavigate = (categoryName) => {
+        window.location.href = `http://localhost:3000/rentalCategory?category=${categoryName}`;
+    }
+
+
     return (
         <Wrapper>
             <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={onItemSelect} />
@@ -92,9 +98,9 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
                     <Popular>
                         <Title>바로지금의 제안</Title>
                         <Magazines>
-                            <MagazinesItem><img src={mag1} width='200px' alt="magazine1" /></MagazinesItem>
-                            <MagazinesItem><img src={mag2} width='200px' alt="magazine2" /></MagazinesItem>
-                            <MagazinesItem><img src={mag3} width='200px' alt="magazine3" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("요가 및 필라테스")} src={suggest1} width='200px' alt="magazine1" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("축구")} src={suggest2} width='200px' alt="magazine2" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("수상 스포츠")} src={suggest3} width='200px' alt="magazine3" /></MagazinesItem>
                         </Magazines>
                     </Popular>
                 </Contentarr>
@@ -250,6 +256,7 @@ const MagazinesItem = styled.div`
     font-weight: 400;
     margin-inline: 5px; 
     padding-bottom: 20px;
+    cursor: pointer;
 `;
 
 const CategoryItem = styled.div`
