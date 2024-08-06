@@ -9,7 +9,7 @@ import suggest3 from '../images/suggest3.png';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedProducts }) => {
+const RentalCategoryPage = ({ searchString, onItemSelect, selectedProducts }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
     const [resultCard, setResultCard] = useState(null);
     const [selectedOrder, setSelectedOrder] = useState('recent');
@@ -52,7 +52,7 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
 
 
     const suggestNavigate = (categoryName) => {
-        window.location.href = `https://baronow.netlify.app/rentalCategory?category=${categoryName}`;
+        navigate(`/rentalCategory?category=${categoryName}`);
     }
 
 
@@ -78,13 +78,8 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
                 </Category>
                 <Contentarr>
                     <SearchResult>
-                        {/* Display search term results */}
-                        {searchTerm && (
-                            <Title>'{searchTerm}'에 대한 검색결과</Title>
-                        )}
-                        {/* Display category results */}
-                        {selectedItem && !searchTerm && (
-                            <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
+                        {searchString && (
+                            <Title>{searchString}에 대한 검색결과</Title>
                         )}
                         <SearchNavigation>
                             <Nav onClick={() => updateOrderParam("recent")} isSelected={selectedOrder === "recent"}>최신순</Nav>
