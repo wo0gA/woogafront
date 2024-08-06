@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import levelpic from '../images/ill.png';
 import empty from '../images/Frame 250.png';
 import ReactCalendar from './special/ReactCalendar';
 import { useNavigate, useParams } from 'react-router-dom';
 import profileImage from '../images/profileImage.png';
 import { getRentalHistory } from '../apis/product';
+
+import level1 from '../images/level1.png';  
+import level2 from '../images/level2.png';
+import level3 from '../images/level3.png';
+import level4 from '../images/level4.png';
+import level5 from '../images/level5.png';
 
 const MypageMain = () => {
   const accessToken = localStorage.getItem("access");
@@ -17,8 +22,10 @@ const MypageMain = () => {
   const [historyData, setHistoryData] = useState(null);
   const [registerData, setRegisterData] = useState(null);
   const [activeItem, setActiveItem] = useState('');
+  const [isActive, setIsActive] = useState(false);
   const [rentalData, setRentalData] = useState(null);
   const { productID } = useParams();
+  const [levelImage, setLevelImage] = useState(level1);
 
   const navigate = useNavigate();
   const switchCalendar = (productID) => {
@@ -76,7 +83,23 @@ const MypageMain = () => {
         }
       });
       const data = await response.json();
-      console.log(data);
+      console.log('userInfo:', data);
+      
+      if (data.level === 'NEWBIE') { 
+        setLevelImage(level1);
+      } else if (data.level === 'ROOKIE') {
+        setLevelImage(level2);
+      }
+      else if (data.level === 'SEMIPRO') {
+        setLevelImage(level3);
+      }
+      else if (data.level === 'PRO') {
+        setLevelImage(level4);
+      }
+      else if (data.level === 'MASTER') {
+        setLevelImage(level5);
+      }
+
       return data;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -139,7 +162,7 @@ const MypageMain = () => {
       <RegisterContainer>
         <RegisterRecord>
           {registerData.map((registerData) => (
-            <RegisterItem key={registerData.id} onClick={() => switchCalendar(registerData.id)}>
+            <RegisterItem key={registerData.id} onClick={() => {switchCalendar(registerData.id); setActiveItem(registerData.id)}} isActive={activeItem===registerData.id}>
               <Itempic src={registerData.thumbnails && registerData.thumbnails[0] && registerData.thumbnails[0].thumbnail 
                 ? registerData.thumbnails[0].thumbnail 
                 : ''}></Itempic>
@@ -190,8 +213,7 @@ const MypageMain = () => {
     <Wrapper>
       <Banner><Title>마이페이지</Title></Banner>
       <UpperContents>
-        <Picture><img src={levelpic} width="100%" alt='levelPic'/></Picture>
-        {/* <LevelRoad></LevelRoad> */}
+        <Picture><img src={levelImage} width="100%" alt='levelPic'/></Picture>
         <ProfileSection>
           <Greeting>{userData.username}님, 반가워요!</Greeting>
           <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', marginTop: '20px' }}>
@@ -438,12 +460,13 @@ const RegisterItem = styled.div`
 
   cursor: pointer;
   &:hover {
-    background-color: #f9f9f9;
+    background-color: #eee;
   }
-  &:active {
-    background-color: #f0f0f0;
-  }
+
   border-bottom: 1px solid #eee;
+
+  background-color: ${props => (props.isActive ? '#eee' : 'white')};
+
 `;
 
 const Itempic = styled.img`

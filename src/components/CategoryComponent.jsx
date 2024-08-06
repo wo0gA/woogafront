@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import categories from './data/categories';
 
-const CategoryComponent = ({onItemSelect}) => {
+const CategoryComponent = ({ onItemSelect }) => {
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
   const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);
     setSelectedSubCategory(null);
+    onItemSelect(category);
   };
 
   const handleSubCategoryClick = (subCategory) => {
     setSelectedSubCategory(subCategory);
+    onItemSelect(subCategory);
   };
 
   const handleItemClick = (item) => {
@@ -21,44 +23,44 @@ const CategoryComponent = ({onItemSelect}) => {
 
   return (
     <Wrapper>
-<CategoryContainer>
-      <MainCategories>
-      <CatTitle>전체 카테고리</CatTitle>
-        {Object.keys(categories).map((mainCategory) => (
-          <CategoryItem
-            key={mainCategory}
-            onClick={() => handleMainCategoryClick(mainCategory)}
-            selected={selectedMainCategory === mainCategory}
-          >
-            {mainCategory}
-          </CategoryItem>
-        ))}
-      </MainCategories>
-      {selectedMainCategory && (
-        <SubCategories>
-        <CatTitle>{selectedMainCategory}</CatTitle>
-          {Object.keys(categories[selectedMainCategory]).map((subCategory) => (
-            <SubCategoryItem
-              key={subCategory}
-              onClick={() => handleSubCategoryClick(subCategory)}
-              selected={selectedSubCategory === subCategory}
+      <CategoryContainer>
+        <MainCategories>
+          <CatTitle>전체 카테고리</CatTitle>
+          {Object.keys(categories).map((mainCategory) => (
+            <CategoryItem
+              key={mainCategory}
+              onClick={() => handleMainCategoryClick(mainCategory)}
+              selected={selectedMainCategory === mainCategory}
             >
-              {subCategory}
-            </SubCategoryItem>
+              {mainCategory}
+            </CategoryItem>
           ))}
-        </SubCategories>
-      )}
-      {selectedMainCategory && selectedSubCategory && (
-        <Items>
-        <CatTitle>{selectedSubCategory}</CatTitle>
-          {categories[selectedMainCategory][selectedSubCategory].map((item) => (
-            <Item key={item} onClick={() => handleItemClick(item)}>
-              {item}
-            </Item>
-          ))}
-        </Items>
-      )}
-    </CategoryContainer>
+        </MainCategories>
+        {selectedMainCategory && (
+          <SubCategories>
+            <CatTitle>{selectedMainCategory}</CatTitle>
+            {Object.keys(categories[selectedMainCategory]).map((subCategory) => (
+              <SubCategoryItem
+                key={subCategory}
+                onClick={() => handleSubCategoryClick(subCategory)}
+                selected={selectedSubCategory === subCategory}
+              >
+                {subCategory}
+              </SubCategoryItem>
+            ))}
+          </SubCategories>
+        )}
+        {selectedMainCategory && selectedSubCategory && (
+          <Items>
+            <CatTitle>{selectedSubCategory}</CatTitle>
+            {categories[selectedMainCategory][selectedSubCategory].map((item) => (
+              <Item key={item} onClick={() => handleItemClick(item)}>
+                {item}
+              </Item>
+            ))}
+          </Items>
+        )}
+      </CategoryContainer>
     </Wrapper>
   );
 };
@@ -66,20 +68,20 @@ const CategoryComponent = ({onItemSelect}) => {
 export default CategoryComponent;
 
 const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
 `;
 
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: row;
   font-size: 12px;
-    width: 80%;
-    background-color: rgb(244,244,245);
-    border: 1px solid var(--zinc-300, #D4D4D8);
+  width: 80%;
+  background-color: rgb(244,244,245);
+  border: 1px solid var(--zinc-300, #D4D4D8);
 `;
 
 const MainCategories = styled.div`
@@ -118,7 +120,6 @@ const Items = styled.div`
   font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
   text-decoration: ${(props) => (props.selected ? 'underline' : 'normal')};
   color: ${(props) => (props.selected ? '#FFD56A' : 'black')};
-//  border: 1px solid var(--zinc-300, #D4D4D8);
   flex-grow: 1;
 `;
 
@@ -128,10 +129,10 @@ const Item = styled.div`
 `;
 
 const CatTitle = styled.div`
-    text-align: left;
-    width: 100%;
-    font-size: 14px;
-    font-weight: 550;
-    margin: 10px 10px 10px 10px;
-    color: #000;
+  text-align: left;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 550;
+  margin: 10px 10px 10px 10px;
+  color: #000;
 `;
