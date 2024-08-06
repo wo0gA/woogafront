@@ -1,12 +1,68 @@
 import React, { useReducer, useState } from 'react'
-import CategoryComponent from './CategoryComponent'
 import styled from 'styled-components'
 import cam1 from '../images/camera button.png'
 import cam2 from '../images/cams.png'
 import bar1 from '../images/step bar2.png';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import categories from './data/categories';
 
+const CategoryComponent = ({onItemSelect}) => {
+  const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+
+  const handleMainCategoryClick = (category) => {
+    setSelectedMainCategory(category);
+    setSelectedSubCategory(null);
+  };
+
+  const handleSubCategoryClick = (subCategory) => {
+    setSelectedSubCategory(subCategory);
+  };
+
+  const handleItemClick = (item) => {
+    onItemSelect(item);
+  };
+  return( 
+  <CategoryContainer>
+  <MainCategories>
+  <CatTitle>전체 카테고리</CatTitle>
+    {Object.keys(categories).map((mainCategory) => (
+      <CategoryItem
+        key={mainCategory}
+        onClick={() => handleMainCategoryClick(mainCategory)}
+        selected={selectedMainCategory === mainCategory}
+      >
+        {mainCategory}
+      </CategoryItem>
+    ))}
+  </MainCategories>
+  {selectedMainCategory && (
+    <SubCategories>
+    <CatTitle>{selectedMainCategory}</CatTitle>
+      {Object.keys(categories[selectedMainCategory]).map((subCategory) => (
+        <SubCategoryItem
+          key={subCategory}
+          onClick={() => handleSubCategoryClick(subCategory)}
+          selected={selectedSubCategory === subCategory}
+        >
+          {subCategory}
+        </SubCategoryItem>
+      ))}
+    </SubCategories>
+  )}
+  {selectedMainCategory && selectedSubCategory && (
+    <Items>
+    <CatTitle>{selectedSubCategory}</CatTitle>
+      {categories[selectedMainCategory][selectedSubCategory].map((item) => (
+        <Item key={item} onClick={() => handleItemClick(item)}>
+          {item}
+        </Item>
+      ))}
+    </Items>
+  )}
+</CategoryContainer>
+)}
 const initialState = {
   thumbnails: '',
   name: '',
@@ -54,7 +110,7 @@ const RegistrationDetailMain = ({ item }) => {
         }
       });  
       tags.forEach(tag => {
-        formData.append('tags', JSON.stringify({ hashtag: tag }));
+        formData.append('tags', JSON.stringify([{ hashtag: tag }]));
       });
 
       try {
@@ -67,6 +123,7 @@ const RegistrationDetailMain = ({ item }) => {
         alert("등록이 완료되었습니다.");
         navigate('/register');
       } catch (error) {
+        navigate('/register');
         console.error('There was an error!', error);
     }
   }};
@@ -125,14 +182,15 @@ const RegistrationDetailMain = ({ item }) => {
                 <PhotoArr>
                   <PreviewImg src={cam1} width='140px' />
                   <label htmlFor="imageInput">
-                    <img src={previewImg || cam1} width='140px' style={{ cursor: 'pointer' }} />
                     <input
                       type="file"
                       accept="image/*"
                       id="imageInput"
                       name="thumbnails"
+                      style={{ cursor: 'pointer' }}
                       onChange={(e) => insertImg(e)}
-                    /></label>
+                    />
+                    </label>
                   <PhotoItem2><img src={cam2} height='140px' alt="Camera Icon" /></PhotoItem2>
                 </PhotoArr>
                 <ExplainationText>상품 이미지는 최대 6개까지 등록 가능합니다.<br />운동물품 정면, 후면, 측면 사진 업로드를 권장합니다.</ExplainationText>
@@ -140,15 +198,13 @@ const RegistrationDetailMain = ({ item }) => {
             </W1>
             <W1>
               <Title>상품명</Title>
-              <InputText>
-                <input 
+              <InputText
                   type="text" 
                   name="name"
                   value={state.name}
                   onChange={handleChange} 
                   placeholder="상품명을 입력해주세요."
-                />
-              </InputText>
+              />
             </W1>
             <W1>
               <Title>카테고리</Title><W3>
@@ -158,11 +214,10 @@ const RegistrationDetailMain = ({ item }) => {
                 value={state.category} 
                 onItemSelect={handleCategoryChange} 
               />
-              <ExplainationText>선택한 카테고리 : {state.category}</ExplainationText></W3>
+              <Text>선택한 카테고리 : {state.category}</Text></W3>
               </W1>
             <W1>
               <Title>상품 상태</Title>
-              <InputText>
                 <select 
                   name="state"
                   value={state.state} 
@@ -171,66 +226,57 @@ const RegistrationDetailMain = ({ item }) => {
                   <option value="" disabled>옵션 선택</option>
                   <option value="새 것과 비슷해요">새 것과 비슷해요</option>
                   <option value="깨끗해요">깨끗해요</option>
-                  <option value="쓸 만 해요">쓸 만 해요</option>
+                  <option value="쓸 만해요">쓸 만해요</option>
                 </select>
-              </InputText>
             </W1>
             <W1>
               <Title>모델명</Title><W3>
-              <InputText>
-                <input 
+                <InputText 
                   type="text" 
                   name="model_name"
                   value={state.model_name} 
                   onChange={handleChange} 
                   placeholder="모델명을 입력해주세요."
                 />
-              </InputText>
               <ExplainationText>모델명 항목은 선택 입력사항입니다.</ExplainationText></W3>
             </W1>
     <W1>
-    <Title>대여 가격</Title><W3>
-    <InputText>
-                일<input 
+    <Title>대여 가격</Title><W3><W1>
+                <Text>일</Text><InputText 
                   type="text"
                   name="rental_fee_for_a_day"
                   value={state.rental_fee_for_a_day} 
                   onChange={handleChange} 
                   placeholder="1일 대여 가격을 입력해주세요."
-                />원
-              </InputText>
-              <InputText>
-                주<input 
+                /><Text>원</Text></W1>
+              <W1><Text>주</Text><InputText 
                   type="text"
                   name="rental_fee_for_a_week"
                   value={state.rental_fee_for_a_week} 
                   onChange={handleChange} 
                   placeholder="1주 대여 가격을 입력해주세요."
-                />원
-              </InputText></W3>
+                /><Text>원</Text>
+              </W1></W3>
     </W1>
             <W1>
     <Title>상세 설명</Title>
-    <InputText>
-                <input 
-                  type="text"
-                  name="description"
-                  value={state.description} 
-                  onChange={handleChange} 
-                  placeholder="상세 설명을 입력해주세요."
-                />
-              </InputText>
+    <InputText
+      type="text"
+      name="description"
+      value={state.description} 
+      onChange={handleChange} 
+      placeholder="상세 설명을 입력해주세요."
+    />
     </W1>
     <W1>
     <Title>태그</Title> 
-    <InputText>
-                <input 
+    <InputText
                   type="text"
                   name="tags"
                   value={tags.join(', ')} 
                   onChange={handleTagChange} 
                   placeholder="콤마를 사용해서 태그를 입력해주세요."
-                />
+                >
               </InputText>
     </W1>
     <W1><Title>배송비</Title>
@@ -281,15 +327,14 @@ const RegistrationDetailMain = ({ item }) => {
                   불가능
                 </label>
               </div>
-              <InputText>
-                <input 
+              <InputText
                   type="text"
                   name="direct_dealing_place"
                   value={state.direct_dealing_place} 
                   onChange={handleChange} 
                   placeholder="직거래 선호 지역을 입력해주세요."
                 />
-              </InputText></W3>
+              </W3>
     </W1>
     <W1>
     </W1></Detail>
@@ -384,10 +429,18 @@ const PhotoItem2 = styled.div`
 const ExplainationText = styled.div`
   font-size: 10px;
 `;
-const InputText = styled.div`
-  //border: 1px solid grey;
-  height: 2rem;
-  //width: 20rem;
+const Text = styled.div`
+  font-size: 14px;
+`;
+
+const InputText = styled.input`
+  border: 1px solid #E4E4E7;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 13px;
 `;
 const Buttons = styled.div`
 width: 100%;
@@ -397,14 +450,11 @@ justify-content: center;
 align-items: center;
 `;
 
-{/*const CategoryComponent = styled.div`
-    width: 60%;
-`;*/}
 
 const W1 = styled.div`
   display: flex;
   flex-direction: row;
-//  width: 70%;
+  width: 100%;
   margin-bottom: 2rem;
   margin-top: 3rem;
 `;
@@ -412,4 +462,75 @@ const W1 = styled.div`
 const W3 = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+`;
+
+const CategoryContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+    width: 100%;
+//    background-color: rgb(244,244,245);
+    border: 1px solid var(--zinc-300, #D4D4D8);
+`;
+
+const MainCategories = styled.div`
+  width: 20%;
+  margin-right: 1rem;
+  text-align: left;
+  border-right: 1px solid var(--zinc-300, #D4D4D8);
+`;
+
+const SubCategories = styled.div`
+  width: 40%;
+  margin-right: 1rem;
+  text-align: left;
+  border-right: 1px solid var(--zinc-300, #D4D4D8);
+`;
+
+const CategoryItem = styled.div`
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: ${(props) => (props.selected ? '#F5FA25' : 'transparent')};
+  font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+`;
+
+const SubCategoryItem = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+  text-decoration: ${(props) => (props.selected ? 'underline' : 'normal')};
+  color: ${(props) => (props.selected ? '#FFD56A' : 'black')};
+  width: 45%;
+`;
+const SubSubCategoryItem = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+  text-decoration: ${(props) => (props.selected ? 'underline' : 'normal')};
+  color: ${(props) => (props.selected ? '#FFD56A' : 'black')};
+  width: 45%;
+`;
+const Items = styled.div`
+  text-align: left;
+  cursor: pointer;
+  font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+  text-decoration: ${(props) => (props.selected ? 'underline' : 'normal')};
+  color: ${(props) => (props.selected ? '#FFD56A' : 'black')};
+//  border: 1px solid var(--zinc-300, #D4D4D8);
+  flex-grow: 1;
+`;
+
+const Item = styled.div`
+  padding: 0.5rem 0;
+  margin-left: 10px;
+`;
+
+const CatTitle = styled.div`
+    text-align: left;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 550;
+    margin: 10px 10px 10px 10px;
+    color: #000;
 `;

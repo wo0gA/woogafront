@@ -79,6 +79,8 @@ const SearchResultCards = styled.div`
     justify-content: flex-start;
     height: 15rem;
     width: 12rem;
+    padding: 10px;
+    border: 1px solid #E4E4E7;
 //    background-color: #bfbfbf;
     margin-inline: 5px;
     margin-right: 1rem;
