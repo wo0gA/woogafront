@@ -141,7 +141,6 @@ const EditProductMain = ({ item }) => {
       <Wrapper>
          <Banner>상품 정보<br />입력</Banner>
          <Contents>
-         <ProcessBar><img src={bar1} alt="Process Bar" /></ProcessBar>
          <form onSubmit={handleSubmit}>
             <Detail>
                <W1>
