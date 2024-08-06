@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import levelpic from '../images/ill.png';
 import empty from '../images/Frame 250.png';
-import ReactCalendar from './special/ReactCalendar';
+import ReactCalendar from './special/NonclickReactCalendar';
 import { useNavigate, useParams } from 'react-router-dom';
 import profileImage from '../images/profileImage.png';
 import { getRentalHistory } from '../apis/product';
+
+import level1 from '../images/level1.png';  
+import level2 from '../images/level2.png';
+import level3 from '../images/level3.png';
+import level4 from '../images/level4.png';
+import level5 from '../images/level5.png';
 
 const MypageMain = () => {
   const accessToken = localStorage.getItem("access");
@@ -17,8 +22,11 @@ const MypageMain = () => {
   const [historyData, setHistoryData] = useState(null);
   const [registerData, setRegisterData] = useState(null);
   const [activeItem, setActiveItem] = useState('');
+  const [isActive, setIsActive] = useState(false);
   const [rentalData, setRentalData] = useState(null);
   const { productID } = useParams();
+  const [levelImage, setLevelImage] = useState(level1);
+  const [isLogin, setIsLogin] = useState(!!accessToken);
 
   const navigate = useNavigate();
   const switchCalendar = (productID) => {
@@ -29,6 +37,23 @@ const MypageMain = () => {
   const handleEditClick = (productID) => {
     navigate(`/editProduct/${productID}`);
   };
+
+  const handleDeleteClick = async (productID) => {
+    if (window.confirm("등록된 물품을 삭제하시겠습니까?")) {
+      try {
+        await fetch(`https://server.templ.es/products/${productID}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        })
+        alert("삭제하였습니다.")
+      } catch (error) {
+        alert("에러 발생! 삭제에 실패했습니다.")
+      }
+    }
+  }
 
   const fetchHistoryDataFromAPI = async (accessToken) => {
     try {
@@ -76,7 +101,23 @@ const MypageMain = () => {
         }
       });
       const data = await response.json();
-      console.log(data);
+      console.log('userInfo:', data);
+      
+      if (data.level === 'NEWBIE') { 
+        setLevelImage(level1);
+      } else if (data.level === 'ROOKIE') {
+        setLevelImage(level2);
+      }
+      else if (data.level === 'SEMIPRO') {
+        setLevelImage(level3);
+      }
+      else if (data.level === 'PRO') {
+        setLevelImage(level4);
+      }
+      else if (data.level === 'MASTER') {
+        setLevelImage(level5);
+      }
+
       return data;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -85,22 +126,34 @@ const MypageMain = () => {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const userData = await fetchDataFromAPI(accessToken);
-      setUserData(userData);
-      const historyData = await fetchHistoryDataFromAPI(accessToken, user_id);
-      setHistoryData(historyData);
-      console.log('<<historydata>>: ', historyData);
-      const registerData = await fetchRegisterDataFromAPI(accessToken, user_id);
-      setRegisterData(registerData);
-
-      getRentalHistory(productID).then((data) => {
-        setRentalData(data);
+    const checkLogin = () => {
+      if (accessToken) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
       }
-      );
     };
+
+    checkLogin();
+
+    const getData = async () => {
+      if (isLogin) {
+        const userData = await fetchDataFromAPI(accessToken);
+        setUserData(userData);
+        const historyData = await fetchHistoryDataFromAPI(accessToken, user_id);
+        setHistoryData(historyData);
+        console.log('<<historydata>>: ', historyData);
+        const registerData = await fetchRegisterDataFromAPI(accessToken, user_id);
+        setRegisterData(registerData);
+
+        getRentalHistory(productID).then((data) => {
+          setRentalData(data);
+        });
+      }
+    };
+
     getData();
-  },  [productID]);
+  }, [accessToken, user_id, productID, isLogin]);
 
   const showRent = () => {
     setIsRentSelected(true);
@@ -139,7 +192,7 @@ const MypageMain = () => {
       <RegisterContainer>
         <RegisterRecord>
           {registerData.map((registerData) => (
-            <RegisterItem key={registerData.id} onClick={() => switchCalendar(registerData.id)}>
+            <RegisterItem key={registerData.id} onClick={() => {switchCalendar(registerData.id); setActiveItem(registerData.id)}} isActive={activeItem===registerData.id}>
               <Itempic src={registerData.thumbnails && registerData.thumbnails[0] && registerData.thumbnails[0].thumbnail 
                 ? registerData.thumbnails[0].thumbnail 
                 : ''}></Itempic>
@@ -155,6 +208,11 @@ const MypageMain = () => {
                   <path d="M3 17.2495V20.9995H6.75L17.81 9.93951L14.06 6.18951L3 17.2495ZM20.71 7.03951C20.8027 6.947 20.8762 6.83711 20.9264 6.71614C20.9766 6.59517 21.0024 6.46548 21.0024 6.33451C21.0024 6.20355 20.9766 6.07386 20.9264 5.95289C20.8762 5.83192 20.8027 5.72203 20.71 5.62951L18.37 3.28951C18.2775 3.19681 18.1676 3.12326 18.0466 3.07308C17.9257 3.0229 17.796 2.99707 17.665 2.99707C17.534 2.99707 17.4043 3.0229 17.2834 3.07308C17.1624 3.12326 17.0525 3.19681 16.96 3.28951L15.13 5.11951L18.88 8.86951L20.71 7.03951Z" fill="#A1A1AA" />
                 </svg>
               </EditIcon>
+              <div class="flex items-center justify-center w-[10%] opacity-50 cursor-pointer" onClick={() => handleDeleteClick(registerData.id)}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z" fill="black"/>
+                </svg>
+              </div>
             </RegisterItem>
           ))}
         </RegisterRecord>
@@ -162,7 +220,7 @@ const MypageMain = () => {
           <ReactCalendar />
           <RentalList>
             {rentalData && rentalData.map((rentalData) => (
-              <Rental>
+              <Rental key={rentalData.id}>
                 <RentalPic src={profileImage} />
                 <RentalName>{rentalData.renter.username}</RentalName>
                 <RentalDate>{rentalData.rental_start_date} - {rentalData.rental_end_date}</RentalDate>
@@ -183,61 +241,64 @@ const MypageMain = () => {
     );
   }
   if (!userData) {
-    return <div>Loading...</div>;
+    return <PlzLogin>로그인을 해주세요.</PlzLogin>;
   }
 
   return (
     <Wrapper>
       <Banner><Title>마이페이지</Title></Banner>
-      <UpperContents>
-        <Picture><img src={levelpic} width="100%" alt='levelPic'/></Picture>
-        {/* <LevelRoad></LevelRoad> */}
-        <ProfileSection>
-          <Greeting>{userData.username}님, 반가워요!</Greeting>
-          <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', marginTop: '20px' }}>
-            <div style={{ position: 'relative' }}>
-              <img
-                src={userData.profile || 'default-profile.png'}
-                alt="Profile"
-                style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-              />
-              <span onClick={() => navigate('/profileSetting')}
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  right: '0',
-                  width:'1rem',
-                  height: '1rem',
-                  backgroundColor: '#FCFF5D',
-                  borderRadius: '50%',
-                  fontSize:'10px',
-                  textAlign:'center',
-                  display: 'flex',
-                  justifyContent:'center',
-                }}
-              >
-                ✎
-              </span></div>
+      {isLogin ? (
+        <UpperContents>
+          <Picture><img src={levelImage} width="100%" alt='levelPic'/></Picture>
+          <ProfileSection>
+            <Greeting>{userData.username}님, 반가워요!</Greeting>
+            <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', marginTop: '20px' }}>
+              <div style={{ position: 'relative' }}>
+                <img
+                  src={userData.profile || 'default-profile.png'}
+                  alt="Profile"
+                  style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                />
+                <span onClick={() => navigate('/profileSetting')}
+                  style={{
+                    position: 'absolute',
+                    bottom: '0',
+                    right: '0',
+                    width:'1rem',
+                    height: '1rem',
+                    backgroundColor: '#FCFF5D',
+                    borderRadius: '50%',
+                    fontSize:'10px',
+                    textAlign:'center',
+                    display: 'flex',
+                    justifyContent:'center',
+                    cursor: 'pointer',
+                  }}
+                >
+                  ✎
+                </span></div>
+              </div>
+              <div style={{ marginLeft: '10px', display:'flex', flexDirection:'row', justifyContent:'center', alignItems: 'center', width:'100%', marginTop:'1rem',}}>
+                <div style={{borderRadius:'30%', textDecorationColor:'#eee', backgroundColor: '#eee', fontSize:'10px', width:'20%', height:'1rem',}}>{userData.level}</div>
+                <div style={{fontSize:'12px',}}>{userData.username} 님</div>
+              </div>
+            <div style={{ marginTop: '20px', marginLeft:'20px', marginRight:'20px'}}>
+              <div>바로미터 {userData.manner_score}</div>
+              <div style={{ backgroundColor: '#eee', borderRadius: '10px', overflow: 'hidden', marginTop: '10px' }}>
+                <div
+                  style={{
+                    width: `${userData.manner_score}%`,
+                    backgroundColor: '#ffeb3b',
+                    height: '10px',
+                  }}
+                />
+              </div>
             </div>
-            <div style={{ marginLeft: '10px', display:'flex', flexDirection:'row', justifyContent:'center', alignItems: 'center', width:'100%', marginTop:'1rem',}}>
-              <div style={{borderRadius:'30%', textDecorationColor:'#eee', backgroundColor: '#eee', fontSize:'10px', width:'20%', height:'1rem',}}>{userData.level}</div>
-              <div style={{fontSize:'12px',}}>{userData.username} 님</div>
-            </div>
-          <div style={{ marginTop: '20px', marginLeft:'20px', marginRight:'20px'}}>
-            <div>바로미터 {userData.manner_score}</div>
-            <div style={{ backgroundColor: '#eee', borderRadius: '10px', overflow: 'hidden', marginTop: '10px' }}>
-              <div
-                style={{
-                  width: `${userData.manner_score}%`,
-                  backgroundColor: '#ffeb3b',
-                  height: '10px',
-                }}
-              />
-            </div>
-          </div>
-        </ProfileSection>
-      </UpperContents>
-
+          </ProfileSection>
+        </UpperContents>
+      ) : (
+        <div>로그인하세요</div>
+      )}
       <MainComponents>
         <Buttons>
           <Button onClick={showRent} isSelected={isRentSelected}>
@@ -440,14 +501,14 @@ const RegisterItem = styled.div`
     width: 100%;
   }
 
-  cursor: pointer;
   &:hover {
-    background-color: #f9f9f9;
+    background-color: #eee;
   }
-  &:active {
-    background-color: #f0f0f0;
-  }
+
   border-bottom: 1px solid #eee;
+
+  background-color: ${props => (props.isActive ? '#eee' : 'white')};
+
 `;
 
 const Itempic = styled.img`
@@ -484,7 +545,8 @@ const EditIcon = styled.div`
       display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 10%;
+  cursor: pointer;
 `;
 
 const RentContainer = styled.div`
@@ -562,4 +624,15 @@ const RentalState = styled.div`
   height: 100%;
   font-size: 12px;
 
+`;
+
+const PlzLogin = styled.div`  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 20px;
+  height: 50vh;
+  color: #777;
 `;

@@ -36,7 +36,7 @@ const ReactCalendar = () => {
     if (Array.isArray(nextValue)) {
       const [start, end] = nextValue;
       if (doesOverlapWithHighlightedRange(start, end, highlightRanges)) {
-        alert('You cannot select ranges that include highlighted ranges.');
+        alert('선택한 기간에 이미 대여 약속이 있어요!');
         return;
       }
       setValue(nextValue);
@@ -48,7 +48,7 @@ const ReactCalendar = () => {
       console.log(`Total rental fee: $${totalFee}`);
     } else {
       if (isDateInHighlightedRange(nextValue, highlightRanges)) {
-        alert('You cannot select highlighted dates.');
+        alert('선택한 기간에 이미 대여 약속이 있어요!');
         return;
       }
       setValue(nextValue);

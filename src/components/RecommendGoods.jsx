@@ -28,7 +28,7 @@ const RecommendGoods = () => {
         <RecommendGoodsList>
             {recommendGoods.map((item) => (
               <RecommendGoodsCard key={item.id} onClick={() => handleItemClick(item.id)}>
-                <RecommendGoodsImage src={item.thumbnails[0].thumbnail} alt={item.name}></RecommendGoodsImage> {/* @@@이미지 */}
+                <RecommendGoodsImage src={item.thumbnails && item.thumbnails.length > 0 && item.thumbnails[0].thumbnail ? item.thumbnails[0].thumbnail : "#"} alt={item.name}></RecommendGoodsImage> {/* @@@이미지 */}
                 <RecommendGoodsName>{item.name}</RecommendGoodsName>
               </RecommendGoodsCard>
             ))}

@@ -1,20 +1,25 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import bar1 from '../images/step bar1.png'
-import ban1 from '../images/banner1.png'
-import SearchResultCard from './Card/SearchResultCard';
+import registerBanner from '../images/registerBanner.png'
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const RegistrationMain = () => {
-    const [resultCard, setResultCard] = useState();
     const navigate = useNavigate();
 
-    const onClick = () => navigate('/registerDetail');
+    const onClick = () => {
+        //로그인이 되어있지 않다면 로그인 페이지로 이동
+        if (!localStorage.getItem('access')) {
+            navigate('/login');
+            return;
+        }
+        else
+            navigate('/registerDetail');
+    }
 
   return (
     <Wrapper>
-    <Banner><img src={ban1}/></Banner>
+    <Banner><img src={registerBanner} alt='registerBanner'/></Banner>
     <RegistrationSection>
     <RecentText>8가지의 물품 종류를 등록할 수 있어요</RecentText>
     <CategorySection>
@@ -71,12 +76,6 @@ const RegistrationMain = () => {
     </CategorySection>
     <Button><button onClick={onClick}>등록하러 가기</button></Button>
     </RegistrationSection>
-    <RecentRegistered>
-        <RecentText2>최근 등록된 상품</RecentText2>
-        <GoodsItems>
-         <SearchResultCard setResultCard={setResultCard} />
-        </GoodsItems>
-    </RecentRegistered>
     </Wrapper>
   )
 }
@@ -123,7 +122,6 @@ const RegistrationSection = styled.div`
 
 const RecentText = styled.div`
     color: #000;
-    font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -133,7 +131,6 @@ const RecentText = styled.div`
 
 const RecentText2 = styled.div`
     color: #000;
-    font-family: Pretendard;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;

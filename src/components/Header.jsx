@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
 import { logoClick } from '../utils/simple';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { searchProducts, logout } from '../test/test';
 import { NavContext } from '../context/NavContext';
 
@@ -19,11 +19,17 @@ const Header = () => {
     setSearchValue(e.target.value);
   };
 
+  const location = useLocation();
   const handleSearchClick = () => {
-    console.log(`Search value: ${searchValue}`);
-    const params = new URLSearchParams({ keyword: searchValue });
-		navigate(`/rentalCategory?${params.toString()}`);
-		//searchProducts(searchValue);
+    const searchParams = new URLSearchParams(location.search);
+    const currentPath = location.pathname;
+
+    if (currentPath.includes('/rentalCategory')) {
+      searchParams.set('keyword', searchValue);
+      navigate(`${currentPath}?${searchParams.toString()}`);
+    } else {
+      navigate(`/rentalCategory?keyword=${searchValue}`);
+    }
   };
 
   const handleKeyPress = (event) => {
@@ -54,7 +60,7 @@ const Header = () => {
         <LeftHeader src={logo} alt="logo" onClick={handleLogoClick}></LeftHeader>
         <RightHeader>
           {isLoggedIn ? (
-            <ProfileButton onClick={handleNavClick(`/mypage/${userID}`)}>
+            <ProfileButton onClick={handleNavClick(`/mypage/0`)}> {/* @@@ 이떄뭐ㅓㄴㅎ을지... (마이페이지로 이동 */}
               <ProfileIcon>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
                   <path fillRule="evenodd" clipRule="evenodd" d="M6 5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5C12 6.65685 10.6569 8 9 8C7.34315 8 6 6.65685 6 5ZM9 0C6.23858 0 4 2.23858 4 5C4 7.76142 6.23858 10 9 10C11.7614 10 14 7.76142 14 5C14 2.23858 11.7614 0 9 0ZM5 12C3.67392 12 2.40215 12.5268 1.46447 13.4645C0.526784 14.4021 0 15.6739 0 17V19C0 19.5523 0.447715 20 1 20C1.55228 20 2 19.5523 2 19V17C2 16.2043 2.31607 15.4413 2.87868 14.8787C3.44129 14.3161 4.20435 14 5 14H13C13.7956 14 14.5587 14.3161 15.1213 14.8787C15.6839 15.4413 16 16.2044 16 17V19C16 19.5523 16.4477 20 17 20C17.5523 20 18 19.5523 18 19V17C18 15.6739 17.4732 14.4021 16.5355 13.4645C15.5979 12.5268 14.3261 12 13 12H5Z" fill="black"/>
@@ -63,6 +69,7 @@ const Header = () => {
               <ProfileText>
                 {username}님
               </ProfileText>
+              <MyStoreBtn> 내 상점</MyStoreBtn>
             </ProfileButton>
           ) : (
             <ProfileText>
@@ -250,4 +257,18 @@ const HeaderSearchIcon = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+`;
+
+const MyStoreBtn = styled.button`
+  background-color: transparent;
+  margin-left: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover {
+    color: #8f8f8f;
+  }
+  &:active {
+    color: #595959;
+  }
 `;

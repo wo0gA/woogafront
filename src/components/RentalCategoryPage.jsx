@@ -1,85 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import categories from './data/categories';
 import SearchResultCard from './Card/SearchResultCard';
 import CategoryComponent from './CategoryComponent';
-import mag1 from '../images/Mask group1.png'
-import mag2 from '../images/Mask group2.png'
-import mag3 from '../images/Mask group3.png'
+import suggest1 from '../images/suggest1.png';
+import suggest2 from '../images/suggest2.png';
+import suggest3 from '../images/suggest3.png';
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedProducts }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
     const [resultCard, setResultCard] = useState(null);
+    const [selectedOrder, setSelectedOrder] = useState('recent');
 
     const handleMainCategoryClick = (category) => {
         setSelectedMainCategory(category);
+        fetchProducts("category", category); // Main category click handler
     };
 
     const SERVER_URL = "server.templ.es";
 
     const fetchProducts = async (param, categoryName) => {
-		const trimmedName = categoryName.replaceAll(" ", "");
-		try {
-			const response = await axios.get(
-				`https://${SERVER_URL}/products/?${param}=${trimmedName}`
-			);
+        const trimmedName = categoryName.replaceAll(" ", "");
+        try {
+            const response = await axios.get(
+                `https://${SERVER_URL}/products/?${param}=${trimmedName}`
+            );
             console.log(response);
-		} catch (err) {
-		}
-	};
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-return (
-    <Wrapper>
-        <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={onItemSelect} />
-        <Contents>
-            <Category>
-                <CatTitle>카테고리</CatTitle>
-                <CategoryContents>
-                    <SportsDescription>
-                        {Object.keys(categories).map((mainCategory) => (
-                            <CategoryItem
-                                key={mainCategory}
-                                selected={selectedMainCategory === mainCategory}
-                                onClick={() => fetchProducts("category", mainCategory)}
-                            >
-                                {mainCategory}
-                            </CategoryItem>
-                        ))}
-                    </SportsDescription>
-                </CategoryContents>
-            </Category>
-            <Contentarr>
-                <SearchResult>
-                    {/* Display search term results */}
-                    {searchTerm && (
-                        <Title>'{searchTerm}'에 대한 검색결과</Title>
-                    )}
-                    {/* Display category results */}
-                    {selectedItem && !searchTerm && (
-                        <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
-                    )}
-                    <SearchNavigation>
-                        <Nav>최신순</Nav>
-                        <Nav>인기순</Nav>
-                        <Nav>낮은 가격순</Nav>
-                    </SearchNavigation>
-                    <SearchResultBox>
-                        <SearchResultCard selectedProducts={selectedProducts} setResultCard={setResultCard} />
-                    </SearchResultBox>
-                </SearchResult>
-                <Popular>
-                    <Title>바로지금의 제안</Title>
-                    <Magazines>
-                        <MagazinesItem><img src={mag1} width='200px' /></MagazinesItem>
-                        <MagazinesItem><img src={mag2} width='200px' /></MagazinesItem>
-                        <MagazinesItem><img src={mag3} width='200px' /></MagazinesItem>
-                    </Magazines>
-                </Popular>
-            </Contentarr>
-        </Contents>
-    </Wrapper>
-);
+    //정렬 기준을 url에 추가하는 함수
+    const location = useLocation();
+    const navigate = useNavigate();
+    const updateOrderParam = (order) => {
+        setSelectedOrder(order);  // Update the selected order state
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("order", order);
+        navigate(`?${searchParams.toString()}`);
+    }
+
+    //category를 url에 추가하는 함수
+    const updateCategoryParam = (categoryName) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("category", categoryName);
+        navigate(`?${searchParams.toString()}`);
+    };
+
+
+    const suggestNavigate = (categoryName) => {
+        window.location.href = `http://localhost:3000/rentalCategory?category=${categoryName}`;
+    }
+
+
+    return (
+        <Wrapper>
+            <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={onItemSelect} />
+            <Contents>
+                <Category>
+                    <CatTitle>카테고리</CatTitle>
+                    <CategoryContents>
+                        <SportsDescription>
+                            {Object.keys(categories).map((mainCategory) => (
+                                <CategoryItem
+                                    key={mainCategory}
+                                    selected={selectedMainCategory === mainCategory}
+                                    onClick={() => updateCategoryParam(mainCategory)}
+                                >
+                                    {mainCategory}
+                                </CategoryItem>
+                            ))}
+                        </SportsDescription>
+                    </CategoryContents>
+                </Category>
+                <Contentarr>
+                    <SearchResult>
+                        {/* Display search term results */}
+                        {searchTerm && (
+                            <Title>'{searchTerm}'에 대한 검색결과</Title>
+                        )}
+                        {/* Display category results */}
+                        {selectedItem && !searchTerm && (
+                            <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
+                        )}
+                        <SearchNavigation>
+                            <Nav onClick={() => updateOrderParam("recent")} isSelected={selectedOrder === "recent"}>최신순</Nav>
+                            <Nav onClick={() => updateOrderParam("views")} isSelected={selectedOrder === "views"}>인기순</Nav>
+                            <Nav onClick={() => updateOrderParam("min_price")} isSelected={selectedOrder === "min_price"}>낮은 가격순</Nav>
+                        </SearchNavigation>
+                        <SearchResultBox>
+                            <SearchResultCard selectedProducts={selectedProducts} setResultCard={setResultCard} />
+                        </SearchResultBox>
+                    </SearchResult>
+                    <Popular>
+                        <Title>바로지금의 제안</Title>
+                        <Magazines>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("요가 및 필라테스")} src={suggest1} width='200px' alt="magazine1" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("축구")} src={suggest2} width='200px' alt="magazine2" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("수상 스포츠")} src={suggest3} width='200px' alt="magazine3" /></MagazinesItem>
+                        </Magazines>
+                    </Popular>
+                </Contentarr>
+            </Contents>
+        </Wrapper>
+    );
 };
 
 export default RentalCategoryPage;
@@ -103,8 +130,10 @@ const Nav = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    margin-right: 1rem;
+    font-weight: ${props => (props.isSelected ? 'bold' : 'normal')};
 `;
-
 
 const Contents = styled.div`
     display: flex;
@@ -143,7 +172,7 @@ const CategoryContents = styled.div`
 `;
 
 const SportsDescription = styled.div`
-    margin-top: px;
+    margin-top: 10px;
     font-size: 12px;
     text-align: left;
     justify-content: space-between;
@@ -153,10 +182,9 @@ const Popular = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
-
     /* border: 1px solid black; */
 `;
 
@@ -175,24 +203,26 @@ const CatTitle = styled.div`
     font-size: 14px;
     font-weight: 550;
     margin-bottom: 10px;
-    color: #000`;
+    color: #000;
+`;
 
 const Contentarr = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 70%;
-    padding-left: 20px;
 `;
 
 const SearchNavigation = styled.div`
     margin-top: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    width: 35%;
+    justify-content: flex-start;
+    width: 100%;
     height: 100%;
-    font-size: 14px;`;
+    font-size: 14px;
+    border-bottom: 1px solid #000;
+`;
 
 const SearchResult = styled.div`
     width: 100%;
@@ -204,7 +234,7 @@ const SearchResultBox = styled.div`
     overflow: hidden;
     margin-top: 5px;
     justify-content: space-between;
-    `;
+`;
 
 const Magazines = styled.div`
     width: 100%;
@@ -212,7 +242,6 @@ const Magazines = styled.div`
     flex-direction: row;
     margin-bottom: 6rem;
     justify-content: space-between;
-
 `;
 
 const MagazinesItem = styled.div`
@@ -227,8 +256,13 @@ const MagazinesItem = styled.div`
     font-weight: 400;
     margin-inline: 5px; 
     padding-bottom: 20px;
+    cursor: pointer;
 `;
 
 const CategoryItem = styled.div`
     margin-bottom: 0.7rem;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
 `;
