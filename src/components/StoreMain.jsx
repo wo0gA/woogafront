@@ -100,7 +100,7 @@ const StoreMain = () => {
          <PopularContents>
             {products.map((product) => (
                <PopularItem key={product.id}>
-                  <PopularImage src={product.imageUrl} />
+                  <PopularImage src={product.thumbnails[0].thumbnail} />
                   <PolularText>
                      <PopularName>{product.name}</PopularName>
                      <PopularPrice>
@@ -344,8 +344,9 @@ const PolularText = styled.div`
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
+    margin-bottom: 5px;
 `;
 const PopularPrice = styled.div`
     display: flex;
@@ -358,17 +359,20 @@ const PopularPrice = styled.div`
 const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
-    font-size: 16px;
+    font-size: 13px;
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
     flex-direction: row;
+    font-size: 13px;
 `;
 const Unit = styled.div`
     margin-right: 5px;
     font-weight: 400;
+    font-size: 10px;
 `;
 const Price = styled.div`
+font-size: 10px;
 `;
 
 // @@@???

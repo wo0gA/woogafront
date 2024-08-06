@@ -6,13 +6,16 @@ import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 import SimpleSlider from './special/banner'
 import bannerImage from '../images/banner.png'
 import textlogo from '../images/text logo.png'
-import empty from '../images/Frame 250.png'
-import healthInfo1 from '../images/HI1.png'
-import healthInfo2 from '../images/HI2.png'
-import healthInfo3 from '../images/HI3.png'
-import healthInfo4 from '../images/HI4.png'
-import healthInfo5 from '../images/HI5.png'
-
+import empty from '../images/Frame 114.png'
+import healthtip from '../images/healthtip.png'
+import footsalImage from '../images/footsal.png'
+import badmintonImage from '../images/badminton.png'
+import bikeImage from '../images/bike.png'
+import campingtableImage from '../images/campingtable.png'
+import helmetImage from '../images/helmet.png'
+import pingpongImage from '../images/pingpong.png'
+import rollerImage from '../images/roller.png'
+import volleyImage from '../images/volley.png'
 
 const Main = () => {
     const navigate = useNavigate();

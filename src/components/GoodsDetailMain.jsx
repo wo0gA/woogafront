@@ -9,7 +9,7 @@ import { formatDate } from '../utils/formatDate'
 import { getFourRecommendProducts, getProductInfo } from '../apis/product'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createChatRoom } from '../apis/websocket'
-import empty from '../images/Frame 250.png'
+import empty from '../images/Frame 114.png'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);

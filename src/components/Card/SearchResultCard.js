@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import empty from '../../images/Frame 250.png';
+import empty from '../../images/Frame 114.png'
 
 const SearchResultCard = ({ selectedProducts, setResultCard }) => {
     const [data, setData] = useState([]);
@@ -85,6 +85,9 @@ const SearchResultCards = styled.div`
     justify-content: flex-start;
     height: 15rem;
     width: 12rem;
+    padding: 10px;
+    border: 1px solid #E4E4E7;
+//    background-color: #bfbfbf;
     margin-inline: 5px;
     margin-right: 1rem;
     cursor: pointer;
