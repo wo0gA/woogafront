@@ -12,8 +12,7 @@ const CategoryPage = () => {
   const navigate = useNavigate();
 	const location = useLocation();
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedItem, setSelectedItem] = useState('');
+  const [searchString, setSearchString] = useState('');
   const [selectedProducts, setSelectedProducts] = useState(null);
 
 	const updateCategoryParam = (categoryName) => {
@@ -32,11 +31,19 @@ const CategoryPage = () => {
     const orderParam = searchParams.get("order");
 
     let query = [];
-    if (categoryParam) query.push(`category=${categoryParam}`);
-    if (keywordParam) query.push(`keyword=${keywordParam}`);
+    let stringList = [];
+    if (categoryParam) {
+      query.push(`category=${categoryParam}`);
+      stringList.push(categoryParam)
+    }
+    if (keywordParam) {
+      query.push(`keyword=${keywordParam}`);
+      stringList.push(keywordParam)
+    }
     if (orderParam) query.push(`order=${orderParam}`);
 
     const queryString = query.join('&');
+    setSearchString(stringList.join(', '));
     
     if (queryString) {
       fetchProducts(queryString);
@@ -60,8 +67,7 @@ const CategoryPage = () => {
       </Header> 
 
       <RentalCategoryPage
-      searchTerm={searchTerm}
-      selectedItem={selectedItem}
+      searchString={searchString}
       onItemSelect={updateCategoryParam} 
       selectedProducts={selectedProducts}/>
       <Footer>
