@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import bar1 from '../images/step bar1.png'
-import ban1 from '../images/banner1.png'
-import SearchResultCard from './Card/SearchResultCard';
+import registerBanner from '../images/registerBanner.png'
 import { useNavigate } from 'react-router-dom';
 
 
 const RegistrationMain = () => {
-    const [resultCard, setResultCard] = useState();
     const navigate = useNavigate();
 
     const onClick = () => navigate('/registerDetail');
 
   return (
     <Wrapper>
-    <Banner><img src={ban1}/></Banner>
+    <Banner><img src={registerBanner} alt='registerBanner'/></Banner>
     <RegistrationSection>
     <RecentText>8가지의 물품 종류를 등록할 수 있어요</RecentText>
     <CategorySection>
