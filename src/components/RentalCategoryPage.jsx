@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import categories from './data/categories';
 import SearchResultCard from './Card/SearchResultCard';
 import CategoryComponent from './CategoryComponent';
-import mag1 from '../images/Mask group1.png'
-import mag2 from '../images/Mask group2.png'
-import mag3 from '../images/Mask group3.png'
+import suggest1 from '../images/suggest1.png';
+import suggest2 from '../images/suggest2.png';
+import suggest3 from '../images/suggest3.png';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedProducts }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
     const [resultCard, setResultCard] = useState(null);
+    const [selectedOrder, setSelectedOrder] = useState('recent');
 
     const handleMainCategoryClick = (category) => {
         setSelectedMainCategory(category);
@@ -36,10 +37,24 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
     const location = useLocation();
     const navigate = useNavigate();
     const updateOrderParam = (order) => {
+        setSelectedOrder(order);  // Update the selected order state
         const searchParams = new URLSearchParams(location.search);
         searchParams.set("order", order);
         navigate(`?${searchParams.toString()}`);
     }
+
+    //category를 url에 추가하는 함수
+    const updateCategoryParam = (categoryName) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("category", categoryName);
+        navigate(`?${searchParams.toString()}`);
+    };
+
+
+    const suggestNavigate = (categoryName) => {
+        window.location.href = `http://localhost:3000/rentalCategory?category=${categoryName}`;
+    }
+
 
     return (
         <Wrapper>
@@ -53,7 +68,7 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
                                 <CategoryItem
                                     key={mainCategory}
                                     selected={selectedMainCategory === mainCategory}
-                                    
+                                    onClick={() => updateCategoryParam(mainCategory)}
                                 >
                                     {mainCategory}
                                 </CategoryItem>
@@ -72,9 +87,9 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
                             <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
                         )}
                         <SearchNavigation>
-                            <Nav onClick={() => updateOrderParam("recent")}>최신순</Nav>
-                            <Nav onClick={() => updateOrderParam("views")}>인기순</Nav>
-                            <Nav onClick={() => updateOrderParam("min_price")}>낮은 가격순</Nav>
+                            <Nav onClick={() => updateOrderParam("recent")} isSelected={selectedOrder === "recent"}>최신순</Nav>
+                            <Nav onClick={() => updateOrderParam("views")} isSelected={selectedOrder === "views"}>인기순</Nav>
+                            <Nav onClick={() => updateOrderParam("min_price")} isSelected={selectedOrder === "min_price"}>낮은 가격순</Nav>
                         </SearchNavigation>
                         <SearchResultBox>
                             <SearchResultCard selectedProducts={selectedProducts} setResultCard={setResultCard} />
@@ -83,9 +98,9 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
                     <Popular>
                         <Title>바로지금의 제안</Title>
                         <Magazines>
-                            <MagazinesItem><img src={mag1} width='200px' alt="magazine1" /></MagazinesItem>
-                            <MagazinesItem><img src={mag2} width='200px' alt="magazine2" /></MagazinesItem>
-                            <MagazinesItem><img src={mag3} width='200px' alt="magazine3" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("요가 및 필라테스")} src={suggest1} width='200px' alt="magazine1" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("축구")} src={suggest2} width='200px' alt="magazine2" /></MagazinesItem>
+                            <MagazinesItem><img onClick={()=>suggestNavigate("수상 스포츠")} src={suggest3} width='200px' alt="magazine3" /></MagazinesItem>
                         </Magazines>
                     </Popular>
                 </Contentarr>
@@ -116,6 +131,8 @@ const Nav = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin-right: 1rem;
+    font-weight: ${props => (props.isSelected ? 'bold' : 'normal')};
 `;
 
 const Contents = styled.div`
@@ -200,10 +217,11 @@ const SearchNavigation = styled.div`
     margin-top: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    width: 35%;
+    justify-content: flex-start;
+    width: 100%;
     height: 100%;
     font-size: 14px;
+    border-bottom: 1px solid #000;
 `;
 
 const SearchResult = styled.div`
@@ -238,6 +256,7 @@ const MagazinesItem = styled.div`
     font-weight: 400;
     margin-inline: 5px; 
     padding-bottom: 20px;
+    cursor: pointer;
 `;
 
 const CategoryItem = styled.div`

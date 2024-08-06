@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
 import { logoClick } from '../utils/simple';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { searchProducts, logout } from '../test/test';
 import { NavContext } from '../context/NavContext';
 
@@ -19,18 +19,16 @@ const Header = () => {
     setSearchValue(e.target.value);
   };
 
+  const location = useLocation();
   const handleSearchClick = () => {
-    // console.log(`Search value: ${searchValue}`);
-    // const params = new URLSearchParams({ keyword: searchValue });
-		// navigate(`/rentalCategory?${params.toString()}`);
-		// //searchProducts(searchValue);
+    const searchParams = new URLSearchParams(location.search);
+    const currentPath = location.pathname;
 
-    //이미 rentalCategory 페이지이면 그냥 뒤에 추가
-    const params = new URLSearchParams({ keyword: searchValue });
-    if (window.location.pathname === "/rentalCategory") {
-      navigate(`?${params.toString()}`);
+    if (currentPath.includes('/rentalCategory')) {
+      searchParams.set('keyword', searchValue);
+      navigate(`${currentPath}?${searchParams.toString()}`);
     } else {
-      navigate(`/rentalCategory?${params.toString()}`); // 아니면 category로 이동
+      navigate(`/rentalCategory?keyword=${searchValue}`);
     }
   };
 

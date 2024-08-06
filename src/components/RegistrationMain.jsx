@@ -7,7 +7,15 @@ import '../App.css';
 const RegistrationMain = () => {
     const navigate = useNavigate();
 
-    const onClick = () => navigate('/registerDetail');
+    const onClick = () => {
+        //로그인이 되어있지 않다면 로그인 페이지로 이동
+        if (!localStorage.getItem('access')) {
+            navigate('/login');
+            return;
+        }
+        else
+            navigate('/registerDetail');
+    }
 
   return (
     <Wrapper>
@@ -114,7 +122,6 @@ const RegistrationSection = styled.div`
 
 const RecentText = styled.div`
     color: #000;
-    font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -124,7 +131,6 @@ const RecentText = styled.div`
 
 const RecentText2 = styled.div`
     color: #000;
-    font-family: Pretendard;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const SERVER_URL = "server.templ.es";
 
@@ -22,11 +23,11 @@ export const fetchMessages = async (roomId) => {
 /**
  * 새로운 채팅방을 생성 또는 조회하는 함수
  */
-export const createChatRoom = async (shop_user_email, visitor_user_email) => {
+export const createChatRoom = async (shop_user_email, visitor_user_email, productID) => {
 	const response = await axios.post(`https://${SERVER_URL}/chat/rooms/`, {
 		shop_user_email: shop_user_email,
 		visitor_user_email: visitor_user_email,
-		product: 1,
+		product: productID,
 	});
 	return response.data;
 };
