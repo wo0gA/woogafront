@@ -25,11 +25,6 @@ const StoreMain = () => {
 
    useEffect(() => {
       console.log('상점 id:', userID);
-      getUserInfo().then((data) => { //@@이게 아니라 상점 기능 api로 바꿔야함무!!! (이걸로하면 어떤 상점을 들어가든 본인 상점이 뜸;;)
-         setLevel(data.level);
-         setName(data.username);
-         setMannerScore(data.manner_score);
-      });
 
       getOwnerProducts(userID).then((data) => {
          setProducts(data); // 등록 물품 데이터 설정
