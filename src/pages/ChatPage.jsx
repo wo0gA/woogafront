@@ -78,31 +78,50 @@ const ChatPage = () => {
 							</div>
 						</div>
 						<div class="overflow-y-auto">
-							{chatRoom.map((roomData) => (
-								<div
-									class="flex items-center gap-2 p-2 m-4 border rounded-md cursor-pointer transition-all duration-500"
-									onClick={() => setCurrentChat(roomData)}
-								>
-									<span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-										<span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
-											{roomData.opponent_username === roomData.shop_user.username ? <img src={roomData.shop_user.profile} /> : <img src={roomData.visitor_user.profile} />}
-										</span>
-									</span>
-									<div class="flex flex-col ml-4 whitespace-nowrap overflow-hidden">
-										<span class="font-semibold text-left overflow-hidden text-ellipsis">
-											{roomData.opponent_username}
-										</span>
-										<span class="w-full text-sm text-muted-foreground overflow-hidden text-ellipsis text-left">
-											{roomData.latest_message || "대화를 시작해보세요!"}
-										</span>
+							{chatRoom.length === 0 
+								? <div class="mt-12 text-gray-500">
+										<div class="flex justify-center pb-4">
+											<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M66.6665 6.66602H13.3332C9.6665 6.66602 6.6665 9.66602 6.6665 13.3327V73.3327L19.9998 59.9994H66.6665C70.3332 59.9994 73.3332 56.9994 73.3332 53.3327V13.3327C73.3332 9.66602 70.3332 6.66602 66.6665 6.66602ZM66.6665 53.3327H19.9998L13.3332 59.9994V13.3327H66.6665V53.3327ZM23.3332 29.9993H29.9998V36.666H23.3332V29.9993ZM36.6665 29.9993H43.3332V36.666H36.6665V29.9993ZM49.9998 29.9993H56.6665V36.666H49.9998V29.9993Z" fill="#A1A1AA"/>
+											</svg>
+										</div>
+										<div>
+											{currentTab === 0 
+											? <><div class="pb-2">아직 보낸 대여 문의가 없어요.</div><div>원하는 물품을 검색하여 대여 문의를 남겨보세요.</div></>
+											: <><div class="pb-2">아직 받은 대여 문의가 없어요.</div></>}
+										</div>
 									</div>
-									<div class="flex flex-col pb-6 ml-auto text-right">
-										<span class="min-w-16 text-sm text-muted-foreground">
-											{timeAgo(roomData.latest_message_timestamp)}
-										</span>
-									</div>
-								</div>
-							))}
+								: chatRoom.map((roomData) => (
+										<div
+											class="flex items-center gap-2 p-2 m-4 border rounded-md cursor-pointer transition-all duration-500"
+											onClick={() => setCurrentChat(roomData)}
+										>
+											<span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+												<span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
+													{roomData.opponent_username === roomData.shop_user.username ? <img src={roomData.shop_user.profile} /> : <img src={roomData.visitor_user.profile} />}
+												</span>
+											</span>
+											<div class="flex flex-col ml-4 whitespace-nowrap overflow-hidden">
+												<div class="flex items-center">
+													<span class="font-semibold text-left overflow-hidden text-ellipsis">
+														{roomData.opponent_username}
+													</span>
+													<span class="pl-2 font-medium overflow-hidden text-ellipsis text-gray-400 text-sm">{
+														roomData.product.name}
+													</span>
+												</div>
+												<span class="w-full text-sm text-muted-foreground overflow-hidden text-ellipsis text-left">
+													{roomData.latest_message || "대화를 시작해보세요!"}
+												</span>
+											</div>
+											<div class="flex flex-col pb-6 ml-auto text-right">
+												<span class="min-w-16 text-sm text-muted-foreground">
+													{timeAgo(roomData.latest_message_timestamp)}
+												</span>
+											</div>
+										</div>
+									))}
+							
 						</div>
 					</aside>
 					{currentChat && (
