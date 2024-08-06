@@ -43,6 +43,13 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
         navigate(`?${searchParams.toString()}`);
     }
 
+    //category를 url에 추가하는 함수
+    const updateCategoryParam = (categoryName) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("category", categoryName);
+        navigate(`?${searchParams.toString()}`);
+    };
+
     return (
         <Wrapper>
             <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={onItemSelect} />
@@ -55,7 +62,7 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
                                 <CategoryItem
                                     key={mainCategory}
                                     selected={selectedMainCategory === mainCategory}
-                                    
+                                    onClick={() => updateCategoryParam(mainCategory)}
                                 >
                                     {mainCategory}
                                 </CategoryItem>
