@@ -290,7 +290,7 @@ const RegistrationDetailMain = ({ item }) => {
               </InputText>
     </W1>
     <W1><Title>배송비</Title>
-    <div>
+    <div style={{textAlign:'left'}}>
                 <label>
                   <input
                     type="radio"
