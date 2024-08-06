@@ -9,7 +9,7 @@ import helmetImage from '../images/helmet.png'
 import pingpongImage from '../images/pingpong.png'
 import rollerImage from '../images/roller.png'
 import volleyImage from '../images/volley.png'
-import { getOwnerProducts, getOwnerReviews, getUserInfo } from '../apis/user'
+import { getOtherUserInfo, getOwnerProducts, getOwnerReviews, getUserInfo } from '../apis/user'
 import { useParams } from 'react-router-dom'
 import { getStoreInfo } from '../apis/store'
 
@@ -40,9 +40,12 @@ const StoreMain = () => {
          setReviews(data); // 리뷰 데이터 설정
          setDealCount(data.length); // 리뷰 수 설정
       });
-
-      getStoreInfo(userID);
-
+      
+      getOtherUserInfo(userID).then((data) => {
+         setName(data.username);
+         setMannerScore(data.manner_score);
+         setLevel(data.level);
+      });
    }, [userID]);
 
   return (
