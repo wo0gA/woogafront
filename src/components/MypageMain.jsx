@@ -166,7 +166,7 @@ const MypageMain = () => {
   function Rent() {
     return (
       <RentContainer>
-        {historyData ?
+        {historyData =='null' ?
           <GoodsRecord>
             <GoodsItems>
               {historyData.map((historyData) => (
@@ -182,7 +182,7 @@ const MypageMain = () => {
               ))}
             </GoodsItems>
           </GoodsRecord>
-          : <img src={empty} width='10rem' />}
+          : <GoodsRecord><img src={empty} width='20%' /></GoodsRecord>}
       </RentContainer>
     );
   }
@@ -357,6 +357,10 @@ const Picture = styled.div`
 
 const GoodsRecord = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
 `;
 
 const GoodsItems = styled.div`

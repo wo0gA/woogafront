@@ -6,17 +6,17 @@ import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 import SimpleSlider from './special/banner'
 import bannerImage from '../images/banner.png'
 import textlogo from '../images/text logo.png'
-import empty from '../images/Frame 250.png'
-import healthInfo1 from '../images/HI1.png'
-import healthInfo2 from '../images/HI2.png'
-import healthInfo3 from '../images/HI3.png'
-import healthInfo4 from '../images/HI4.png'
-import healthInfo5 from '../images/HI5.png'
+import empty from '../images/Frame 114.png'
 
+import H1 from '../images/HI1.png'
+import H2 from '../images/HI2.png'
+import H3 from '../images/HI3.png'
+import H4 from '../images/HI4.png'
+import H5 from '../images/HI5.png'
 
 const Main = () => {
     const navigate = useNavigate();
-    const healthInfos = [healthInfo1, healthInfo2, healthInfo3, healthInfo4, healthInfo5];
+    const healthInfos = [H1, H2, H3, H4, H5];
     //랜덤으로 healthInfo 이미지를 뽑기 위한 함수
     const getRandomHealthInfo = () => {
         const random = Math.floor(Math.random() * healthInfos.length);
