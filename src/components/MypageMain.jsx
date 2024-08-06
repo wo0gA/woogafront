@@ -26,6 +26,7 @@ const MypageMain = () => {
   const [rentalData, setRentalData] = useState(null);
   const { productID } = useParams();
   const [levelImage, setLevelImage] = useState(level1);
+  const [isLogin, setIsLogin] = useState(!!accessToken);
 
   const navigate = useNavigate();
   const switchCalendar = (productID) => {
@@ -108,22 +109,34 @@ const MypageMain = () => {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const userData = await fetchDataFromAPI(accessToken);
-      setUserData(userData);
-      const historyData = await fetchHistoryDataFromAPI(accessToken, user_id);
-      setHistoryData(historyData);
-      console.log('<<historydata>>: ', historyData);
-      const registerData = await fetchRegisterDataFromAPI(accessToken, user_id);
-      setRegisterData(registerData);
-
-      getRentalHistory(productID).then((data) => {
-        setRentalData(data);
+    const checkLogin = () => {
+      if (accessToken) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
       }
-      );
     };
+
+    checkLogin();
+
+    const getData = async () => {
+      if (isLogin) {
+        const userData = await fetchDataFromAPI(accessToken);
+        setUserData(userData);
+        const historyData = await fetchHistoryDataFromAPI(accessToken, user_id);
+        setHistoryData(historyData);
+        console.log('<<historydata>>: ', historyData);
+        const registerData = await fetchRegisterDataFromAPI(accessToken, user_id);
+        setRegisterData(registerData);
+
+        getRentalHistory(productID).then((data) => {
+          setRentalData(data);
+        });
+      }
+    };
+
     getData();
-  },  [productID]);
+  }, [accessToken, user_id, productID, isLogin]);
 
   const showRent = () => {
     setIsRentSelected(true);
@@ -185,7 +198,7 @@ const MypageMain = () => {
           <ReactCalendar />
           <RentalList>
             {rentalData && rentalData.map((rentalData) => (
-              <Rental>
+              <Rental key={rentalData.id}>
                 <RentalPic src={profileImage} />
                 <RentalName>{rentalData.renter.username}</RentalName>
                 <RentalDate>{rentalData.rental_start_date} - {rentalData.rental_end_date}</RentalDate>
@@ -206,61 +219,64 @@ const MypageMain = () => {
     );
   }
   if (!userData) {
-    return <div>Loading...</div>;
+    return <PlzLogin>로그인을 해주세요.</PlzLogin>;
   }
 
   return (
     <Wrapper>
       <Banner><Title>마이페이지</Title></Banner>
-      <UpperContents>
-        <Picture><img src={levelImage} width="100%" alt='levelPic'/></Picture>
-        <ProfileSection>
-          <Greeting>{userData.username}님, 반가워요!</Greeting>
-          <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', marginTop: '20px' }}>
-            <div style={{ position: 'relative' }}>
-              <img
-                src={userData.profile || 'default-profile.png'}
-                alt="Profile"
-                style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-              />
-              <span onClick={() => navigate('/profileSetting')}
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  right: '0',
-                  width:'1rem',
-                  height: '1rem',
-                  backgroundColor: '#FCFF5D',
-                  borderRadius: '50%',
-                  fontSize:'10px',
-                  textAlign:'center',
-                  display: 'flex',
-                  justifyContent:'center',
-                  cursor: 'pointer',
-                }}
-              >
-                ✎
-              </span></div>
+      {isLogin ? (
+        <UpperContents>
+          <Picture><img src={levelImage} width="100%" alt='levelPic'/></Picture>
+          <ProfileSection>
+            <Greeting>{userData.username}님, 반가워요!</Greeting>
+            <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', marginTop: '20px' }}>
+              <div style={{ position: 'relative' }}>
+                <img
+                  src={userData.profile || 'default-profile.png'}
+                  alt="Profile"
+                  style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                />
+                <span onClick={() => navigate('/profileSetting')}
+                  style={{
+                    position: 'absolute',
+                    bottom: '0',
+                    right: '0',
+                    width:'1rem',
+                    height: '1rem',
+                    backgroundColor: '#FCFF5D',
+                    borderRadius: '50%',
+                    fontSize:'10px',
+                    textAlign:'center',
+                    display: 'flex',
+                    justifyContent:'center',
+                    cursor: 'pointer',
+                  }}
+                >
+                  ✎
+                </span></div>
+              </div>
+              <div style={{ marginLeft: '10px', display:'flex', flexDirection:'row', justifyContent:'center', alignItems: 'center', width:'100%', marginTop:'1rem',}}>
+                <div style={{borderRadius:'30%', textDecorationColor:'#eee', backgroundColor: '#eee', fontSize:'10px', width:'20%', height:'1rem',}}>{userData.level}</div>
+                <div style={{fontSize:'12px',}}>{userData.username} 님</div>
+              </div>
+            <div style={{ marginTop: '20px', marginLeft:'20px', marginRight:'20px'}}>
+              <div>바로미터 {userData.manner_score}</div>
+              <div style={{ backgroundColor: '#eee', borderRadius: '10px', overflow: 'hidden', marginTop: '10px' }}>
+                <div
+                  style={{
+                    width: `${userData.manner_score}%`,
+                    backgroundColor: '#ffeb3b',
+                    height: '10px',
+                  }}
+                />
+              </div>
             </div>
-            <div style={{ marginLeft: '10px', display:'flex', flexDirection:'row', justifyContent:'center', alignItems: 'center', width:'100%', marginTop:'1rem',}}>
-              <div style={{borderRadius:'30%', textDecorationColor:'#eee', backgroundColor: '#eee', fontSize:'10px', width:'20%', height:'1rem',}}>{userData.level}</div>
-              <div style={{fontSize:'12px',}}>{userData.username} 님</div>
-            </div>
-          <div style={{ marginTop: '20px', marginLeft:'20px', marginRight:'20px'}}>
-            <div>바로미터 {userData.manner_score}</div>
-            <div style={{ backgroundColor: '#eee', borderRadius: '10px', overflow: 'hidden', marginTop: '10px' }}>
-              <div
-                style={{
-                  width: `${userData.manner_score}%`,
-                  backgroundColor: '#ffeb3b',
-                  height: '10px',
-                }}
-              />
-            </div>
-          </div>
-        </ProfileSection>
-      </UpperContents>
-
+          </ProfileSection>
+        </UpperContents>
+      ) : (
+        <div>로그인하세요</div>
+      )}
       <MainComponents>
         <Buttons>
           <Button onClick={showRent} isSelected={isRentSelected}>
@@ -582,4 +598,15 @@ const RentalState = styled.div`
   height: 100%;
   font-size: 12px;
 
+`;
+
+const PlzLogin = styled.div`  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 20px;
+  height: 50vh;
+  color: #777;
 `;
