@@ -93,7 +93,7 @@ const ChatPage = () => {
 									</div>
 								: chatRoom.map((roomData) => (
 										<div
-											class="flex items-center gap-2 p-2 m-4 border rounded-md cursor-pointer transition-all duration-500"
+											class="flex items-center gap-2 p-2 m-4 border rounded-md cursor-pointer"
 											onClick={() => setCurrentChat(roomData)}
 										>
 											<span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
