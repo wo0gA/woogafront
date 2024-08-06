@@ -69,7 +69,7 @@ return (
                     </SearchResultBox>
                 </SearchResult>
                 <Popular>
-                    <Title>빌리GO의 제안</Title>
+                    <Title>바로지금의 제안</Title>
                     <Magazines>
                         <MagazinesItem><img src={mag1} width='200px' /></MagazinesItem>
                         <MagazinesItem><img src={mag2} width='200px' /></MagazinesItem>
@@ -125,13 +125,13 @@ const Category = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 8%;
+    width: 12%;
     height: auto;
     padding: 18px;
     z-index: 1000;
     top: 150px;
 
-    margin-right: 3rem;
+    margin-right: 2rem;
 `;
 
 const CategoryContents = styled.div`
@@ -166,7 +166,7 @@ const Title = styled.div`
     width: 100%;
     font-size: 24px;
     font-weight: 550;
-    margin-bottom: 10px;
+    margin-bottom: 2rem;
 `;
 
 const CatTitle = styled.div`

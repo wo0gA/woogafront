@@ -81,8 +81,9 @@ const Header = () => {
           <Nav onClick={handleNavClick('/register')} active={activeNav === '/register'}>물품 등록</Nav>
           <Nav onClick={handleNavClick('/chatting')} active={activeNav === '/chatting'}>채팅</Nav>
         </Navigation>
+        <Blank/>
         <Search>
-          <SearchInput type="text" placeholder="찾는 운동용품 또는 운동종목이 있나요?" value={searchValue} onChange={handleSearchChange} onKeyPress={handleKeyPress} />
+          <SearchInput type="text" placeholder="찾고 있는 운동용품 또는 운동종목이 있나요?" value={searchValue} onChange={handleSearchChange} onKeyPress={handleKeyPress} />
           <HeaderSearchIcon onClick={handleSearchClick}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M15.5 14H14.71L14.43 13.73C15.4439 12.554 16.0011 11.0527 16 9.5C16 8.21442 15.6188 6.95772 14.9046 5.8888C14.1903 4.81988 13.1752 3.98676 11.9874 3.49479C10.7997 3.00282 9.49279 2.87409 8.23192 3.1249C6.97104 3.3757 5.81285 3.99477 4.90381 4.90381C3.99477 5.81285 3.3757 6.97104 3.1249 8.23192C2.87409 9.49279 3.00282 10.7997 3.49479 11.9874C3.98676 13.1752 4.81988 14.1903 5.8888 14.9046C6.95772 15.6188 8.21442 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="black"/>
@@ -95,6 +96,10 @@ const Header = () => {
 };
 
 export default Header;
+
+const Blank = styled.div`
+  width: 8rem;
+`;
 
 const Wrapper = styled.div`
   height: 110px;
@@ -166,10 +171,12 @@ const ProfileIcon = styled.div`
 const ProfileText = styled.div`
   border-bottom: 1px solid black;
   margin-left: 5px;
+  font-size: 14px;
 `;
 
 const LogoutButton = styled.div`
   cursor: pointer;
+  font-size: 14px;
   &:hover {
     color: #8f8f8f;
   }
@@ -180,6 +187,7 @@ const LogoutButton = styled.div`
 
 const LoginButton = styled.div`
   cursor: pointer;
+  font-size: 14px;
   &:hover {
     color: #8f8f8f;
   }
@@ -193,7 +201,7 @@ const Navigation = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  width: 60%;
+  width: 30%;
   height: 100%;
   font-size: 16px;
   border-bottom: 1px solid black;
@@ -220,10 +228,11 @@ const Search = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 40%;
-  height: 100%;
+  width: 50%;
+  height: 2.5rem;
   padding-left: 20px;
   padding-right: 20px;
+  margin-bottom: 0.5rem;
   border: 1px solid black;
   border-radius: 40px;
 `;
@@ -233,6 +242,7 @@ const SearchInput = styled.input`
   border: none;
   width: 90%;
   outline: none;
+  font-size: 14px;
 `;
 
 const HeaderSearchIcon = styled.button`

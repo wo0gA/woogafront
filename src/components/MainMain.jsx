@@ -7,6 +7,8 @@ import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 import bannerImage from '../images/banner.png'
 import magazineNavImage from '../images/magazineNavImage.png'
 import textlogo from '../images/text logo.png'
+import empty from '../images/Frame 250.png'
+import healthtip from '../images/healthtip.png'
 import footsalImage from '../images/footsal.png'
 import badmintonImage from '../images/badminton.png'
 import bikeImage from '../images/bike.png'
@@ -166,7 +168,8 @@ const Main = () => {
                     <PopularContents>
                         {popularItems.map((item) => (
                             <PopularItem key={item.id} onClick={() => handleItemClick(item.id)}>
-                                <PopularImage src={item.imageUrl} /> {/* @@@이미지 경로 */}
+                                  {item.thumbnails[0] ?
+                                <PopularImage src={item.thumbnails[0].thumbnail} /> : <PopularImage src={empty}/>} {/* @@@이미지 경로 */}
                                 <PolularText>
                                     <PopularName>{item.name}</PopularName>
                                     <PopularPrice>
@@ -191,7 +194,7 @@ const Main = () => {
                         <Rankings>
                             <RankingItem id='1'>
                                 <RankingNumber>1
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="49" height="70" viewBox="0 0 49 70" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="70" viewBox="0 0 49 70" fill="none">
                                         <path d="M28.6909 69.6255L35.1925 59.3276C35.3758 59.0374 35.7232 58.8956 36.0572 58.9748L47.9071 61.7852C48.5427 61.9359 49.0831 61.3051 48.8363 60.7001L38.7775 36.0459L17.209 44.8458L27.2678 69.5C27.5149 70.1053 28.3421 70.1782 28.6909 69.6255Z" fill="#F41943" />
                                         <path d="M32.2903 47.7168L25.2585 64.5755L18.3809 47.7168H32.2903Z" fill="#BA0F38" />
                                         <path d="M31.6872 44.8453L30.5158 47.7166L26.1846 58.3321L26.0056 58.7696L24.4482 62.5887L21.6281 69.4995C21.3813 70.1042 20.5544 70.1772 20.2047 69.6253L13.7037 59.328C13.5215 59.0381 13.1736 58.8957 12.8387 58.9752L0.988853 61.7853C0.354385 61.9359 -0.185727 61.3046 0.061026 60.6999L10.1199 36.0454L31.6872 44.8453Z" fill="#F41943" />
@@ -207,7 +210,7 @@ const Main = () => {
                             </RankingItem>
                             <RankingItem id='2'>
                                 <RankingNumber>2
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="60" viewBox="0 0 42 60" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="60" viewBox="0 0 42 60" fill="none">
                                         <path d="M24.5936 59.679L30.1664 50.8523C30.3235 50.6035 30.6213 50.482 30.9075 50.5498L41.0646 52.9587C41.6094 53.0879 42.0726 52.5472 41.8611 52.0286L33.2392 30.8965L14.752 38.4393L23.3738 59.5714C23.5853 60.0903 24.2946 60.1528 24.5936 59.679Z" fill="#F41943" />
                                         <path d="M27.6785 40.8999L21.6512 55.3502L15.7559 40.8999H27.6785Z" fill="#BA0F38" />
                                         <path d="M27.161 38.439L26.157 40.9001L22.4445 49.9992L22.2911 50.3741L20.9561 53.6476L18.5389 59.5712C18.3274 60.0895 17.6187 60.152 17.3189 59.679L11.7461 50.8525C11.59 50.604 11.2917 50.482 11.0047 50.5501L0.847673 52.9587C0.303844 53.0879 -0.159354 52.5467 0.052394 52.0284L8.67426 30.896L27.161 38.439Z" fill="#F41943" />
@@ -224,7 +227,7 @@ const Main = () => {
                             </RankingItem>
                             <RankingItem id='3'>
                                 <RankingNumber>3
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="50" viewBox="0 0 35 50" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="50" viewBox="0 0 35 50" fill="none">
                                         <path d="M20.4943 49.7325L25.1384 42.3769C25.2693 42.1696 25.5174 42.0683 25.756 42.1249L34.2202 44.1323C34.6742 44.2399 35.0602 43.7893 34.8839 43.3572L27.699 25.7471L12.293 32.0327L19.4779 49.6428C19.6543 50.0752 20.2452 50.1273 20.4943 49.7325Z" fill="#F41943" />
                                         <path d="M23.0642 34.0835L18.0415 46.1254L13.1289 34.0835H23.0642Z" fill="#BA0F38" />
                                         <path d="M22.6341 32.0324L21.7974 34.0833L18.7037 41.6659L18.5758 41.9783L17.4634 44.7063L15.449 49.6426C15.2728 50.0745 14.6821 50.1266 14.4324 49.7324L9.78832 42.377C9.65823 42.1699 9.40968 42.0682 9.17052 42.125L0.706323 44.1322C0.253131 44.2398 -0.132662 43.7889 0.04359 43.3569L7.22848 25.7466L22.6341 32.0324Z" fill="#F41943" />
@@ -251,7 +254,7 @@ const Main = () => {
                     <Nearby>
                         <Title>오늘의 건강 꿀팁</Title>
                         <Description><img src={textlogo} width='70rem'/>이 선정한 건강 꿀팁, 읽기만 해도 건강 정보가 와르르!</Description>
-                        <NearbyImage src={magazineNavImage} onClick={handleNavClick('/magazine')} />
+                        <NearbyImage src={healthtip} onClick={handleNavClick('/magazine')} />
                     </Nearby>
                 </RankingAndNearby>
             </Contents>
@@ -457,7 +460,7 @@ const PolularText = styled.div`
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
 `;
 const PopularPrice = styled.div`
@@ -471,11 +474,12 @@ const PopularPrice = styled.div`
 const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
-    font-size: 16px;
+    font-size: 12px;
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
     flex-direction: row;
+    font-size: 12px;
 `;
 const Unit = styled.div`
     margin-right: 5px;
@@ -500,7 +504,7 @@ const Ranking = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 40%;
+    width: 35%;
     height: 100%;  // 높이를 100%로 설정
     margin-right: 40px;
     /* border: 1px solid black; */
@@ -524,8 +528,8 @@ const RankingItem = styled.div`
     height: auto;
     padding-right: 20px;
     padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #E4E4E7;
 
     svg {
@@ -542,9 +546,8 @@ const RankingNumber = styled.div`
     font-weight: bold;
 `;
 const RankingName = styled.div`
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
-
 `;
 
 
@@ -577,4 +580,6 @@ const Description = styled.div`
     width: 100%;
     font-size: 15px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
 `;

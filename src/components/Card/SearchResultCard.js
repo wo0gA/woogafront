@@ -27,7 +27,8 @@ const SearchResultCard = ({selectedProducts, setResultCard}) => {
                 <>
                     {selectedProducts.length === 0 ? <><div style={{paddingTop: "2rem"}}>검색 결과가 없습니다.</div></> : <>{selectedProducts.map((selectedProducts) => (
                         <SearchResultCards key={selectedProducts.id} onClick={()=>handleItemClick(selectedProducts.id)}>
-                            <ResultImage src={selectedProducts.thumbnails[0].thumbnail} alt={selectedProducts.name} />
+                           {selectedProducts.thumbnails[0] ? 
+                            <ResultImage src={selectedProducts.thumbnails[0].thumbnail} alt={selectedProducts.name} /> :  <ResultImage src={empty}/>}
                             <ResultDescription>
                                 <ResultName>{selectedProducts.name}</ResultName>
                                 <PriceWrapper>
@@ -85,9 +86,8 @@ const SearchResultCards = styled.div`
 
 const ResultImage = styled.img`
     width: 100%;
-    height: auto;
+    height: 10rem;
     object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
-
 `;
 
 const ResultDescription = styled.div`
