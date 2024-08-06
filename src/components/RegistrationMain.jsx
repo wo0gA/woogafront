@@ -71,16 +71,6 @@ const RegistrationMain = () => {
     </CategorySection>
     <Button><button onClick={onClick}>등록하러 가기</button></Button>
     </RegistrationSection>
-    <RecentRegistered>
-        <RecentText2>최근 등록된 상품</RecentText2>
-        <GoodsItems>
-        <W1>
-        <SearchResultBox>
-         <SearchResultCard setResultCard={setResultCard} />
-        </SearchResultBox>
-        </W1>
-        </GoodsItems>
-    </RecentRegistered>
     </Wrapper>
   )
 }
