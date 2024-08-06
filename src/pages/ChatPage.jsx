@@ -53,14 +53,14 @@ const ChatPage = () => {
 		<Wrapper>
 			<Header />
 			{isAuthenticated ? (
-				<main class="flex flex-1 w-5/6 mt-12">
+				<main class="flex flex-1 w-5/6 mt-6">
 					<aside class="w-1/3 border-r">
 						<div class="p-4">
 							<div class="flex space-x-2 justify-center">
 								<button
 									class={
 										(currentTab === 0 ? "bg-[#FCFF5D]" : "") +
-										" inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2"
+										" inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2"
 									}
 									onClick={() => setCurrentTab(0)}
 								>
@@ -69,7 +69,7 @@ const ChatPage = () => {
 								<button
 									class={
 										(currentTab === 1 ? "bg-[#FCFF5D]" : "") +
-										" inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+										" inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
 									}
 									onClick={() => setCurrentTab(1)}
 								>
@@ -80,7 +80,7 @@ const ChatPage = () => {
 						<div class="overflow-y-auto">
 							{chatRoom.map((roomData) => (
 								<div
-									class="flex items-center gap-2 p-2 m-4 border rounded-md cursor-pointer"
+									class="flex items-center gap-2 p-2 m-4 border rounded-md cursor-pointer transition-all duration-500"
 									onClick={() => setCurrentChat(roomData)}
 								>
 									<span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">

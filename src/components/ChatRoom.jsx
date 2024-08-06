@@ -4,10 +4,13 @@ import { numberWithCommas, timeAgo } from "./lib";
 import ChangeDateModal from "./ChangeDateModal";
 import axios from "axios";
 import ReturnProductModal from "./ReturnProductModal";
+import { Link, useNavigate } from "react-router-dom";
 
 const SERVER_URL = "server.templ.es";
 
 const ChatRoom = ({ roomData, currentUser }) => {
+	const navigate = useNavigate();
+
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState("");
 	const [rentalHistory, setRentalHistory] = useState(null);
@@ -100,14 +103,14 @@ const ChatRoom = ({ roomData, currentUser }) => {
 					</div>
 					<div class="flex justify-between py-2 px-6 border">
 						<div class="flex items-center">
-							<span class="relative flex h-16 w-16 shrink-0 overflow-hidden rounded-full mr-6 border">
+							<span class="relative flex h-16 w-16 shrink-0 overflow-hidden rounded-full mr-4 border">
 								<span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
 									<img src={roomData.product.thumbnails[0].thumbnail} />
 								</span>
 							</span>
 							<div class="text-left">
-								<div class="text-lg font-semibold">{roomData.product.name}</div>
-								<div class="flex">
+								<Link class="p-1 rounded-lg text-lg border border-white font-semibold hover:shadow-lg hover:border-gray-300 transition-all" to={`/goodsDetail/${roomData.product.id}`}>{roomData.product.name}</Link>
+								<div class="flex pl-1">
 									<div class="mr-4">
 										일&nbsp;&nbsp;
 										{numberWithCommas(roomData.product.rental_fee_for_a_day)}원
