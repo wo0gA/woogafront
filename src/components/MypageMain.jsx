@@ -22,6 +22,7 @@ const MypageMain = () => {
   const [historyData, setHistoryData] = useState(null);
   const [registerData, setRegisterData] = useState(null);
   const [activeItem, setActiveItem] = useState('');
+  const [isActive, setIsActive] = useState(false);
   const [rentalData, setRentalData] = useState(null);
   const { productID } = useParams();
   const [levelImage, setLevelImage] = useState(level1);
@@ -161,7 +162,7 @@ const MypageMain = () => {
       <RegisterContainer>
         <RegisterRecord>
           {registerData.map((registerData) => (
-            <RegisterItem key={registerData.id} onClick={() => switchCalendar(registerData.id)}>
+            <RegisterItem key={registerData.id} onClick={() => {switchCalendar(registerData.id); setActiveItem(registerData.id)}} isActive={activeItem===registerData.id}>
               <Itempic src={registerData.thumbnails && registerData.thumbnails[0] && registerData.thumbnails[0].thumbnail 
                 ? registerData.thumbnails[0].thumbnail 
                 : ''}></Itempic>
@@ -459,12 +460,13 @@ const RegisterItem = styled.div`
 
   cursor: pointer;
   &:hover {
-    background-color: #f9f9f9;
+    background-color: #eee;
   }
-  &:active {
-    background-color: #f0f0f0;
-  }
+
   border-bottom: 1px solid #eee;
+
+  background-color: ${props => (props.isActive ? '#eee' : 'white')};
+
 `;
 
 const Itempic = styled.img`
