@@ -105,7 +105,7 @@ const GoodsDetailMain = () => {
   //대여 버튼 눌러서, 채팅방 만들면서 & 페이지 여는 함수
   const handleRentBtnClick = (sellerEmail, buyerEmail) => {
     //로그인 안되어있으면 로그인 페이지로 이동
-    if (!localStorage.getItem('token')) {
+    if (!localStorage.getItem('access')) {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/login');
       return;
