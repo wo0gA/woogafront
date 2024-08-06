@@ -20,10 +20,18 @@ const Header = () => {
   };
 
   const handleSearchClick = () => {
-    console.log(`Search value: ${searchValue}`);
+    // console.log(`Search value: ${searchValue}`);
+    // const params = new URLSearchParams({ keyword: searchValue });
+		// navigate(`/rentalCategory?${params.toString()}`);
+		// //searchProducts(searchValue);
+
+    //이미 rentalCategory 페이지이면 그냥 뒤에 추가
     const params = new URLSearchParams({ keyword: searchValue });
-		navigate(`/rentalCategory?${params.toString()}`);
-		//searchProducts(searchValue);
+    if (window.location.pathname === "/rentalCategory") {
+      navigate(`?${params.toString()}`);
+    } else {
+      navigate(`/rentalCategory?${params.toString()}`); // 아니면 category로 이동
+    }
   };
 
   const handleKeyPress = (event) => {

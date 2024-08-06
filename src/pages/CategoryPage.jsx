@@ -18,42 +18,41 @@ const CategoryPage = () => {
 
 	const updateCategoryParam = (categoryName) => {
 		const searchParams = new URLSearchParams(location.search);
-    if (searchParams.has("keyword")) {
-      searchParams.delete("keyword");
-    }
+    // if (searchParams.has("keyword")) { //중복도 가능하게
+    //   searchParams.delete("keyword");
+    // }
 		searchParams.set("category", categoryName);
 		navigate(`?${searchParams.toString()}`);
 	};
 
 	useEffect(() => {
-		const searchParams = new URLSearchParams(location.search);
-		const categoryParam = searchParams.get("category");
-		const keywordParam = searchParams.get("keyword");
-		if (categoryParam) {
-			fetchProducts("category", categoryParam);
-			setSelectedItem(categoryParam);
-      setSearchTerm('')
-		} else if (keywordParam) {
-			fetchProducts("keyword", keywordParam);
-			setSearchTerm(keywordParam);
-      setSelectedItem('')
-		} else {
-      setSelectedProducts(null)
+    const searchParams = new URLSearchParams(location.search);
+    const categoryParam = searchParams.get("category");
+    const keywordParam = searchParams.get("keyword");
+    const orderParam = searchParams.get("order");
+
+    let query = [];
+    if (categoryParam) query.push(`category=${categoryParam}`);
+    if (keywordParam) query.push(`keyword=${keywordParam}`);
+    if (orderParam) query.push(`order=${orderParam}`);
+
+    const queryString = query.join('&');
+    
+    if (queryString) {
+      fetchProducts(queryString);
+    } else {
+      setSelectedProducts(null);
     }
-	}, [location.search]);
+  }, [location.search]);
 
-	const fetchProducts = async (param, categoryName) => {
-		const trimmedName = categoryName.replaceAll(" ", "");
-		try {
-			const response = await axios.get(
-				`https://${SERVER_URL}/products/?${param}=${trimmedName}`
-			);
-			setSelectedProducts(response.data);
-		} catch (err) {
-			setSelectedProducts([]);
-		}
-	};
-
+  const fetchProducts = async (queryString) => {
+    try {
+      const response = await axios.get(`https://${SERVER_URL}/products/?${queryString}`);
+      setSelectedProducts(response.data);
+    } catch (err) {
+      setSelectedProducts([]);
+    }
+  };
   return (
     <Wrapper>
       <Header>
