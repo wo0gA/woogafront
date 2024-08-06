@@ -269,7 +269,7 @@ const Main = () => {
                     <Nearby>
                         <Title>오늘의 건강 꿀팁</Title>
                         <Description><img src={textlogo} width='70rem'/>이 선정한 건강 꿀팁, 읽기만 해도 건강 정보가 와르르!</Description>
-                        <NearbyImage src={healthInfo} onClick={handleNavClick('/magazine')} />
+                        <NearbyImage src={healthInfo} />
                     </Nearby>
                 </RankingAndNearby>
             </Contents>

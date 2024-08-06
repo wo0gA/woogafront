@@ -39,6 +39,7 @@ export const getOwnerReviews = async (userID) => {
    const API_URL = `https://${SERVER_URL}/accounts/${userID}/store/reviews/`;
    try {
       const response = await axios.get(API_URL);
+      console.log('store id:', userID);
       console.log('주인의 상점 리뷰 정보:', response.data);
       return response.data;  // 주인의 상점 리뷰 정보 반환
    } catch (error) {
