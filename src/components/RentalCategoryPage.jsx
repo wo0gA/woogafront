@@ -6,6 +6,7 @@ import CategoryComponent from './CategoryComponent';
 import mag1 from '../images/Mask group1.png'
 import mag2 from '../images/Mask group2.png'
 import mag3 from '../images/Mask group3.png'
+import axios from 'axios';
 
 const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedProducts }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
@@ -14,6 +15,19 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
     const handleMainCategoryClick = (category) => {
         setSelectedMainCategory(category);
     };
+
+    const SERVER_URL = "server.templ.es";
+
+    const fetchProducts = async (param, categoryName) => {
+		const trimmedName = categoryName.replaceAll(" ", "");
+		try {
+			const response = await axios.get(
+				`https://${SERVER_URL}/products/?${param}=${trimmedName}`
+			);
+            console.log(response);
+		} catch (err) {
+		}
+	};
 
 return (
     <Wrapper>
@@ -26,8 +40,8 @@ return (
                         {Object.keys(categories).map((mainCategory) => (
                             <CategoryItem
                                 key={mainCategory}
-                                onClick={() => handleMainCategoryClick(mainCategory)}
                                 selected={selectedMainCategory === mainCategory}
+                                onClick={() => fetchProducts("category", mainCategory)}
                             >
                                 {mainCategory}
                             </CategoryItem>
@@ -55,7 +69,7 @@ return (
                     </SearchResultBox>
                 </SearchResult>
                 <Popular>
-                    <Title>빌리GO의 제안</Title>
+                    <Title>바로지금의 제안</Title>
                     <Magazines>
                         <MagazinesItem><img src={mag1} width='200px' /></MagazinesItem>
                         <MagazinesItem><img src={mag2} width='200px' /></MagazinesItem>
@@ -89,7 +103,6 @@ const Nav = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
 `;
 
 
@@ -112,13 +125,13 @@ const Category = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 6rem;
+    width: 12%;
     height: auto;
-    padding: 15px;
+    padding: 18px;
     z-index: 1000;
     top: 150px;
 
-    margin-right: 3rem;
+    margin-right: 2rem;
 `;
 
 const CategoryContents = styled.div`
@@ -130,6 +143,7 @@ const CategoryContents = styled.div`
 `;
 
 const SportsDescription = styled.div`
+    margin-top: px;
     font-size: 12px;
     text-align: left;
     justify-content: space-between;
@@ -150,15 +164,15 @@ const Popular = styled.div`
 const Title = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 550;
-    margin-bottom: 10px;
+    margin-bottom: 2rem;
 `;
 
 const CatTitle = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 550;
     margin-bottom: 10px;
     color: #000`;
@@ -168,7 +182,7 @@ const Contentarr = styled.div`
     flex-direction: column;
     align-items: center;
     width: 70%;
-//    padding-left: 1rem;
+    padding-left: 20px;
 `;
 
 const SearchNavigation = styled.div`
@@ -178,8 +192,7 @@ const SearchNavigation = styled.div`
     justify-content: space-evenly;
     width: 35%;
     height: 100%;
-    font-size: 12px;
-    `;
+    font-size: 14px;`;
 
 const SearchResult = styled.div`
     width: 100%;
@@ -191,7 +204,6 @@ const SearchResultBox = styled.div`
     overflow: hidden;
     margin-top: 5px;
     justify-content: space-between;
-    width: 100%;
     `;
 
 const Magazines = styled.div`
@@ -219,5 +231,4 @@ const MagazinesItem = styled.div`
 
 const CategoryItem = styled.div`
     margin-bottom: 0.7rem;
-    font-size: 10px;
 `;

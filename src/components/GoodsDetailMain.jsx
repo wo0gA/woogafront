@@ -10,6 +10,7 @@ import { formatDate } from '../utils/formatDate'
 import { getFourRecommendProducts, getProductInfo } from '../apis/product'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createChatRoom } from '../apis/websocket'
+import empty from '../images/Frame 250.png'
 
 const GoodsDetailMain = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,8 +76,11 @@ const GoodsDetailMain = () => {
         setFirstCategory(productInfo.category.parent.parent.sort);
         setSecondCategory(productInfo.category.parent.sort);
         setThirdCategory(productInfo.category.sort);
-        setProductThumbnail(productInfo.thumbnails[0].thumbnail);
-        setProductName(productInfo.name);
+      if (productInfo && productInfo[0] && productInfo[0].thumbnails) {
+                setProductThumbnail(productInfo[0].thumbnails[0] ? productInfo[0].thumbnails[0].thumbnail : '');
+              } else {
+                setProductThumbnail(''); // thumbnails 값이 없으면 빈 값을 설정
+              }        setProductName(productInfo.name);
         setOwnerName(productInfo.owner.username);
         setProductState(productInfo.state);
         setDayPrice(productInfo.rental_fee_for_a_day);

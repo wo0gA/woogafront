@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import empty from '../../images/Frame 250.png'
 
 const SearchResultCard = ({selectedProducts, setResultCard}) => {
     const [data, setData] = useState([]);
 
-    const getData = () => {
-        fetch('https://server.templ.es/products/')
+    const getData = async () => {
+        await fetch('https://server.templ.es/products/')
             .then((response) => response.json())
             .then((data) => setData(data))
             .catch((error) => console.error('Error fetching data:', error));
+            //console.log();
     };
 
     useEffect(() => {
-        getData();
+        getData().then(console.log(data));
     }, []);
+
+    const handleItemClick = (productID) => {
+        window.location.href = `/goodsDetail/${productID}`;
+    };
 
     return (
         <Wrapper>
             { selectedProducts ? (
                 <>
                     {selectedProducts.length === 0 ? <><div style={{paddingTop: "2rem"}}>검색 결과가 없습니다.</div></> : <>{selectedProducts.map((selectedProducts) => (
-                        <SearchResultCards key={selectedProducts.id}>
-                            <ResultImage src={selectedProducts.photos} alt={selectedProducts.name} />
+                        <SearchResultCards key={selectedProducts.id} onClick={()=>handleItemClick(selectedProducts.id)}>
+                           {selectedProducts.thumbnails[0] ? 
+                            <ResultImage src={selectedProducts.thumbnails[0].thumbnail} alt={selectedProducts.name} /> :  <ResultImage src={empty}/>}
                             <ResultDescription>
                                 <ResultName>{selectedProducts.name}</ResultName>
                                 <PriceWrapper>
@@ -35,9 +42,10 @@ const SearchResultCard = ({selectedProducts, setResultCard}) => {
                 </>
             ) : (
                 <>
-                    {data.map((item) => (
-                        <SearchResultCards key={item.id}>
-                            <ResultImage src={item.photos} alt={item.name} />
+                    {data.map((item) => ( 
+                        <SearchResultCards key={item.id} onClick={()=>handleItemClick(item.id)}>
+                        {item.thumbnails[0] ? 
+                            <ResultImage src={item.thumbnails[0].thumbnail} alt={item.name}/> : <ResultImage src={empty}/>}
                             <ResultDescription>
                                 <ResultName>{item.name}</ResultName>
                                 <PriceWrapper>
@@ -78,9 +86,8 @@ const SearchResultCards = styled.div`
 
 const ResultImage = styled.img`
     width: 100%;
-    height: auto;
+    height: 10rem;
     object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
-
 `;
 
 const ResultDescription = styled.div`
