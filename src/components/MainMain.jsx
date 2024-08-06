@@ -7,19 +7,16 @@ import SimpleSlider from './special/banner'
 import bannerImage from '../images/banner.png'
 import textlogo from '../images/text logo.png'
 import empty from '../images/Frame 114.png'
-import healthtip from '../images/healthtip.png'
-import footsalImage from '../images/footsal.png'
-import badmintonImage from '../images/badminton.png'
-import bikeImage from '../images/bike.png'
-import campingtableImage from '../images/campingtable.png'
-import helmetImage from '../images/helmet.png'
-import pingpongImage from '../images/pingpong.png'
-import rollerImage from '../images/roller.png'
-import volleyImage from '../images/volley.png'
+
+import H1 from '../images/HI1.png'
+import H2 from '../images/HI2.png'
+import H3 from '../images/HI3.png'
+import H4 from '../images/HI4.png'
+import H5 from '../images/HI5.png'
 
 const Main = () => {
     const navigate = useNavigate();
-    const healthInfos = [healthInfo1, healthInfo2, healthInfo3, healthInfo4, healthInfo5];
+    const healthInfos = [H1, H2, H3, H4, H5];
     //랜덤으로 healthInfo 이미지를 뽑기 위한 함수
     const getRandomHealthInfo = () => {
         const random = Math.floor(Math.random() * healthInfos.length);

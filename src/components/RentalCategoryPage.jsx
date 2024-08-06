@@ -52,7 +52,7 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
 
 
     const suggestNavigate = (categoryName) => {
-        window.location.href = `http://localhost:3000/rentalCategory?category=${categoryName}`;
+        window.location.href = `https://baronow.netlify.app/rentalCategory?category=${categoryName}`;
     }
 
 
