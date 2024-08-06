@@ -7,7 +7,15 @@ import '../App.css';
 const RegistrationMain = () => {
     const navigate = useNavigate();
 
-    const onClick = () => navigate('/registerDetail');
+    const onClick = () => {
+        //로그인이 되어있지 않다면 로그인 페이지로 이동
+        if (!localStorage.getItem('access')) {
+            navigate('/login');
+            return;
+        }
+        else
+            navigate('/registerDetail');
+    }
 
   return (
     <Wrapper>
