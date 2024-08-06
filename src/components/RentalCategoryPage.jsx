@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedProducts }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
     const [resultCard, setResultCard] = useState(null);
+    const [selectedOrder, setSelectedOrder] = useState('recent');
 
     const handleMainCategoryClick = (category) => {
         setSelectedMainCategory(category);
@@ -36,6 +37,7 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
     const location = useLocation();
     const navigate = useNavigate();
     const updateOrderParam = (order) => {
+        setSelectedOrder(order);  // Update the selected order state
         const searchParams = new URLSearchParams(location.search);
         searchParams.set("order", order);
         navigate(`?${searchParams.toString()}`);
@@ -72,9 +74,9 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
                             <Title>'{selectedItem}'에 대한 카테고리 검색결과</Title>
                         )}
                         <SearchNavigation>
-                            <Nav onClick={() => updateOrderParam("recent")}>최신순</Nav>
-                            <Nav onClick={() => updateOrderParam("views")}>인기순</Nav>
-                            <Nav onClick={() => updateOrderParam("min_price")}>낮은 가격순</Nav>
+                            <Nav onClick={() => updateOrderParam("recent")} isSelected={selectedOrder === "recent"}>최신순</Nav>
+                            <Nav onClick={() => updateOrderParam("views")} isSelected={selectedOrder === "views"}>인기순</Nav>
+                            <Nav onClick={() => updateOrderParam("min_price")} isSelected={selectedOrder === "min_price"}>낮은 가격순</Nav>
                         </SearchNavigation>
                         <SearchResultBox>
                             <SearchResultCard selectedProducts={selectedProducts} setResultCard={setResultCard} />
@@ -116,6 +118,8 @@ const Nav = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin-right: 1rem;
+    font-weight: ${props => (props.isSelected ? 'bold' : 'normal')};
 `;
 
 const Contents = styled.div`
@@ -200,10 +204,11 @@ const SearchNavigation = styled.div`
     margin-top: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    width: 35%;
+    justify-content: flex-start;
+    width: 100%;
     height: 100%;
     font-size: 14px;
+    border-bottom: 1px solid #000;
 `;
 
 const SearchResult = styled.div`
