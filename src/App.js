@@ -14,6 +14,7 @@ import MagazinePage from './pages/MagazinePage';
 import StorePage from './pages/StorePage';
 import { NavProvider } from './context/NavContext';
 import RegistrationDetailPage from './pages/RegistrationDetailPage';
+import EditProductPage from './pages/EditProductPage';
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} /> 
           <Route path="/main" element={<MainPage />} />
-          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/myPage/:productID" element={<MyPage />} />
           <Route path="/goodsDetail/:productID" element={<GoodsDetailPage />} />
           <Route path="/rentalCategory" element={<CategoryPage />} />
           <Route path="/test" element={<TestPage />} />
@@ -36,6 +37,7 @@ function App() {
           <Route path='/loading' element={<></>} /> 
           <Route path='/magazine' element={<MagazinePage />} />
           <Route path='/store/:userID' element={<StorePage/>} />
+          <Route path='/editProduct/:productID' element={<EditProductPage />} />
         </Routes>
       </div>
       </NavProvider>
