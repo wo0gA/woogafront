@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useState, useContext, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './ReactCalendar.css';
+import './NonclickReactCalendar.css';
 import { RentalFeeContext } from '../../context/RentalFeeContext';
 import { calculateRentalFee } from '../../utils/calculateRentalFee';
 import { getRentalHistory } from '../../apis/product';
