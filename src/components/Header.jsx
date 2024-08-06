@@ -47,6 +47,11 @@ const Header = () => {
     navigate(path);
   };
 
+  //내 상점 여는 함수
+  const openMyStore = () => {
+    navigate(`/store/${localStorage.getItem('userID')}`);
+  };
+
   useEffect(() => {
     // 로그인 여부 확인
     if (username) {
@@ -69,7 +74,7 @@ const Header = () => {
               <ProfileText>
                 {username}님
               </ProfileText>
-              <MyStoreBtn> 내 상점</MyStoreBtn>
+              <MyStoreBtn onClick={() => openMyStore()}> 내 상점</MyStoreBtn>
             </ProfileButton>
           ) : (
             <ProfileText>
