@@ -85,6 +85,8 @@ const RecommendGoodsCard = styled.div`
 const RecommendGoodsImage = styled.img`
     width: 100%;
     aspect-ratio: 1/1;
+    object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
+
 `;
 const RecommendGoodsName = styled.div`
     width: 100%;

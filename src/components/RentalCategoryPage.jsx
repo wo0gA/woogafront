@@ -6,6 +6,7 @@ import CategoryComponent from './CategoryComponent';
 import mag1 from '../images/Mask group1.png'
 import mag2 from '../images/Mask group2.png'
 import mag3 from '../images/Mask group3.png'
+import axios from 'axios';
 
 const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedProducts }) => {
     const [selectedMainCategory, setSelectedMainCategory] = useState(null);
@@ -14,6 +15,19 @@ const RentalCategoryPage = ({ searchTerm, selectedItem, onItemSelect, selectedPr
     const handleMainCategoryClick = (category) => {
         setSelectedMainCategory(category);
     };
+
+    const SERVER_URL = "server.templ.es";
+
+    const fetchProducts = async (param, categoryName) => {
+		const trimmedName = categoryName.replaceAll(" ", "");
+		try {
+			const response = await axios.get(
+				`https://${SERVER_URL}/products/?${param}=${trimmedName}`
+			);
+            console.log(response);
+		} catch (err) {
+		}
+	};
 
 return (
     <Wrapper>
@@ -26,8 +40,8 @@ return (
                         {Object.keys(categories).map((mainCategory) => (
                             <CategoryItem
                                 key={mainCategory}
-                                onClick={() => handleMainCategoryClick(mainCategory)}
                                 selected={selectedMainCategory === mainCategory}
+                                onClick={() => fetchProducts("category", mainCategory)}
                             >
                                 {mainCategory}
                             </CategoryItem>
@@ -55,7 +69,7 @@ return (
                     </SearchResultBox>
                 </SearchResult>
                 <Popular>
-                    <Title>빌리GO의 제안</Title>
+                    <Title>바로지금의 제안</Title>
                     <Magazines>
                         <MagazinesItem><img src={mag1} width='200px' /></MagazinesItem>
                         <MagazinesItem><img src={mag2} width='200px' /></MagazinesItem>
@@ -111,13 +125,13 @@ const Category = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 8%;
+    width: 12%;
     height: auto;
     padding: 18px;
     z-index: 1000;
     top: 150px;
 
-    margin-right: 3rem;
+    margin-right: 2rem;
 `;
 
 const CategoryContents = styled.div`
@@ -152,7 +166,7 @@ const Title = styled.div`
     width: 100%;
     font-size: 24px;
     font-weight: 550;
-    margin-bottom: 10px;
+    margin-bottom: 2rem;
 `;
 
 const CatTitle = styled.div`

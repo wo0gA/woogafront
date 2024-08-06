@@ -6,6 +6,9 @@ import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 
 import bannerImage from '../images/banner.png'
 import magazineNavImage from '../images/magazineNavImage.png'
+import textlogo from '../images/text logo.png'
+import empty from '../images/Frame 250.png'
+import healthtip from '../images/healthtip.png'
 import footsalImage from '../images/footsal.png'
 import badmintonImage from '../images/badminton.png'
 import bikeImage from '../images/bike.png'
@@ -74,10 +77,10 @@ const Main = () => {
     return (
         <Wrapper>
             <Banner>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="60" viewBox="0 0 40 60" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
                     <path d="M29.6167 9.425L26.6667 5L10 30L26.6667 55L29.6167 50.575L15.9 30L29.6167 9.425Z" fill="black" />
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="60" viewBox="0 0 40 60" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
                     <path d="M10.3828 50.575L13.3328 55L29.9995 30L13.3328 5L10.3828 9.425L24.0995 30L10.3828 50.575Z" fill="black" />
                 </svg>
             </Banner>
@@ -95,7 +98,7 @@ const Main = () => {
                     <CategoryContents>
                         <Sports>
                             <Eclipse>
-                                <svg onClick={handleCategoryClick(1)}  xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                                <svg onClick={handleCategoryClick(1)}  xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 50 50" fill="none">
                                     <path d="M32.2917 11.4583C34.5833 11.4583 36.4583 9.58333 36.4583 7.29167C36.4583 5 34.5833 3.125 32.2917 3.125C30 3.125 28.125 5 28.125 7.29167C28.125 9.58333 30 11.4583 32.2917 11.4583ZM10.4167 25C4.58333 25 0 29.5833 0 35.4167C0 41.25 4.58333 45.8333 10.4167 45.8333C16.25 45.8333 20.8333 41.25 20.8333 35.4167C20.8333 29.5833 16.25 25 10.4167 25ZM10.4167 42.7083C6.45833 42.7083 3.125 39.375 3.125 35.4167C3.125 31.4583 6.45833 28.125 10.4167 28.125C14.375 28.125 17.7083 31.4583 17.7083 35.4167C17.7083 39.375 14.375 42.7083 10.4167 42.7083ZM22.5 21.875L27.5 16.875L29.1667 18.5417C31.875 21.25 35.4167 22.9167 39.7917 22.9167V18.75C36.6667 18.75 34.1667 17.5 32.2917 15.625L28.3333 11.6667C27.2917 10.8333 26.25 10.4167 25 10.4167C23.75 10.4167 22.7083 10.8333 22.0833 11.6667L16.25 17.5C15.4167 18.3333 15 19.375 15 20.4167C15 21.6667 15.4167 22.7083 16.25 23.3333L22.9167 29.1667V39.5833H27.0833V26.6667L22.5 21.875ZM39.5833 25C33.75 25 29.1667 29.5833 29.1667 35.4167C29.1667 41.25 33.75 45.8333 39.5833 45.8333C45.4167 45.8333 50 41.25 50 35.4167C50 29.5833 45.4167 25 39.5833 25ZM39.5833 42.7083C35.625 42.7083 32.2917 39.375 32.2917 35.4167C32.2917 31.4583 35.625 28.125 39.5833 28.125C43.5417 28.125 46.875 31.4583 46.875 35.4167C46.875 39.375 43.5417 42.7083 39.5833 42.7083Z" fill="black" />
                                 </svg>
                             </Eclipse>
@@ -103,7 +106,7 @@ const Main = () => {
                         </Sports>
                         <Sports>
                             <Eclipse>
-                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
+                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 51 50" fill="none">
                                     <path d="M43.1387 30.9584L46.1178 27.9792L43.1387 25.0001L35.7012 32.4376L17.847 14.5834L25.2845 7.14591L22.3053 4.16675L19.3262 7.14591L16.347 4.16675L11.8887 8.62508L8.9095 5.64591L5.93034 8.62508L8.9095 11.6042L4.45117 16.0626L7.43034 19.0417L4.45117 22.0209L7.43034 25.0001L14.8678 17.5626L32.722 35.4167L25.2845 42.8542L28.2637 45.8334L31.2428 42.8542L34.222 45.8334L38.6803 41.3751L41.6595 44.3542L44.6387 41.3751L41.6595 38.3959L46.1178 33.9376L43.1387 30.9584Z" fill="black" />
                                 </svg>
                             </Eclipse>
@@ -111,7 +114,7 @@ const Main = () => {
                         </Sports>
                         <Sports>
                             <Eclipse>
-                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
+                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 51 50" fill="none">
                                     <path d="M41.2396 5.18739C36.3646 0.312392 27.4479 1.29156 21.3438 7.39572C18.0104 10.7291 16.0937 15.4582 16.0521 18.7707C16.0104 22.0624 16.5937 26.8749 13.2396 30.2291L4.40625 39.0624L7.36458 42.0207L16.1979 33.1874C19.5521 29.8332 24.3646 30.4166 27.6562 30.3749C30.9479 30.3332 35.6979 28.4166 39.0312 25.0832C45.1146 18.9791 46.1146 10.0624 41.2396 5.18739ZM22.0729 24.3332C18.8854 21.1457 19.8854 14.7291 24.2812 10.3332C28.6771 5.93739 35.0729 4.93739 38.2812 8.12489C41.4688 11.3124 40.4688 17.7291 36.0729 22.1249C31.6771 26.5207 25.2812 27.5207 22.0729 24.3332ZM38.0729 35.4166C39.1771 35.4166 40.2396 35.8541 41.0104 36.6457C42.6354 38.2707 42.6354 40.9166 41.0104 42.5416C40.2396 43.3124 39.1771 43.7499 38.0729 43.7499C36.9688 43.7499 35.9062 43.3124 35.1354 42.5207C33.5104 40.8957 33.5104 38.2499 35.1354 36.6249C35.9062 35.8541 36.9688 35.4166 38.0729 35.4166ZM38.0729 31.2499C36.4229 31.2466 34.8091 31.7334 33.4362 32.6487C32.0632 33.564 30.9931 34.8664 30.3615 36.3907C29.7299 37.9151 29.5652 39.5927 29.8885 41.2107C30.2117 42.8288 31.0083 44.3144 32.1771 45.4791C33.8021 47.1041 35.9479 47.9166 38.0729 47.9166C39.7229 47.9199 41.3368 47.433 42.7097 46.5177C44.0826 45.6025 45.1527 44.3001 45.7843 42.7757C46.416 41.2514 46.5806 39.5738 46.2573 37.9557C45.9341 36.3377 45.1376 34.8521 43.9687 33.6874C43.1944 32.9136 42.2751 32.3 41.2635 31.8818C40.2518 31.4635 39.1676 31.2488 38.0729 31.2499Z" fill="black" />
                                 </svg>
                             </Eclipse>
@@ -119,7 +122,7 @@ const Main = () => {
                         </Sports>
                         <Sports>
                             <Eclipse>
-                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
+                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 51 50" fill="none">
                                     <path d="M17.5234 17.7083C17.5234 17.125 17.9818 16.6667 18.5651 16.6667H23.8151L23.7734 14.5833H18.5651C17.9818 14.5833 17.5234 14.125 17.5234 13.5417C17.5234 12.9583 17.9818 12.5 18.5651 12.5H23.7734V6.25H7.10677V37.5H13.3568V41.6667H5.02344V45.8333H38.3568C44.1068 45.8333 48.7734 41.1667 48.7734 35.4167H44.6068C44.6068 38.875 41.8151 41.6667 38.3568 41.6667H34.1901V37.5H40.4401V31.5C40.4401 27.125 37.2109 24.1458 34.1276 23.4167L28.5026 22.0208C26.6901 21.5625 25.2318 20.3333 24.4401 18.75H18.5651C17.9818 18.75 17.5234 18.2917 17.5234 17.7083ZM30.0234 41.6667H17.5234V37.5H30.0234V41.6667Z" fill="black" />
                                 </svg>
                             </Eclipse>
@@ -127,7 +130,7 @@ const Main = () => {
                         </Sports>
                         <Sports>
                             <Eclipse>
-                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
+                                <svg onClick={handleCategoryClick(1)} xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 51 50" fill="none">
                                     <path d="M39.7253 19.375V8.33333H33.4753V13.75L25.1419 6.25L4.30859 25H10.5586V41.6667H20.9753V29.1667H29.3086V41.6667H39.7253V25H45.9753L39.7253 19.375ZM20.9753 20.8333C20.9753 18.5417 22.8503 16.6667 25.1419 16.6667C27.4336 16.6667 29.3086 18.5417 29.3086 20.8333H20.9753Z" fill="black" />
                                 </svg>
                             </Eclipse>
@@ -165,7 +168,8 @@ const Main = () => {
                     <PopularContents>
                         {popularItems.map((item) => (
                             <PopularItem key={item.id} onClick={() => handleItemClick(item.id)}>
-                                <PopularImage src={item.imageUrl} /> {/* @@@이미지 경로 */}
+                                  {item.thumbnails[0] ?
+                                <PopularImage src={item.thumbnails[0].thumbnail} /> : <PopularImage src={empty}/>} {/* @@@이미지 경로 */}
                                 <PolularText>
                                     <PopularName>{item.name}</PopularName>
                                     <PopularPrice>
@@ -185,12 +189,12 @@ const Main = () => {
                 </Popular>
                 <RankingAndNearby>
                     <Ranking>
-                        <Title>인기 순위</Title>
-                        <Description>다른 사람들은 이런 운동에 관심있어요.</Description>
+                        <Title>인기 카테고리 랭킹</Title>
+                        <Description>사람들의 관심 운동이 궁금하지 않으신가요?</Description>
                         <Rankings>
                             <RankingItem id='1'>
                                 <RankingNumber>1
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="49" height="70" viewBox="0 0 49 70" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="70" viewBox="0 0 49 70" fill="none">
                                         <path d="M28.6909 69.6255L35.1925 59.3276C35.3758 59.0374 35.7232 58.8956 36.0572 58.9748L47.9071 61.7852C48.5427 61.9359 49.0831 61.3051 48.8363 60.7001L38.7775 36.0459L17.209 44.8458L27.2678 69.5C27.5149 70.1053 28.3421 70.1782 28.6909 69.6255Z" fill="#F41943" />
                                         <path d="M32.2903 47.7168L25.2585 64.5755L18.3809 47.7168H32.2903Z" fill="#BA0F38" />
                                         <path d="M31.6872 44.8453L30.5158 47.7166L26.1846 58.3321L26.0056 58.7696L24.4482 62.5887L21.6281 69.4995C21.3813 70.1042 20.5544 70.1772 20.2047 69.6253L13.7037 59.328C13.5215 59.0381 13.1736 58.8957 12.8387 58.9752L0.988853 61.7853C0.354385 61.9359 -0.185727 61.3046 0.061026 60.6999L10.1199 36.0454L31.6872 44.8453Z" fill="#F41943" />
@@ -206,7 +210,7 @@ const Main = () => {
                             </RankingItem>
                             <RankingItem id='2'>
                                 <RankingNumber>2
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="60" viewBox="0 0 42 60" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="60" viewBox="0 0 42 60" fill="none">
                                         <path d="M24.5936 59.679L30.1664 50.8523C30.3235 50.6035 30.6213 50.482 30.9075 50.5498L41.0646 52.9587C41.6094 53.0879 42.0726 52.5472 41.8611 52.0286L33.2392 30.8965L14.752 38.4393L23.3738 59.5714C23.5853 60.0903 24.2946 60.1528 24.5936 59.679Z" fill="#F41943" />
                                         <path d="M27.6785 40.8999L21.6512 55.3502L15.7559 40.8999H27.6785Z" fill="#BA0F38" />
                                         <path d="M27.161 38.439L26.157 40.9001L22.4445 49.9992L22.2911 50.3741L20.9561 53.6476L18.5389 59.5712C18.3274 60.0895 17.6187 60.152 17.3189 59.679L11.7461 50.8525C11.59 50.604 11.2917 50.482 11.0047 50.5501L0.847673 52.9587C0.303844 53.0879 -0.159354 52.5467 0.052394 52.0284L8.67426 30.896L27.161 38.439Z" fill="#F41943" />
@@ -223,7 +227,7 @@ const Main = () => {
                             </RankingItem>
                             <RankingItem id='3'>
                                 <RankingNumber>3
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="50" viewBox="0 0 35 50" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="50" viewBox="0 0 35 50" fill="none">
                                         <path d="M20.4943 49.7325L25.1384 42.3769C25.2693 42.1696 25.5174 42.0683 25.756 42.1249L34.2202 44.1323C34.6742 44.2399 35.0602 43.7893 34.8839 43.3572L27.699 25.7471L12.293 32.0327L19.4779 49.6428C19.6543 50.0752 20.2452 50.1273 20.4943 49.7325Z" fill="#F41943" />
                                         <path d="M23.0642 34.0835L18.0415 46.1254L13.1289 34.0835H23.0642Z" fill="#BA0F38" />
                                         <path d="M22.6341 32.0324L21.7974 34.0833L18.7037 41.6659L18.5758 41.9783L17.4634 44.7063L15.449 49.6426C15.2728 50.0745 14.6821 50.1266 14.4324 49.7324L9.78832 42.377C9.65823 42.1699 9.40968 42.0682 9.17052 42.125L0.706323 44.1322C0.253131 44.2398 -0.132662 43.7889 0.04359 43.3569L7.22848 25.7466L22.6341 32.0324Z" fill="#F41943" />
@@ -248,9 +252,9 @@ const Main = () => {
                         </Rankings>
                     </Ranking>
                     <Nearby>
-                        <Title>건강 A to Z</Title>
-                        <Description>수많은 운동들과 운동물품, 처음부터 끝까지 다 알려드려요.</Description>
-                        <NearbyImage src={magazineNavImage} onClick={handleNavClick('/magazine')} />
+                        <Title>오늘의 건강 꿀팁</Title>
+                        <Description><img src={textlogo} width='70rem'/>이 선정한 건강 꿀팁, 읽기만 해도 건강 정보가 와르르!</Description>
+                        <NearbyImage src={healthtip} onClick={handleNavClick('/magazine')} />
                     </Nearby>
                 </RankingAndNearby>
             </Contents>
@@ -271,10 +275,14 @@ const Wrapper = styled.div`
 
 
 const Banner = styled.div`
-    background-image: url('${bannerImage}');
+    //background-image: url('${bannerImage}');
+    background-color: aliceblue;
     background-repeat: no-repeat; /* 배경 이미지 반복 안 함 */
     background-size: contain;
     background-position: center; /* 이미지를 중앙에 위치 */
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 
     display: flex;
     flex-direction: row;
@@ -282,7 +290,7 @@ const Banner = styled.div`
     justify-content: space-between;
 
     width: 100%;
-    height: 400px;
+    height: 25rem;
 
     & > * {
         margin-top: 25px; 
@@ -295,7 +303,7 @@ const MainSearch = styled.div`
     flex-direction: row;
     align-items: center;
     width: 70%;
-    height: 60px;
+    height: 3rem;
 
     border: 1px solid #E4E4E7;
     border-radius: 50px;
@@ -352,7 +360,7 @@ const Category = styled.div`
 const CategoryTitle = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 550;
     margin-bottom: 10px;
 `;
@@ -372,10 +380,10 @@ const Sports = styled.div`
 `;
 const SportsDescription = styled.div`
     margin-top: 10px;
-    font-size: 18px;
+    font-size: 15px;
 `;
 const Eclipse = styled.div`
-    width: 80px;
+    width: 60px;
     aspect-ratio: 1/1;
     border: 1px solid #E4E4E7;
     border-radius: 50%;
@@ -441,7 +449,7 @@ const PopularItem = styled.div`
 `;
 const PopularImage = styled.img`
     width: 100%;
-    
+    object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
 `;
 const PolularText = styled.div`
     display: flex;
@@ -452,7 +460,7 @@ const PolularText = styled.div`
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
 `;
 const PopularPrice = styled.div`
@@ -466,11 +474,12 @@ const PopularPrice = styled.div`
 const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
-    font-size: 16px;
+    font-size: 12px;
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
     flex-direction: row;
+    font-size: 12px;
 `;
 const Unit = styled.div`
     margin-right: 5px;
@@ -495,7 +504,7 @@ const Ranking = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 40%;
+    width: 35%;
     height: 100%;  // 높이를 100%로 설정
     margin-right: 40px;
     /* border: 1px solid black; */
@@ -519,8 +528,8 @@ const RankingItem = styled.div`
     height: auto;
     padding-right: 20px;
     padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #E4E4E7;
 
     svg {
@@ -537,9 +546,8 @@ const RankingNumber = styled.div`
     font-weight: bold;
 `;
 const RankingName = styled.div`
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
-
 `;
 
 
@@ -563,13 +571,15 @@ const NearbyImage = styled.img`
 const Title = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 36px;
+    font-size: 25px;
     font-weight: 550;
     margin-bottom: 10px;
 `;
 const Description = styled.div`
     text-align: left;
     width: 100%;
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
 `;

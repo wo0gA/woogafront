@@ -10,14 +10,13 @@ const RegistrationMain = () => {
     const [resultCard, setResultCard] = useState();
     const navigate = useNavigate();
 
-    const onClick = () => navigate('/registrationdetail');
+    const onClick = () => navigate('/registerDetail');
 
   return (
     <Wrapper>
     <Banner><img src={ban1}/></Banner>
     <RegistrationSection>
-    <ProcessBar><img src={bar1}/></ProcessBar>
-    <RecentText>이런 종류의 물품들을 등록할 수 있어요!</RecentText>
+    <RecentText>8가지의 물품 종류를 등록할 수 있어요</RecentText>
     <CategorySection>
         <CategoryBox>
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -91,12 +90,12 @@ export default RegistrationMain
 const Button = styled.div`
     display: flex;
     width: 8rem;
-    height: 1rem;
+    height: 2rem;
     padding: 10px;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    font-weight: 500;
+    font-weight: 550;
     background-color: #FCFF5D;
 `;
 
@@ -133,13 +132,13 @@ const RecentText = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 36px */
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 `;
 
 const RecentText2 = styled.div`
     color: #000;
     font-family: Pretendard;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 36px */
@@ -163,8 +162,9 @@ const CategoryBox = styled.div`
     justify-content: center;
     align-items: center;
     gap: 12px;
-    border: 1px solid var(--zinc-400, #A1A1AA);
-    background-color: #ffeb68; 
+    border: 1px solid var(--zinc-200, #E4E4E7);
+    background: var(--yellow-50, #FEFCE8);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.12);
     border-radius: 50%;
     margin-right: 1rem;
 `;
@@ -176,9 +176,9 @@ const CategoryText = styled.div`
 const RecentRegistered = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 24px;
     width: 85%;
+    text-align: left;
 `;
 
 const GoodsItems = styled.div`
