@@ -41,9 +41,10 @@ const SearchResultCard = ({selectedProducts, setResultCard}) => {
                 </>
             ) : (
                 <>
-                    {data.map((item) => (
+                    {data.map((item) => ( 
                         <SearchResultCards key={item.id} onClick={()=>handleItemClick(item.id)}>
-                            <ResultImage src={item.thumbnails[0].thumbnail} alt={item.name} />
+                        {item.thumbnails[0] ? 
+                            <ResultImage src={item.thumbnails[0].thumbnail} alt={item.name}/> : <ResultImage src={empty}/>}
                             <ResultDescription>
                                 <ResultName>{item.name}</ResultName>
                                 <PriceWrapper>

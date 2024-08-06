@@ -97,9 +97,16 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled.div`
+  height: 110px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.12);
   margin-bottom: 10px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+/*  position: fixed;
+  top: 0;
+  z-index: 1000; 
+  background-color: white;*/
   & > * {
     margin-top: 10px;
   }
@@ -110,6 +117,7 @@ const W1 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+//  position: fixed;
 `;
 
 const FirstRow = styled.div`
