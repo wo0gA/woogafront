@@ -4,7 +4,7 @@ import bar1 from '../images/step bar1.png'
 import ban1 from '../images/banner1.png'
 import SearchResultCard from './Card/SearchResultCard';
 import { useNavigate } from 'react-router-dom';
-
+import '../App.css';
 
 const RegistrationMain = () => {
     const [resultCard, setResultCard] = useState();
@@ -74,11 +74,7 @@ const RegistrationMain = () => {
     <RecentRegistered>
         <RecentText2>최근 등록된 상품</RecentText2>
         <GoodsItems>
-        <W1>
-        <SearchResultBox>
          <SearchResultCard setResultCard={setResultCard} />
-        </SearchResultBox>
-        </W1>
         </GoodsItems>
     </RecentRegistered>
     </Wrapper>
@@ -142,7 +138,7 @@ const RecentText2 = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 36px */
-    margin-bottom: 1rem;
+//    margin-bottom: 0.5rem;
 `;
 
 const CategorySection = styled.div`
@@ -182,51 +178,9 @@ const RecentRegistered = styled.div`
 `;
 
 const GoodsItems = styled.div`
-  margin-bottom: 5rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  margin-bottom: 10rem;
   overflow-x: auto;
-  height: 11rem;
+  height: 17rem;
   align-self: stretch;
-`;
-
-const ProcessBar = styled.div`
-    width: 85%;
-    height: 4rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-`;
-const SearchResultBox = styled.div`
-    display: flex;
-    overflow: hidden;
-    margin-top: 5px;
-    justify-content: space-between;
-    `;
-
-const W1 = styled.div`
-    width: 150%;
-`;
-
-
-const CategoryBoxStyled = styled.div`
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  
-  &.selected {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-  }
-`;
-
-const AppContainer = styled.div`
-  display: flex;
-  gap: 10px;
+  width: 100%;
 `;

@@ -4,6 +4,7 @@ import GoogleLoginButton from '../apis/GoogleLoginButton';
 import KakaoLoginButton from '../apis/KakaoLoginButton';
 import { sendWhichLogin } from '../apis/login';
 import { useNavigate } from 'react-router-dom';
+import loginbanner from '../images/loginbanner.png';
 
 const LoginMain = () => {
     const navigate = useNavigate();
@@ -25,12 +26,13 @@ const LoginMain = () => {
     
     return (
         <Wrapper>
-            <Container>
-                <Banner />
-                <LoginContainer>
+                <Banner><img src={loginbanner} width="100%"/></Banner>
+                <Container>
+                    <Title>만나서 반가워요!</Title>
+                    <LoginContainer>
                     <GoogleLoginButton />
                     <KakaoLoginButton />
-                </LoginContainer>
+                    </LoginContainer>
             </Container>
         </Wrapper>
     )
@@ -38,32 +40,36 @@ const LoginMain = () => {
 
 export default LoginMain
 
+const Title = styled.div`
+    font-size: 18px;
+    font-weight: 550;
+`;
 const Wrapper = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 85%;
-    height: 100%;
+    width: 70%;
+    height: 60vw;
 `;
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    width: 75%;
-    aspect-ratio: 6 / 3;
+    justify-content: center;
+    width: 50%;
+    height: 75%;
+    //aspect-ratio: 6 / 3;
     box-sizing: border-box;
     background-color: #fffee4;
-    margin-top: 5rem;
 `;
 
 const Banner = styled.div`
-    width: 60%;
-    aspect-ratio: 5 / 2;
-    background-color: #b3b3b3;
-    border-bottom: 1px solid #e0e0e0;
+    width: 50%;
+    //aspect-ratio: 5 / 2;
+    //background-color: #b3b3b3;
+    //border-bottom: 1px solid #e0e0e0;
 `;
 
 const LoginContainer = styled.div`

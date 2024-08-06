@@ -13,15 +13,21 @@ const GoogleLoginButton = () => {
         localStorage.setItem('loginType', 'google');
     };
 
-    return (
+    return (<Wrapper>
         <Img src={googleBtn} alt="구글 로그인" onClick={handleClick} />
+    </Wrapper>
     );
 };
 
 export default GoogleLoginButton;
 
 const Img = styled.img`
-    width: 20%;
+    width: 100%;
     cursor: pointer;
 `;
 
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 200px;
+`;
