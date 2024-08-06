@@ -23,12 +23,12 @@ export const SliderContainer = styled.div`
         display: none;	
     }
     .slick-list{ 
-        width: 4000px;
+        width: 6000px;
     }   
 `
 
 export const SliderContent = styled.div`
-    height: 400px;
+    height: 500px;
     color: white;
     font-size: 100px;
     line-height : 200px;
