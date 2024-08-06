@@ -122,7 +122,6 @@ const StoreMain = () => {
          <ReviewContainer>
             {reviews.map((review) => (
                <Review key={review.id}>
-                  <ReviewImage src={review.product_image} />
                   <ReviewText>
                      <ReviewFirstRow>
                         {review.product_name}
