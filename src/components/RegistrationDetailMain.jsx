@@ -204,17 +204,18 @@ const RegistrationDetailMain = ({ item }) => {
                   value={state.name}
                   onChange={handleChange} 
                   placeholder="상품명을 입력해주세요."
+                  style={{paddingLeft: '20px'}}
               />
             </W1>
             <W1>
               <Title>카테고리</Title><W3>
+              <Text>선택한 카테고리 : {state.category}</Text>
               <CategoryComponent 
                 key={item}
                 name="category"
                 value={state.category} 
                 onItemSelect={handleCategoryChange} 
-              />
-              <Text>선택한 카테고리 : {state.category}</Text></W3>
+              /></W3>
               </W1>
             <W1>
               <Title>상품 상태</Title>
@@ -237,6 +238,7 @@ const RegistrationDetailMain = ({ item }) => {
                   value={state.model_name} 
                   onChange={handleChange} 
                   placeholder="모델명을 입력해주세요."
+                  style={{paddingLeft: '20px'}}
                 />
               <ExplainationText>모델명 항목은 선택 입력사항입니다.</ExplainationText></W3>
             </W1>
@@ -248,6 +250,7 @@ const RegistrationDetailMain = ({ item }) => {
                   value={state.rental_fee_for_a_day} 
                   onChange={handleChange} 
                   placeholder="1일 대여 가격을 입력해주세요."
+                  style={{paddingLeft: '20px'}}
                 /><Text>원</Text></W1>
               <W1><Text>주</Text><InputText 
                   type="text"
@@ -255,6 +258,7 @@ const RegistrationDetailMain = ({ item }) => {
                   value={state.rental_fee_for_a_week} 
                   onChange={handleChange} 
                   placeholder="1주 대여 가격을 입력해주세요."
+                  style={{paddingLeft: '20px'}}
                 /><Text>원</Text>
               </W1></W3>
     </W1>
@@ -266,6 +270,7 @@ const RegistrationDetailMain = ({ item }) => {
       value={state.description} 
       onChange={handleChange} 
       placeholder="상세 설명을 입력해주세요."
+      style={{paddingLeft: '20px'}}
     />
     </W1>
     <W1>
@@ -274,7 +279,8 @@ const RegistrationDetailMain = ({ item }) => {
                   type="text"
                   name="tags"
                   value={tags.join(', ')} 
-                  onChange={handleTagChange} 
+                  onChange={handleTagChange}
+                  style={{paddingLeft: '20px'}}
                   placeholder="콤마를 사용해서 태그를 입력해주세요."
                 >
               </InputText>
@@ -333,6 +339,7 @@ const RegistrationDetailMain = ({ item }) => {
                   value={state.direct_dealing_place} 
                   onChange={handleChange} 
                   placeholder="직거래 선호 지역을 입력해주세요."
+                  style={{paddingLeft: '20px'}}
                 />
               </W3>
     </W1>
@@ -431,6 +438,7 @@ const ExplainationText = styled.div`
 `;
 const Text = styled.div`
   font-size: 14px;
+  text-align: left;
 `;
 
 const InputText = styled.input`

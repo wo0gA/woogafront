@@ -110,7 +110,7 @@ const Banner = styled.div`
     height: 15rem;
     flex-shrink: 0;
     margin-bottom: 2rem;
-    margin-top: 0.5rem;
+    margin-top: 4rem;
 `;
 
 const RegistrationSection = styled.div`
@@ -118,6 +118,7 @@ const RegistrationSection = styled.div`
     align-items: center;
     flex-direction: column;
     margin-bottom: 7rem;
+    margin-top: 2rem;
 `;
 
 const RecentText = styled.div`
@@ -127,15 +128,6 @@ const RecentText = styled.div`
     font-weight: 600;
     line-height: 150%; /* 36px */
     margin-bottom: 2rem;
-`;
-
-const RecentText2 = styled.div`
-    color: #000;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%; /* 36px */
-//    margin-bottom: 0.5rem;
 `;
 
 const CategorySection = styled.div`
@@ -164,20 +156,4 @@ const CategoryBox = styled.div`
 
 const CategoryText = styled.div`
     font-size: 10px;
-`;
-
-const RecentRegistered = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 85%;
-    text-align: left;
-`;
-
-const GoodsItems = styled.div`
-  margin-bottom: 10rem;
-  overflow-x: auto;
-  height: 17rem;
-  align-self: stretch;
-  width: 100%;
 `;
