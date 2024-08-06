@@ -98,9 +98,13 @@ const ChatRoom = ({ roomData, currentUser }) => {
 							</span>
 						</div>
 					</div>
-					<div class="flex justify-between p-4 border">
+					<div class="flex justify-between py-2 px-6 border">
 						<div class="flex items-center">
-							<div class="mr-4">이미지</div>
+							<span class="relative flex h-16 w-16 shrink-0 overflow-hidden rounded-full mr-6 border">
+								<span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
+									<img src={roomData.product.thumbnails[0].thumbnail} />
+								</span>
+							</span>
 							<div class="text-left">
 								<div class="text-lg font-semibold">{roomData.product.name}</div>
 								<div class="flex">
