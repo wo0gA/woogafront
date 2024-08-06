@@ -193,9 +193,7 @@ const MypageMain = () => {
         <Picture><img src={levelpic} width="100%" alt='levelPic'/></Picture>
         {/* <LevelRoad></LevelRoad> */}
         <ProfileSection>
-          <Greeting><span>{userData.username}</span> 님, 반가워요!</Greeting>
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', padding:'20px' }}>
-          <Greeting>{userData.username} 님, 반가워요!</Greeting>
+          <Greeting>{userData.username}님, 반가워요!</Greeting>
           <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', marginTop: '20px' }}>
             <div style={{ position: 'relative' }}>
               <img
@@ -219,13 +217,12 @@ const MypageMain = () => {
                 }}
               >
                 ✎
-              </span>
+              </span></div>
             </div>
             <div style={{ marginLeft: '10px', display:'flex', flexDirection:'row', justifyContent:'center', alignItems: 'center', width:'100%', marginTop:'1rem',}}>
               <div style={{borderRadius:'30%', textDecorationColor:'#eee', backgroundColor: '#eee', fontSize:'10px', width:'20%', height:'1rem',}}>{userData.level}</div>
               <div style={{fontSize:'12px',}}>{userData.username} 님</div>
             </div>
-          </div>
           <div style={{ marginTop: '20px', marginLeft:'20px', marginRight:'20px'}}>
             <div>바로미터 {userData.manner_score}</div>
             <div style={{ backgroundColor: '#eee', borderRadius: '10px', overflow: 'hidden', marginTop: '10px' }}>
