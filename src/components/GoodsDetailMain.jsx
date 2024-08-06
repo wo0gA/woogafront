@@ -76,11 +76,8 @@ const GoodsDetailMain = () => {
         setFirstCategory(productInfo.category.parent.parent.sort);
         setSecondCategory(productInfo.category.parent.sort);
         setThirdCategory(productInfo.category.sort);
-      if (productInfo && productInfo[0] && productInfo[0].thumbnails) {
-                setProductThumbnail(productInfo[0].thumbnails[0] ? productInfo[0].thumbnails[0].thumbnail : '');
-              } else {
-                setProductThumbnail(''); // thumbnails 값이 없으면 빈 값을 설정
-              }        setProductName(productInfo.name);
+        setProductThumbnail(productInfo.thumbnails[0] ? productInfo.thumbnails[0].thumbnail : {empty});
+        setProductName(productInfo.name);
         setOwnerName(productInfo.owner.username);
         setProductState(productInfo.state);
         setDayPrice(productInfo.rental_fee_for_a_day);
@@ -166,7 +163,7 @@ const GoodsDetailMain = () => {
           <span>{thirdCategory}</span>
         </Third>
       </CategoryNav>
-      <GoodsDetail>
+      <GoodsDetail> 
         <GoodsImage src= {productThumbnail} alt="상품 이미지" />
         <GoodsInfo>
           <NotRentalBtnContainer>
