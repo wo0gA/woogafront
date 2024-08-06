@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import empty from '../images/Frame 250.png';
-import ReactCalendar from './special/ReactCalendar';
+import ReactCalendar from './special/NonclickReactCalendar';
 import { useNavigate, useParams } from 'react-router-dom';
 import profileImage from '../images/profileImage.png';
 import { getRentalHistory } from '../apis/product';
@@ -236,6 +236,7 @@ const MypageMain = () => {
                   textAlign:'center',
                   display: 'flex',
                   justifyContent:'center',
+                  cursor: 'pointer',
                 }}
               >
                 ✎
