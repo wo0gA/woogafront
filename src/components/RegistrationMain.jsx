@@ -146,7 +146,7 @@ const CategoryBox = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
     border: 1px solid var(--zinc-200, #E4E4E7);
     background: var(--yellow-50, #FEFCE8);
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.12);
