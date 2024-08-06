@@ -114,7 +114,6 @@ const RegistrationSection = styled.div`
 
 const RecentText = styled.div`
     color: #000;
-    font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -124,7 +123,6 @@ const RecentText = styled.div`
 
 const RecentText2 = styled.div`
     color: #000;
-    font-family: Pretendard;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;

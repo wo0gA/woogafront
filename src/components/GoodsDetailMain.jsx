@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import goodsimage from '../images/badminton.png'
 import ReactCalendar from './special/ReactCalendar'
 import RecommendGoods from './RecommendGoods'
 import RentalFeeDisplay from './RentalFeeDisplay'
@@ -105,7 +104,7 @@ const GoodsDetailMain = () => {
 
   //대여 버튼 눌러서, 채팅방 만들면서 & 페이지 여는 함수
   const handleRentBtnClick = (sellerEmail, buyerEmail) => {
-    createChatRoom(sellerEmail, buyerEmail).then((response) => {
+    createChatRoom(sellerEmail, buyerEmail, productID).then((response) => {
       console.log('채팅방 생성:', response);
       //채팅방 생성 후, 채팅방으로 이동
       navigate(`/chatting?chatRoomID=${response.id}`);
