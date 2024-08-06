@@ -33,7 +33,7 @@ return (
     <Wrapper>
         <CategoryComponent onItemSearch={handleMainCategoryClick} onItemSelect={onItemSelect} />
         <Contents>
-            <Category>
+            {/* <Category>
                 <CatTitle>카테고리</CatTitle>
                 <CategoryContents>
                     <SportsDescription>
@@ -48,7 +48,7 @@ return (
                         ))}
                     </SportsDescription>
                 </CategoryContents>
-            </Category>
+            </Category> */}
             <Contentarr>
                 <SearchResult>
                     {/* Display search term results */}
@@ -153,7 +153,7 @@ const Popular = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
 
@@ -182,7 +182,6 @@ const Contentarr = styled.div`
     flex-direction: column;
     align-items: center;
     width: 70%;
-    padding-left: 20px;
 `;
 
 const SearchNavigation = styled.div`

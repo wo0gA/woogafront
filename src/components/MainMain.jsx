@@ -5,18 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 
 import bannerImage from '../images/banner.png'
-import magazineNavImage from '../images/magazineNavImage.png'
 import textlogo from '../images/text logo.png'
 import empty from '../images/Frame 250.png'
 import healthtip from '../images/healthtip.png'
-import footsalImage from '../images/footsal.png'
-import badmintonImage from '../images/badminton.png'
-import bikeImage from '../images/bike.png'
-import campingtableImage from '../images/campingtable.png'
-import helmetImage from '../images/helmet.png'
-import pingpongImage from '../images/pingpong.png'
-import rollerImage from '../images/roller.png'
-import volleyImage from '../images/volley.png'
+import SimpleSlider from './special/banner';
+
 
 const Main = () => {
     const navigate = useNavigate();
@@ -76,14 +69,15 @@ const Main = () => {
 
     return (
         <Wrapper>
-            <Banner>
+            <SimpleSlider />
+            {/* <Banner>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
                     <path d="M29.6167 9.425L26.6667 5L10 30L26.6667 55L29.6167 50.575L15.9 30L29.6167 9.425Z" fill="black" />
                 </svg>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
                     <path d="M10.3828 50.575L13.3328 55L29.9995 30L13.3328 5L10.3828 9.425L24.0995 30L10.3828 50.575Z" fill="black" />
                 </svg>
-            </Banner>
+            </Banner> */}
             <MainSearch>
                 <MainSearchIcon>
                     <svg onClick={handleSearchClick} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
