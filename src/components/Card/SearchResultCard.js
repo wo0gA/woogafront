@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import empty from '../../images/Frame 250.png'
+import empty from '../../images/Frame 114.png'
 
 const SearchResultCard = ({selectedProducts, setResultCard}) => {
     const [data, setData] = useState([]);
