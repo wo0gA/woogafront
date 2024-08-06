@@ -69,6 +69,7 @@ const Header = () => {
               <ProfileText>
                 {username}님
               </ProfileText>
+              <MyStoreBtn> 내 상점</MyStoreBtn>
             </ProfileButton>
           ) : (
             <ProfileText>
@@ -256,4 +257,18 @@ const HeaderSearchIcon = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+`;
+
+const MyStoreBtn = styled.button`
+  background-color: transparent;
+  margin-left: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover {
+    color: #8f8f8f;
+  }
+  &:active {
+    color: #595959;
+  }
 `;

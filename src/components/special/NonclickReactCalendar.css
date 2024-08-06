@@ -167,7 +167,12 @@
  }
  
  .react-calendar__tile {
-   pointer-events: none; /* 모든 상호작용 비활성화 */
+   padding: 0;
+   height: 40px;
+   width: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
  }
  
  .highlight {
