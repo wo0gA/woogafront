@@ -103,6 +103,9 @@ const RegistrationDetailMain = ({ item }) => {
       const formData = new FormData();
       if (uploadedImage != null) {
         formData.append("thumbnails", uploadedImage);
+      } else {
+        alert("이미지를 반드시 업로드해주세요.");
+        return;
       }
       Object.keys(state).forEach(key => {
         if (state[key]) {
@@ -125,6 +128,7 @@ const RegistrationDetailMain = ({ item }) => {
       } catch (error) {
         navigate('/register');
         console.error('There was an error!', error);
+        alert("등록에 실패했습니다. 물품 내용을 정확히 작성했는지 확인해주세요.")
     }
   }};
 
