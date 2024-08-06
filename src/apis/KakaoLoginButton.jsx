@@ -13,14 +13,20 @@ const KakaoLoginButton = () => {
         localStorage.setItem('loginType', 'kakao');
     };
 
-    return (
-        <Img src={kakaoBtn} alt="구글 로그인" onClick={handleClick} />
+    return(
+    <Wrapper><Img src={kakaoBtn} alt="구글 로그인" onClick={handleClick} /></Wrapper>
     );
 };
 
 export default KakaoLoginButton;
 
 const Img = styled.img`
-width: 20%;
-cursor: pointer;
+    width: 100%;
+    cursor: pointer;
+`;
+
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 200px;
 `;

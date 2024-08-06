@@ -153,7 +153,7 @@ const MypageMain = () => {
         {/* <LevelRoad></LevelRoad> */}
         <ProfileSection>
           <Greeting>{userData.username} 님, 반가워요!</Greeting>
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+          <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', marginTop: '20px' }}>
             <div style={{ position: 'relative' }}>
               <img
                 src={userData.profile || 'default-profile.png'}
@@ -165,17 +165,22 @@ const MypageMain = () => {
                   position: 'absolute',
                   bottom: '0',
                   right: '0',
-                  backgroundColor: '#ffeb3b',
+                  width:'1rem',
+                  height: '1rem',
+                  backgroundColor: '#FCFF5D',
                   borderRadius: '50%',
-                  padding: '5px',
+                  fontSize:'10px',
+                  textAlign:'center',
+                  display: 'flex',
+                  justifyContent:'center',
                 }}
               >
                 ✎
               </span>
             </div>
-            <div style={{ marginLeft: '10px' }}>
-              <div>{userData.level}</div>
-              <div>{userData.username} 님</div>
+            <div style={{ marginLeft: '10px', display:'flex', flexDirection:'row', justifyContent:'center', alignItems: 'center', width:'100%', marginTop:'1rem',}}>
+              <div style={{borderRadius:'30%', textDecorationColor:'#eee', backgroundColor: '#eee', fontSize:'10px', width:'20%', height:'1rem',}}>{userData.level}</div>
+              <div style={{fontSize:'12px',}}>{userData.username} 님</div>
             </div>
           </div>
           <div style={{ marginTop: '20px' }}>
@@ -351,7 +356,7 @@ const Button = styled.button`
 `;
 
 const ProfileSection = styled.div`
-  width: 30%;
+  width: 40%;
   margin-left: 1rem;
   border: 1px solid #eee;
 `;
@@ -364,8 +369,6 @@ const UpperContents = styled.div`
   margin-bottom: 2rem;
   width: 100%;
 `;
-
-const LevelRoad = styled.div``;
 
 const Greeting = styled.div`
   padding: 20px;
