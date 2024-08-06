@@ -3,20 +3,31 @@ import styled from 'styled-components'
 import { searchProducts, searchByCategory } from '../test/test'
 import { useNavigate } from 'react-router-dom';
 import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
-
+import SimpleSlider from './special/banner'
 import bannerImage from '../images/banner.png'
 import textlogo from '../images/text logo.png'
 import empty from '../images/Frame 250.png'
-import healthtip from '../images/healthtip.png'
-import SimpleSlider from './special/banner';
+import healthInfo1 from '../images/HI1.png'
+import healthInfo2 from '../images/HI2.png'
+import healthInfo3 from '../images/HI3.png'
+import healthInfo4 from '../images/HI4.png'
+import healthInfo5 from '../images/HI5.png'
 
 
 const Main = () => {
     const navigate = useNavigate();
+    const healthInfos = [healthInfo1, healthInfo2, healthInfo3, healthInfo4, healthInfo5];
+    //랜덤으로 healthInfo 이미지를 뽑기 위한 함수
+    const getRandomHealthInfo = () => {
+        const random = Math.floor(Math.random() * healthInfos.length);
+        console.log("random", random);
+        return healthInfos[random];
+    }
 
     const [searchValue, setSearchValue] = useState('');
     const [popularItems, setPopularItems] = useState([]); // 인기 아이템 상태 추가
     const [popularCategories, setPopularCategories] = useState(["", "", "", "", ""]); // 인기 카테고리 5개
+    const [healthInfo, setHealthInfo] = useState(getRandomHealthInfo());
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value)
@@ -248,7 +259,7 @@ const Main = () => {
                     <Nearby>
                         <Title>오늘의 건강 꿀팁</Title>
                         <Description><img src={textlogo} width='70rem'/>이 선정한 건강 꿀팁, 읽기만 해도 건강 정보가 와르르!</Description>
-                        <NearbyImage src={healthtip} onClick={handleNavClick('/magazine')} />
+                        <NearbyImage src={healthInfo} onClick={handleNavClick('/magazine')} />
                     </Nearby>
                 </RankingAndNearby>
             </Contents>
