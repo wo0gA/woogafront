@@ -193,7 +193,7 @@ const MypageMain = () => {
         <RegisterRecord>
           {registerData.map((registerData) => (
             <RegisterItem key={registerData.id} onClick={() => {switchCalendar(registerData.id); setActiveItem(registerData.id)}} isActive={activeItem===registerData.id}>
-              <Itempic src={registerData.thumbnails && registerData.thumbnails[0] && registerData.thumbnails[0].thumbnail 
+              <Itempic src={ registerData.thumbnails[0] 
                 ? registerData.thumbnails[0].thumbnail 
                 : ''}></Itempic>
               <ItemDetails>
