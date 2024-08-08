@@ -14,7 +14,7 @@ const Footer = () => {
         <InfoBox>
           <Info>Project Manager<br/>강지영</Info>
           <Info>Designer<br/>양채령</Info>
-          <Info>Front-End<br/>박수빈</Info>
+          <Info href="https://github.com/suzzang2">Front-End<br/>박수빈</Info>
           <Info>Front-End<br/>조유빈</Info>
           <Info>Back-End<br/>김동영</Info>
           <Info>Back-End<br/>이영주</Info>
