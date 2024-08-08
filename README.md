@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# 바로지금(BaroNow)
+![onlyLogo](https://github.com/user-attachments/assets/a5eec423-c8f4-4e9e-a4f6-8d3f9e6b1111)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 2024 멋쟁이사자처럼 대학 전국 연합 해커톤 - **Team Wooga**의 *Front-end* 레포지토리입니다!
 
-## Available Scripts
+*" 바로지금은 집에서 쉬고 있는 운동용품을 등록해 대여해주는 서비스입니다. "*
 
-In the project directory, you can run:
+## ⭐️ Service Link
+> https://baronow.netlify.app/
 
-### `npm start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ⭐️ Development Period
+2024.07 **약 2주**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `npm test`
+## ⭐️ Team Introduction
+### Team 'Wooga' - 우승을 가져가자!
+![175842399](https://github.com/user-attachments/assets/e9fe27dd-48fc-4b95-aa7b-fc68629d082f)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Project Manager**
+[강지영](https://github.com/g0-kang)
 
-### `npm run build`
+**Designer**
+[양채령](https://github.com/d-idii)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Front-end**
+[박수빈](https://github.com/suzzang2)
+[조유빈](https://github.com/joeyycho)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Baek-end**
+[김동영](https://github.com/Temple2001)
+[이영주](https://github.com/JooJooda)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+## ⭐️ Tech Stack
+### Front-end
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/><img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=JAVASCRIPT&logoColor=black"/><img src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=REACT&logoColor=white"/>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Back-end
+<img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=Django&logoColor=white"/><img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Communication
+<img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"/><img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br>
 
-## Learn More
+## ⭐️ Pages Preview
+|||
+|------|---|
+|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/0840f582-cd8a-45d2-8a6b-9aadb4d9bfac">|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/5b6e8d2e-9a0f-4e49-a34a-16acc614de87">
+|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/12308e72-6310-445b-b7f3-6d960f789f97">|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/b7ae298c-a80b-46a5-91d9-2599fd15069c">|
+|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/0fe1da7b-d3d3-4065-8279-ffba83ba1843">|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/c7b04f03-97a2-4c44-9ae3-18f38865b382">
+|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/c4f234b0-56a3-4068-8194-9cd3f83bfebd">|<img width="1624" alt="image" src="https://github.com/user-attachments/assets/8d738ae1-3b61-4bb0-8971-06f19fcb20af">
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ⭐️ Function
+### Main Function
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### Sub Function
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## ⭐️ 프로젝트 소개
