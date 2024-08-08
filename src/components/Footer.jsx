@@ -3,6 +3,11 @@ import styled from 'styled-components'
 import wooga from '../images/WOOGA.png'
 
 const Footer = () => {
+  //깃헙 주소로 보내는 함수
+  const goGithub = (link) => {
+    window.open(link);
+  }
+
   return (
     <Wrapper>
       <UpperWrapper>
@@ -12,12 +17,12 @@ const Footer = () => {
       </UpperWrapper>
       <ContentWrapper>
         <InfoBox>
-          <Info>Project Manager<br/>강지영</Info>
-          <Info>Designer<br/>양채령</Info>
-          <Info href="https://github.com/suzzang2">Front-End<br/>박수빈</Info>
-          <Info>Front-End<br/>조유빈</Info>
-          <Info>Back-End<br/>김동영</Info>
-          <Info>Back-End<br/>이영주</Info>
+          <Info onClick={()=>goGithub("https://github.com/g0-kang")}>Project Manager<br/><span>강지영</span></Info>
+          <Info onClick={()=>goGithub("https://github.com/d-idii")}>Designer<br/>양채령</Info>
+          <Info onClick={()=>goGithub("https://github.com/suzzang2")}>Front-End<br/><span>박수빈</span></Info>
+          <Info onClick={()=>goGithub("https://github.com/joeyycho")}>Front-End<br/><span>조유빈</span></Info>
+          <Info onClick={()=>goGithub("https://github.com/Temple2001")}>Back-End<br/><span>김동영</span></Info>
+          <Info onClick={()=>goGithub("https://github.com/JooJooda")}>Back-End<br/><span>이영주</span></Info>
         </InfoBox>
       </ContentWrapper>
     </Wrapper>
@@ -57,6 +62,11 @@ const Info = styled.div`
   font-weight: 500;
   margin-bottom: 0.5rem;
   text-align: center;
+  span {
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 
 const UpperWrapper = styled.div`
