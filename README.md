@@ -1,5 +1,7 @@
 # 바로지금(BaroNow)
-![onlyLogo](https://github.com/user-attachments/assets/a5eec423-c8f4-4e9e-a4f6-8d3f9e6b1111)
+<img src='https://github.com/user-attachments/assets/a5eec423-c8f4-4e9e-a4f6-8d3f9e6b1111' width='400px'>
+
+<br>
 
 > 2024 멋쟁이사자처럼 대학 전국 연합 해커톤 - **Team Wooga**의 *Front-end* 레포지토리입니다!
 
