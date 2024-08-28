@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import kakaoBtn from '../images/kakaoBtn.png';
-import { useLocation } from 'react-router-dom';
+import kakaoBtn from '../../images/kakaoBtn.png';
 
 const KakaoLoginButton = () => {
     // const location = useLocation();

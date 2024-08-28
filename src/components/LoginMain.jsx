@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import GoogleLoginButton from '../apis/GoogleLoginButton';
-import KakaoLoginButton from '../apis/KakaoLoginButton';
+import GoogleLoginButton from './loginButtons/GoogleLoginButton';
+import KakaoLoginButton from './loginButtons/KakaoLoginButton';
 import { sendWhichLogin } from '../apis/login';
 import { useNavigate } from 'react-router-dom';
 import loginbanner from '../images/loginbanner.png';

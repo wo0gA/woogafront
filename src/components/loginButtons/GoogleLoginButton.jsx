@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import googleBtn from '../images/googleBtn.png';
-import { useLocation } from 'react-router-dom';
+import googleBtn from '../../images/googleBtn.png';
 
 const GoogleLoginButton = () => {
     // const location = useLocation();

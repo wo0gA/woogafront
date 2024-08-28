@@ -43,7 +43,7 @@ const EditProductMain = ({ item }) => {
 
    const handleSubmit = async (event) => {
       event.preventDefault();
-      const userConfirmed = window.confirm("게시물을 업로드 하시겠습니까?");
+      const userConfirmed = window.confirm("게시물을 수정하시겠습니까?");
       if (userConfirmed) {
          const formData = new FormData();
          if (uploadedImage != null) {
@@ -59,7 +59,7 @@ const EditProductMain = ({ item }) => {
          });
 
          try {
-         const response = await axios.post('https://server.templ.es/products/', formData, {
+         const response = await axios.put('https://server.templ.es/products/', formData, {
          headers: {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'multipart/form-data'
