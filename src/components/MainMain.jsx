@@ -4,7 +4,6 @@ import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 import SimpleSlider from './special/banner'
-import bannerImage from '../images/banner.png'
 import textlogo from '../images/text logo.png'
 import empty from '../images/Frame 114.png'
 
