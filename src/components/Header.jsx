@@ -275,7 +275,7 @@ const Search = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   margin-bottom: 0.5rem;
-  border: 1px solid black;
+  border: 1px solid #8f8f8f;
   border-radius: 40px;
 
   ${mediaQueries(BREAKPOINT_PHONE)} {
