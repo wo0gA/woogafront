@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mediaQueries, BREAKPOINT_PHONE } from '../../mediaquery/mediaQuery';
 import kakaoBtn from '../../images/kakaoBtn.png';
 
 const KakaoLoginButton = () => {
@@ -40,4 +41,8 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     width: 200px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 70%;
+    }
 `;
