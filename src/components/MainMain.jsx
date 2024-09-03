@@ -280,7 +280,7 @@ const Wrapper = styled.div`
 
 
 const MainSearch = styled.div`
-    background-color: #fcff5e;
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -294,7 +294,9 @@ const MainSearch = styled.div`
 
     //미디어쿼리 사용
     ${mediaQueries(BREAKPOINT_PHONE)} {
-        background-color: #5c5d38;
+        width: 90%;
+        background-color: transparent;
+        border: 0.5px solid #E4E4E7;
     }
 `;
 const MainSearchInput = styled.input`
@@ -309,6 +311,10 @@ const MainSearchInput = styled.input`
 
     &::placeholder {
         color: #454545;
+    }
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 14px;
     }
 `;
 
@@ -433,6 +439,17 @@ const PopularContents = styled.div`
     & > div:nth-child(-n+4) {
         margin-bottom: 40px; // 윗줄과 아랫줄 간격 설정
     }
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        // 한 줄당 3개
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        grid-gap: 16px;
+        justify-items: center;
+        align-items: center;
+        font-size: 12px;
+    }
 `;
 
 const PopularItem = styled.div`
@@ -441,12 +458,11 @@ const PopularItem = styled.div`
     align-items: center;
     justify-content: center;
     width: calc(25% - 15px); // 4개씩 배치되도록 설정, 여백을 고려하여 계산
-    height: 20%;
     margin-bottom: 20px; // 아이템 사이의 세로 간격 설정
-    margin-left: 5px;
+    /* border: 1px solid #E4E4E7; */
+
+    margin-left: 15px; // 왼쪽 여백 설정
     margin-right: 5px;
-    padding: 10px;
-    border: 1px solid #E4E4E7;
     cursor: pointer;
     &:nth-child(4n + 1) {
         margin-left: 0;
@@ -459,22 +475,39 @@ const PopularItem = styled.div`
         width: 100%;
         aspect-ratio: 1/1;
     }
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
 `;
 const PopularImage = styled.img`
     width: 100%;
     object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
+    border-radius: 10px;
 `;
 const PolularText = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: flex-start; // 왼쪽 정렬
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
     font-size: 14px;
     font-weight: 600;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 12px;
+    }
 `;
 const PopularPrice = styled.div`
     display: flex;
@@ -488,11 +521,19 @@ const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
     font-size: 12px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
     flex-direction: row;
     font-size: 12px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const Unit = styled.div`
     margin-right: 5px;
@@ -510,6 +551,11 @@ const RankingAndNearby = styled.div`
     height: 100%;
     margin-bottom: 80px;
     /* border: 1px solid black; */
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        flex-direction: column;
+    }
 `;
 
 const Ranking = styled.div`
@@ -521,6 +567,13 @@ const Ranking = styled.div`
     height: 100%;  // 높이를 100%로 설정
     margin-right: 40px;
     /* border: 1px solid black; */
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
 `;
 const Rankings = styled.div`
     display: flex;
@@ -549,6 +602,17 @@ const RankingItem = styled.div`
         margin-left: 20px;
     }
 
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        padding-top: 1px;
+        padding-bottom: 1px;
+
+        svg {
+            width: 20px;
+            height:50px;
+        }
+    }
+
 `;
 const RankingNumber = styled.div`
     display: flex;
@@ -561,6 +625,11 @@ const RankingNumber = styled.div`
 const RankingName = styled.div`
     font-size: 16px;
     font-weight: 400;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 14px;
+    }
 `;
 
 
@@ -571,6 +640,11 @@ const Nearby = styled.div`
     justify-content: center;
     width: 60%;
     height: 100%;  // 높이를 100%로 설정
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 100%;
+    }
 `;
 const NearbyImage = styled.img`
     width: 100%;
@@ -587,6 +661,11 @@ const Title = styled.div`
     font-size: 25px;
     font-weight: 550;
     margin-bottom: 10px;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 20px;
+    }
 `;
 const Description = styled.div`
     text-align: left;
@@ -595,4 +674,9 @@ const Description = styled.div`
     font-weight: 500;
     display: flex;
     align-items: center;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 12px;
+    }
 `;
