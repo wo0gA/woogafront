@@ -2,7 +2,6 @@ import React, { useReducer, useState } from 'react'
 import styled from 'styled-components'
 import cam1 from '../images/camera button.png'
 import cam2 from '../images/cams.png'
-import bar1 from '../images/step bar2.png';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import categories from './data/categories';
