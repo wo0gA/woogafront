@@ -14,7 +14,7 @@ const KakaoLoginButton = () => {
     // else {
     //     REDIRECT_URI = 'https://server.templ.es/login';
     // }
-    const REDIRECT_URI = 'https://baronow.netlify.app/login';
+    const REDIRECT_URI = 'localhost:3000';
     const REST_API_KEY = 'b6390fc9c0a186ec2d9dc18c54150b14';
     const KAKAO_LOGIN_LINK = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { searchProducts, searchByCategory } from '../test/test'
+import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 import SimpleSlider from './special/banner'
@@ -36,7 +36,6 @@ const Main = () => {
         console.log(`Search value: ${searchValue}`);
         const params = new URLSearchParams({ keyword: searchValue });
 		navigate(`/rentalCategory?${params.toString()}`);
-		//searchProducts(searchValue);
     }
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -45,7 +44,6 @@ const Main = () => {
     };
     const handleCategoryClick = (categoryID) => () => {
         console.log(`Search Category ID: ${categoryID}`);
-        // searchByCategory(categoryID);
         window.location.href = `/rentalCategory/?category=${categoryID}`;
     }
 
@@ -91,14 +89,6 @@ const Main = () => {
     return (
         <Wrapper>
             <SimpleSlider />
-            {/* <Banner>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
-                    <path d="M29.6167 9.425L26.6667 5L10 30L26.6667 55L29.6167 50.575L15.9 30L29.6167 9.425Z" fill="black" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
-                    <path d="M10.3828 50.575L13.3328 55L29.9995 30L13.3328 5L10.3828 9.425L24.0995 30L10.3828 50.575Z" fill="black" />
-                </svg>
-            </Banner> */}
             <MainSearch>
                 <MainSearchIcon>
                     <svg onClick={handleSearchClick} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -289,28 +279,6 @@ const Wrapper = styled.div`
 `;
 
 
-const Banner = styled.div`
-    //background-image: url('${bannerImage}');
-    background-color: aliceblue;
-    background-repeat: no-repeat; /* 배경 이미지 반복 안 함 */
-    background-size: contain;
-    background-position: center; /* 이미지를 중앙에 위치 */
-    margin-bottom: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-
-    width: 100%;
-    height: 25rem;
-
-    & > * {
-        margin-top: 25px; 
-    }
-`;
 
 const MainSearch = styled.div`
     background-color: #fcff5e;
@@ -324,6 +292,11 @@ const MainSearch = styled.div`
     border-radius: 50px;
     padding-left: 20px;
     padding-right: 20px;
+
+    //미디어쿼리 사용
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        background-color: #5c5d38;
+    }
 `;
 const MainSearchInput = styled.input`
     background-color: transparent;
@@ -386,16 +359,32 @@ const CategoryContents = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    height: 100%;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+    display: grid;
+        grid-template-columns: repeat(4, 1fr);  // 4개의 열로 구성
+        grid-gap: 16px;  // 버튼 간의 간격 (원하는 크기로 설정 가능)
+        justify-items: center;
+        align-items: center;
+    }
 `;
 const Sports = styled.div`
     display: flex;
     flex-direction: column;
+    height: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 `;
 const SportsDescription = styled.div`
     margin-top: 10px;
     font-size: 15px;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const Eclipse = styled.div`
     width: 60px;
@@ -413,6 +402,16 @@ const Eclipse = styled.div`
     }
     &:active {
         background-color: #4d4d4d;
+    }
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 50px;
+
+        & > svg {
+            width: 30px;
+            height: 30px;
+        }
     }
 `;
 

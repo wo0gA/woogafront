@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { fetchChatRooms } from "../apis/websocket";
 import "../font.css";
-import { timeAgo } from "../components/lib";
+import { timeAgo } from "../utils/lib";
 
 const SERVER_URL = "server.templ.es";
 
