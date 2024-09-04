@@ -1,4 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery';
+
 import { RentalFeeContext } from '../context/RentalFeeContext';
 import styled from 'styled-components';
 
@@ -43,6 +45,10 @@ const Wrapper = styled.div`
   border-radius: 5px;
   border: 2px solid #232323;
   border-radius: 8px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+  }
   `;
 
 const Title  = styled.div`
@@ -53,6 +59,13 @@ const Title  = styled.div`
 `;
 const TitleIcon = styled.div`
   margin-right: 10px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    & > svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
 `;
 const TitleText = styled.div`
   //밑으로 정렬
