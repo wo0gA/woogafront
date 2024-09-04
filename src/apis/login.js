@@ -64,3 +64,16 @@ export const sendWhichLogin = async (code) => {
         }
     }
 }
+
+// 로그아웃하는 함수
+export async function logout() {
+    localStorage.removeItem('username');
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('access');
+    localStorage.removeItem('loginType');
+    localStorage.removeItem('first_login');
+    localStorage.removeItem('email');
+
+    // 화면을 새로고침
+    window.location.reload();
+}

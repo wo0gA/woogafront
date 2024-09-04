@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 import SimpleSlider from './special/banner'
-import bannerImage from '../images/banner.png'
 import textlogo from '../images/text logo.png'
 import empty from '../images/Frame 114.png'
 
@@ -35,13 +36,17 @@ const Main = () => {
         console.log(`Search value: ${searchValue}`);
         const params = new URLSearchParams({ keyword: searchValue });
 		navigate(`/rentalCategory?${params.toString()}`);
-		//searchProducts(searchValue);
     }
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             handleSearchClick();
         }
     };
+
+    const handleCategoryClick = (categoryID) => () => {
+        console.log(`Search Category ID: ${categoryID}`);
+        window.location.href = `/rentalCategory/?category=${categoryID}`;
+    }
 
     const location = useLocation();
     const updateCategoryParam = (categoryName) => {
@@ -82,14 +87,6 @@ const Main = () => {
     return (
         <Wrapper>
             <SimpleSlider />
-            {/* <Banner>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
-                    <path d="M29.6167 9.425L26.6667 5L10 30L26.6667 55L29.6167 50.575L15.9 30L29.6167 9.425Z" fill="black" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 60" fill="none">
-                    <path d="M10.3828 50.575L13.3328 55L29.9995 30L13.3328 5L10.3828 9.425L24.0995 30L10.3828 50.575Z" fill="black" />
-                </svg>
-            </Banner> */}
             <MainSearch>
                 <MainSearchIcon>
                     <svg onClick={handleSearchClick} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -280,31 +277,9 @@ const Wrapper = styled.div`
 `;
 
 
-const Banner = styled.div`
-    //background-image: url('${bannerImage}');
-    background-color: aliceblue;
-    background-repeat: no-repeat; /* 배경 이미지 반복 안 함 */
-    background-size: contain;
-    background-position: center; /* 이미지를 중앙에 위치 */
-    margin-bottom: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-
-    width: 100%;
-    height: 25rem;
-
-    & > * {
-        margin-top: 25px; 
-    }
-`;
 
 const MainSearch = styled.div`
-    background-color: #fcff5e;
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -315,6 +290,13 @@ const MainSearch = styled.div`
     border-radius: 50px;
     padding-left: 20px;
     padding-right: 20px;
+
+    //미디어쿼리 사용
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 90%;
+        background-color: transparent;
+        border: 0.5px solid #E4E4E7;
+    }
 `;
 const MainSearchInput = styled.input`
     background-color: transparent;
@@ -328,6 +310,10 @@ const MainSearchInput = styled.input`
 
     &::placeholder {
         color: #454545;
+    }
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 14px;
     }
 `;
 
@@ -377,16 +363,32 @@ const CategoryContents = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    height: 100%;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+    display: grid;
+        grid-template-columns: repeat(4, 1fr);  // 4개의 열로 구성
+        grid-gap: 16px;  // 버튼 간의 간격 (원하는 크기로 설정 가능)
+        justify-items: center;
+        align-items: center;
+    }
 `;
 const Sports = styled.div`
     display: flex;
     flex-direction: column;
+    height: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 `;
 const SportsDescription = styled.div`
     margin-top: 10px;
     font-size: 15px;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const Eclipse = styled.div`
     width: 60px;
@@ -404,6 +406,16 @@ const Eclipse = styled.div`
     }
     &:active {
         background-color: #4d4d4d;
+    }
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 50px;
+
+        & > svg {
+            width: 30px;
+            height: 30px;
+        }
     }
 `;
 
@@ -426,6 +438,17 @@ const PopularContents = styled.div`
     & > div:nth-child(-n+4) {
         margin-bottom: 40px; // 윗줄과 아랫줄 간격 설정
     }
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        // 한 줄당 3개
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        grid-gap: 16px;
+        justify-items: center;
+        align-items: center;
+        font-size: 12px;
+    }
 `;
 
 const PopularItem = styled.div`
@@ -434,12 +457,11 @@ const PopularItem = styled.div`
     align-items: center;
     justify-content: center;
     width: calc(25% - 15px); // 4개씩 배치되도록 설정, 여백을 고려하여 계산
-    height: 20%;
     margin-bottom: 20px; // 아이템 사이의 세로 간격 설정
-    margin-left: 5px;
+    /* border: 1px solid #E4E4E7; */
+
+    margin-left: 15px; // 왼쪽 여백 설정
     margin-right: 5px;
-    padding: 10px;
-    border: 1px solid #E4E4E7;
     cursor: pointer;
     &:nth-child(4n + 1) {
         margin-left: 0;
@@ -452,22 +474,39 @@ const PopularItem = styled.div`
         width: 100%;
         aspect-ratio: 1/1;
     }
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
 `;
 const PopularImage = styled.img`
     width: 100%;
     object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
+    border-radius: 10px;
 `;
 const PolularText = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: flex-start; // 왼쪽 정렬
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const PopularName = styled.div`
     margin-top: 10px;
     align-self: flex-start; // 왼쪽 정렬
     font-size: 14px;
     font-weight: 600;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 12px;
+    }
 `;
 const PopularPrice = styled.div`
     display: flex;
@@ -481,11 +520,19 @@ const PopularPriceDay = styled.div`
     display: flex;
     flex-direction: row;
     font-size: 12px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const PopularPriceWeek = styled.div`  
     display: flex;
     flex-direction: row;
     font-size: 12px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 10px;
+    }
 `;
 const Unit = styled.div`
     margin-right: 5px;
@@ -503,6 +550,11 @@ const RankingAndNearby = styled.div`
     height: 100%;
     margin-bottom: 80px;
     /* border: 1px solid black; */
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        flex-direction: column;
+    }
 `;
 
 const Ranking = styled.div`
@@ -514,6 +566,13 @@ const Ranking = styled.div`
     height: 100%;  // 높이를 100%로 설정
     margin-right: 40px;
     /* border: 1px solid black; */
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
 `;
 const Rankings = styled.div`
     display: flex;
@@ -542,6 +601,17 @@ const RankingItem = styled.div`
         margin-left: 20px;
     }
 
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        padding-top: 1px;
+        padding-bottom: 1px;
+
+        svg {
+            width: 20px;
+            height:50px;
+        }
+    }
+
 `;
 const RankingNumber = styled.div`
     display: flex;
@@ -554,6 +624,11 @@ const RankingNumber = styled.div`
 const RankingName = styled.div`
     font-size: 16px;
     font-weight: 400;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 14px;
+    }
 `;
 
 
@@ -564,6 +639,11 @@ const Nearby = styled.div`
     justify-content: center;
     width: 60%;
     height: 100%;  // 높이를 100%로 설정
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 100%;
+    }
 `;
 const NearbyImage = styled.img`
     width: 100%;
@@ -580,6 +660,11 @@ const Title = styled.div`
     font-size: 25px;
     font-weight: 550;
     margin-bottom: 10px;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 20px;
+    }
 `;
 const Description = styled.div`
     text-align: left;
@@ -588,4 +673,9 @@ const Description = styled.div`
     font-weight: 500;
     display: flex;
     align-items: center;
+
+    //미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 12px;
+    }
 `;

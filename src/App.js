@@ -3,7 +3,6 @@ import GoodsDetailPage from './pages/GoodsDetailPage';
 import MainPage from './pages/MainPage';
 import { Routes, Route } from 'react-router-dom';
 import MyPage from './pages/MyPage';
-import TestPage from './pages/TestPage';
 import LoginPage from './pages/LoginPage';
 import ProfileSettingPage from './pages/ProfileSettingPage';
 import CategoryPage from './pages/CategoryPage';
@@ -23,11 +22,9 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />} /> 
-          <Route path="/main" element={<MainPage />} />
           <Route path="/myPage/:productID" element={<MyPage />} />
           <Route path="/goodsDetail/:productID" element={<GoodsDetailPage />} />
           <Route path="/rentalCategory" element={<CategoryPage />} />
-          <Route path="/test" element={<TestPage />} />
           <Route path="/chatting" element={<ChatPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profileSetting" element={<ProfileSettingPage />} />

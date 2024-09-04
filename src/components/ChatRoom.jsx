@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import webSocketService, { fetchMessages } from "../apis/websocket";
-import { numberWithCommas, timeAgo } from "./lib";
+import { numberWithCommas, timeAgo } from "../utils/lib";
 import ChangeDateModal from "./ChangeDateModal";
 import axios from "axios";
 import ReturnProductModal from "./ReturnProductModal";

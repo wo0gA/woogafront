@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-// import arrow from './images/right.png'
-import mainBanner1 from '../../images/mainBanner1.png'
-import mainBanner2 from '../../images/mainBanner2.png'
-import mainBanner3 from '../../images/mainBanner3.png'
-import mainBanner4 from '../../images/mainBanner4.png'
+import { mediaQueries, BREAKPOINT_PHONE } from '../../mediaquery/mediaQuery';
 
 export const BodyContainer = styled.div`
     display: flex;
@@ -25,6 +21,11 @@ export const SliderContainer = styled.div`
     .slick-list{ 
         width: 6000px;
     }   
+
+    // 미디어쿼리
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        
+    }
 `
 
 export const SliderContent = styled.div`
@@ -38,4 +39,12 @@ export const SliderContent = styled.div`
     background-image: url(${props => props.image});
     width: 100vw;
     margin: auto;
+    background-position: center;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 20px;
+        line-height : 20px;
+        background-size: cover;
+        height: 200px;
+    }
 `

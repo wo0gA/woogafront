@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery'
 
 import { getOtherUserInfo, getOwnerProducts, getOwnerReviews} from '../apis/user'
 import { useParams } from 'react-router-dom'
@@ -176,6 +177,13 @@ const Profile = styled.div`
    border-radius: 30px;
    border: 1px solid var(--zinc-200, #E4E4E7);
    background: var(--amber-50, #FFFBEB);
+
+   ${mediaQueries(BREAKPOINT_PHONE)} {
+      width: 50%;
+
+      padding-top: 0;
+      padding-bottom: 15px;
+   }
 `;
 
 const ProfileImg = styled.div`
@@ -195,6 +203,10 @@ const ProfileName = styled.div`
    width: 60%;
    height: 20%;
    box-sizing: border-box;
+
+   ${mediaQueries(BREAKPOINT_PHONE)} {
+      width: 100%;
+   }
 `;
 const Level = styled.div`
    box-sizing: border-box;
@@ -202,6 +214,10 @@ const Level = styled.div`
    color: grey;
    border: 1px solid grey;
    padding: 2px 5px;
+
+   ${mediaQueries(BREAKPOINT_PHONE)} {
+      font-size: 10px;
+   }
 `;
 const Name = styled.div`
    box-sizing: border-box;
@@ -210,6 +226,10 @@ const Name = styled.div`
       font-weight: bold;
       font-size: 15px;
       margin-right: 8px;
+   }
+
+   ${mediaQueries(BREAKPOINT_PHONE)} {
+      font-size: 12px;
    }
 `;
 
@@ -228,6 +248,10 @@ const MannerText = styled.div`
    span {   
       font-weight: bold;
    }
+
+   ${mediaQueries(BREAKPOINT_PHONE)} {
+      font-size: 10px;
+   }
 `;
 const MannerBar = styled.div`
    width: 100%;
@@ -235,6 +259,10 @@ const MannerBar = styled.div`
    box-sizing: border-box;
    border-radius: 50px;
    background-color: #D4D4D8;
+
+   ${mediaQueries(BREAKPOINT_PHONE)} {
+      height: 10px;
+   }
 `; 
 const RealMannerBar = styled.div`
    //매너지수에 따라 길이가 변하도록 설정
@@ -262,6 +290,17 @@ const Stat = styled.div`
    span {
       font-weight: bold;
       font-size: 25px;
+   }
+
+   ${mediaQueries(BREAKPOINT_PHONE)} {
+      font-size: 12px;
+      width: auto;
+      padding-top: 5px;
+      padding: 10px;
+
+      span {
+         font-size: 20px;
+      }
    }
 `;
 
@@ -306,7 +345,6 @@ const PopularItem = styled.div`
     margin-left: 5px;
     margin-right: 5px;
     padding: 10px;
-    border: 1px solid #E4E4E7;
     cursor: pointer;
     &:nth-child(4n + 1) {
         margin-left: 0;
@@ -318,7 +356,20 @@ const PopularItem = styled.div`
     & > img {
         width: 100%;
         aspect-ratio: 1/1;
+         object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
+         border-radius: 10px;
     }
+
+    //2열로 배치되도록 설정
+      ${mediaQueries(BREAKPOINT_PHONE)} {
+         width: calc(50% - 15px);
+         &:nth-child(2n + 1) {
+               margin-left: 0;
+         }
+         &:nth-child(2n) {
+               margin-right: 0;
+         }
+      }
 `;
 const PopularImage = styled.img`
     width: 100%;
@@ -373,6 +424,14 @@ const ReviewContainer = styled.div`
       justify-content: space-between;
       width: 100%;
       margin-top: 20px;
+
+      //미디어쿼리
+      ${mediaQueries(BREAKPOINT_PHONE)} {
+         flex-direction: column;
+         margin-bottom: 50px;
+      }
+
+
    `;
 const Review = styled.div`
       display: flex;
@@ -381,8 +440,13 @@ const Review = styled.div`
       align-items: center;
       width: 48%;
       aspect-ratio: 4/1;
-      border: 1px solid #d1d1d1;
       margin-bottom: 20px;      
+      border: 1px solid var(--zinc-200, #E4E4E7);
+
+      //미디어쿼리
+      ${mediaQueries(BREAKPOINT_PHONE)} {
+         width: 100%;
+      }
    `;
 
 
@@ -408,10 +472,12 @@ const ReviewSecondRow = styled.div`
       flex-direction: row;
       width: 100%;
       font-size: 13px;
+      font-weight: bold;
 
       span {
          margin-left: 10px;
          color: grey;
+         font-weight: normal;
       }
    `;
 const ReviewThirdRow = styled.div`

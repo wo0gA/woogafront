@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 import GoogleLoginButton from './loginButtons/GoogleLoginButton';
 import KakaoLoginButton from './loginButtons/KakaoLoginButton';
 import { sendWhichLogin } from '../apis/login';
@@ -41,6 +42,10 @@ export default LoginMain
 const Title = styled.div`
     font-size: 18px;
     font-weight: 550;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 14px;
+    }
 `;
 const Wrapper = styled.div`
     display: flex;

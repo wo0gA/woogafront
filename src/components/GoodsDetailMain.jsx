@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery'
+
 import ReactCalendar from './special/ReactCalendar'
 import RecommendGoods from './RecommendGoods'
 import RentalFeeDisplay from './RentalFeeDisplay'
@@ -358,6 +360,11 @@ const GoodsDetail = styled.div`
   height: 350px;
 
   box-sizing: border-box;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 const GoodsImage = styled.img`
   display: flex;
@@ -368,6 +375,13 @@ const GoodsImage = styled.img`
   width: 50%;
   box-sizing: border-box;
   object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 `;
 const GoodsInfo = styled.div`
   display: flex;
@@ -378,6 +392,10 @@ const GoodsInfo = styled.div`
   width: 50%;
 
   box-sizing: border-box;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+  }
 `;
 const GoodsTitle = styled.div`  
   display: flex;
@@ -387,15 +405,28 @@ const GoodsTitle = styled.div`
   margin-bottom: 20px;
 
   border-bottom: 1.5px solid grey;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+  }
 `;
 const GoodsTitleCategory = styled.div`
   font-size: 12px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+  }
 `;
 const GoodsTitleName = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 10px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    font-size: 22px;
+    width: 100%;
+  }
 `;
 const GoodsTitleRegistrant = styled.div`
     font-size: 14px;
@@ -450,6 +481,21 @@ const GoodsCostBox = styled.div`
       margin-left: 5px;
     }
   }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    flex-direction: row;
+    & > #day {
+      & > span {
+        font-size: 14px;
+      }
+    }
+    & > #week {
+      & > span {
+        font-size: 14px;
+      }
+    }
+  }
 `;
 
 
@@ -475,6 +521,11 @@ const GoodsDescription = styled.div`
   text-align: left;
   width: 90%;
   justify-content: space-between;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 
@@ -483,6 +534,11 @@ const Choice = styled.div`
   display: flex;
   height: auto;
   width: 100%;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 const Calender = styled.div`
   display: flex;
@@ -507,6 +563,10 @@ const Calender = styled.div`
     font-size: 16px;
     font-weight: bold;
     }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+  }
 `;
 const RentalFeeContainer = styled.div`
   display: flex;
@@ -515,6 +575,11 @@ const RentalFeeContainer = styled.div`
   justify-content: flex-end;
   width: 50%;
   box-sizing: border-box;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+  }
+
 `;
 
 const Under = styled.div`
@@ -527,6 +592,11 @@ const Under = styled.div`
   box-sizing: border-box;
   margin-top: 100px;
   margin-bottom: 40px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 const GoodsDescriptionLeft = styled.div`
   display: flex;
@@ -535,6 +605,10 @@ const GoodsDescriptionLeft = styled.div`
   & > * {
     margin-bottom: 20px;
   }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+  }
 `;
 const GoodsDescriptionRight = styled.div` 
   display: flex;
@@ -542,6 +616,10 @@ const GoodsDescriptionRight = styled.div`
   width: 45%;
   & > * {
     margin-bottom: 20px;
+  }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
   }
 `;
 
@@ -611,6 +689,11 @@ const NotRentalBtnContainer = styled.div`
 
 const RentalBtnContainer = styled.div`
   width: 90%;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    border-top: 1px solid #b0b0b0;
+  }
 `;
 const RantalBtnText = styled.div`
   display: flex;
@@ -670,6 +753,15 @@ const CategoryNav = styled.div`
   justify-content: flex-start;
   width: 100%;
   font-size: 14px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    font-size: 12px;
+
+    & > svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
 `;
 const First = styled.div`
   display: flex;
@@ -679,6 +771,13 @@ const First = styled.div`
   & > span {
     margin-left: 3px;
     margin-right: 10px;
+  }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    & > svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 `;
 const Second = styled.div`
@@ -690,6 +789,13 @@ const Second = styled.div`
     margin-left: 3px;
     margin-right: 10px;
   }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    & > svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
 `;
 const Third = styled.div`
   display: flex;
@@ -699,6 +805,13 @@ const Third = styled.div`
   & > span {
     margin-left: 3px;
     margin-right: 10px;
+  }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    & > svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 `;
 
@@ -712,6 +825,11 @@ const DescriptionANDRecommend = styled.div`
   justify-content: space-between;
   width: 65%;
   height: 100%;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const ReviewANDStore = styled.div`
@@ -721,6 +839,11 @@ const ReviewANDStore = styled.div`
   justify-content: flex-start;
   width: 30%;
   height: 100%;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.div`
@@ -735,6 +858,10 @@ const Title = styled.div`
   padding-bottom: 10px;
   margin-bottom: 10px;
   border-bottom: 2px solid grey;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    font-size: 16px;
+  }
 `;
 
 const Contents = styled.div`
@@ -748,6 +875,11 @@ const Contents = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   box-sizing: border-box;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    font-size: 14px;
+    line-height: 2;
+  }
 `;
 
 const Description = styled.div`
