@@ -1,12 +1,10 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import CategoryComponent from './CategoryComponent'
 import styled from 'styled-components'
-import cam1 from '../images/camera button.png'
-import cam2 from '../images/cams.png'
-import bar1 from '../images/step bar2.png';
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { getProductInfo } from '../apis/product'
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery';
 
 const initialState = {
   thumbnails: '',
@@ -397,6 +395,11 @@ const Banner = styled.div`
     margin-right: 1rem;
     margin-top: 2rem;
     top: 0px;
+    ${mediaQueries(BREAKPOINT_PHONE)}{
+   font-size: 15px;
+   margin-left: 1rem;
+   margin-right: 0.5rem;
+}
 `;
 
 const Contents = styled.div`
@@ -408,6 +411,16 @@ const Detail = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+   width: 90%;
+  }
+`;
+const W4 = styled.div`
+   margin-left: 1rem;
+   display: flex;
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 3rem;
 `;
 const Title = styled.div`
   font-size: 14px;
@@ -415,9 +428,13 @@ const Title = styled.div`
   text-align: left;
   width: 8rem;
   margin-left: 1rem;
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+   font-size: 10px;
+   width: 4rem;
+}
 `;
 const PhotoBox = styled.div`
-    
+    margin-left: 3rem;
 `;
 
 const PhotoArr = styled.div`
