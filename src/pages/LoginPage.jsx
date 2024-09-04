@@ -2,8 +2,6 @@
 import styled from "styled-components";
 import React, { useEffect } from 'react'
 import Header from "../components/Header";
-import Main from "../components/MainMain";
-import Footer from "../components/Footer";
 import LoginMain from "../components/LoginMain";
 
 const LoginPage = () => {

@@ -1,9 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import CategoryComponent from './CategoryComponent'
 import styled from 'styled-components'
-import cam1 from '../images/camera button.png'
-import cam2 from '../images/cams.png'
-import bar1 from '../images/step bar2.png';
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { getProductInfo } from '../apis/product'

@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext} from 'react';
 import { RentalFeeContext } from '../context/RentalFeeContext';
 import styled from 'styled-components';
 
 const RentalFeeDisplay = () => {
-  const { rentalFee, dailyRate, totalDays, selectedRange } = useContext(RentalFeeContext);
+  const { rentalFee, totalDays, selectedRange } = useContext(RentalFeeContext);
 
 
   return (

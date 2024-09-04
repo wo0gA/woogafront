@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { searchProducts, searchByCategory } from '../test/test'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getPopularProducts, getPopularFiveCategories } from '../apis/product'
 import SimpleSlider from './special/banner'
@@ -43,11 +42,6 @@ const Main = () => {
             handleSearchClick();
         }
     };
-    const handleCategoryClick = (categoryID) => () => {
-        console.log(`Search Category ID: ${categoryID}`);
-        // searchByCategory(categoryID);
-        window.location.href = `/rentalCategory/?category=${categoryID}`;
-    }
 
     const location = useLocation();
     const updateCategoryParam = (categoryName) => {
@@ -59,10 +53,7 @@ const Main = () => {
 		navigate(`/rentalCategory?${searchParams.toString()}`);
 	};
 
-    //nav
-    const handleNavClick = (path) => () => {
-        navigate(path);
-    };
+
 
     useEffect(() => {
         // Fetch popular products and categories

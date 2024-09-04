@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import logo from '../images/logo.png';
 import { logoClick } from '../utils/simple';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { searchProducts, logout } from '../test/test';
+import { logout } from '../test/test';
 import { NavContext } from '../context/NavContext';
 
 const Header = () => {
@@ -13,7 +13,6 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username] = useState(localStorage.getItem('username'));
-  const [userID] = useState(localStorage.getItem('userID'));
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);

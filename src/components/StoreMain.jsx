@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import footsalImage from '../images/footsal.png'
-import badmintonImage from '../images/badminton.png'
-import bikeImage from '../images/bike.png'
-import campingtableImage from '../images/campingtable.png'
-import helmetImage from '../images/helmet.png'
-import pingpongImage from '../images/pingpong.png'
-import rollerImage from '../images/roller.png'
-import volleyImage from '../images/volley.png'
-import { getOtherUserInfo, getOwnerProducts, getOwnerReviews, getUserInfo } from '../apis/user'
+import { getOtherUserInfo, getOwnerProducts, getOwnerReviews} from '../apis/user'
 import { useParams } from 'react-router-dom'
-import { getStoreInfo } from '../apis/store'
 
 const StoreMain = () => {
    const [level, setLevel] = useState('');
@@ -394,16 +385,6 @@ const Review = styled.div`
       margin-bottom: 20px;      
    `;
 
-const ReviewImage = styled.img`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 13%;
-   aspect-ratio: 1;
-   margin-left: 10px;
-   margin-right: 10px;
-   object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
-`; 
 
 const ReviewText = styled.div`
       display: flex;

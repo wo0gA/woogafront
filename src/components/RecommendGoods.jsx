@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import footsalImage from '../images/footsal.png'
 import { getFourRecommendProducts } from '../apis/product';
-import { useNavigate } from 'react-router-dom';
 
 const RecommendGoods = () => {
   const [recommendGoods, setRecommendGoods] = React.useState([]);
 
-  const navigate = useNavigate();
   const handleItemClick = (productID) => {
     // //새로고침되면서 열리도록 href 사용
     window.location.href = `/goodsDetail/${productID}`;

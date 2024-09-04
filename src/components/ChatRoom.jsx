@@ -9,8 +9,6 @@ import { Link, useNavigate } from "react-router-dom";
 const SERVER_URL = "server.templ.es";
 
 const ChatRoom = ({ roomData, currentUser }) => {
-	const navigate = useNavigate();
-
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState("");
 	const [rentalHistory, setRentalHistory] = useState(null);
