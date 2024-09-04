@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import categories from './data/categories';
+import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 
 const CategoryComponent = ({ onItemSelect }) => {
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
@@ -73,6 +74,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    width: 100%;
+  }
 `;
 
 const CategoryContainer = styled.div`
@@ -82,6 +86,11 @@ const CategoryContainer = styled.div`
   width: 80%;
   background-color: rgb(244,244,245);
   border: 1px solid var(--zinc-300, #D4D4D8);
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    width: 100%;
+    height: 100%;
+    font-size: 9px;
+  }
 `;
 
 const MainCategories = styled.div`
@@ -89,6 +98,9 @@ const MainCategories = styled.div`
   margin-right: 1rem;
   text-align: left;
   border-right: 1px solid var(--zinc-300, #D4D4D8);
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    width: 40%;
+  }
 `;
 
 const SubCategories = styled.div`
@@ -96,6 +108,10 @@ const SubCategories = styled.div`
   margin-right: 1rem;
   text-align: left;
   border-right: 1px solid var(--zinc-300, #D4D4D8);
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    width: 30%;
+    margin-right: 0.5rem;
+  }
 `;
 
 const CategoryItem = styled.div`
@@ -135,4 +151,7 @@ const CatTitle = styled.div`
   font-weight: 550;
   margin: 10px 10px 10px 10px;
   color: #000;
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    font-size: 10px;
+  }
 `;

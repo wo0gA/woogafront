@@ -7,6 +7,7 @@ import suggest1 from '../images/suggest1.png';
 import suggest2 from '../images/suggest2.png';
 import suggest3 from '../images/suggest3.png';
 import axios from 'axios';
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const RentalCategoryPage = ({ searchString, onItemSelect, selectedProducts }) => {
@@ -156,6 +157,15 @@ const Category = styled.div`
     top: 150px;
 
     margin-right: 2rem;
+
+    ${mediaQueries(BREAKPOINT_PHONE)}{
+        width: 20%;
+        margin-left: 1rem;
+        padding: 0px;
+        padding-top: 8px;
+        padding-left: 4px;
+        border-radius: 10px;
+    }
 `;
 
 const CategoryContents = styled.div`
@@ -171,6 +181,9 @@ const SportsDescription = styled.div`
     font-size: 12px;
     text-align: left;
     justify-content: space-between;
+    ${mediaQueries(BREAKPOINT_PHONE)}{
+        font-size: 10px;
+    }
 `;
 
 const Popular = styled.div`
@@ -190,6 +203,9 @@ const Title = styled.div`
     font-size: 24px;
     font-weight: 550;
     margin-bottom: 2rem;
+    ${mediaQueries(BREAKPOINT_PHONE)}{
+        font-size: 18px;
+    }
 `;
 
 const CatTitle = styled.div`

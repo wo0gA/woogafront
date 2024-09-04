@@ -5,6 +5,7 @@ import ReactCalendar from './special/NonclickReactCalendar';
 import { useNavigate, useParams } from 'react-router-dom';
 import profileImage from '../images/profileImage.png';
 import { getRentalHistory } from '../apis/product';
+import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 
 import level1 from '../images/level1.png';  
 import level2 from '../images/level2.png';
@@ -450,12 +451,18 @@ const Button = styled.button`
   &:focus {
     outline: none;
   }
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    font-size: 10px;
+  }
 `;
 
 const ProfileSection = styled.div`
   width: 40%;
   margin-left: 1rem;
   border: 1px solid #eee;
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    width: 100%;    ;
+  }
 `;
 
 const UpperContents = styled.div`
@@ -465,6 +472,10 @@ const UpperContents = styled.div`
   justify-content: space-between;
   margin-bottom: 2rem;
   width: 100%;
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Greeting = styled.div`
@@ -476,6 +487,9 @@ const Greeting = styled.div`
   text-align: left;
   span {
     font-weight: bold;
+  }
+  ${mediaQueries(BREAKPOINT_PHONE)}{
+    max-width: 100%;    ;
   }
 `;
 
