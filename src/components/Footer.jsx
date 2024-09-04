@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery'
 import wooga from '../images/WOOGA.png'
 
 const Footer = () => {
@@ -39,6 +40,12 @@ const Wrapper = styled.div`
     width: 100%;
     height: 12rem;
     background-color: rgb(244,244,245);
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+      height: 100%;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
 `;
 
 const ContentWrapper = styled.div`
@@ -55,6 +62,10 @@ const InfoBox = styled.div`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    margin-top: 0.5rem; 
+  }
 `;
 
 const Info = styled.div`
@@ -67,6 +78,11 @@ const Info = styled.div`
     cursor: pointer;
     text-decoration: underline;
   }
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    font-size: 8px;
+    margin-bottom: 0.3rem;
+  }
 `;
 
 const UpperWrapper = styled.div`
@@ -76,4 +92,8 @@ const UpperWrapper = styled.div`
   width: 90%;
   padding-bottom: 1rem;
   border-bottom: 0.1rem solid #D4D4D8;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    padding-bottom: 0.5rem;
+  }
 `;

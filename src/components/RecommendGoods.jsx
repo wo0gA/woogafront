@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import footsalImage from '../images/footsal.png'
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery';
+
 import { getFourRecommendProducts } from '../apis/product';
-import { useNavigate } from 'react-router-dom';
 
 const RecommendGoods = () => {
   const [recommendGoods, setRecommendGoods] = React.useState([]);
 
-  const navigate = useNavigate();
   const handleItemClick = (productID) => {
     // //새로고침되면서 열리도록 href 사용
     window.location.href = `/goodsDetail/${productID}`;
@@ -61,6 +60,12 @@ const RecommendGoodsTitle = styled.div`
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
 `;
 
 const RecommendGoodsList = styled.div`
@@ -81,18 +86,26 @@ const RecommendGoodsCard = styled.div`
     width: 20%;
     cursor: pointer;
     box-sizing: border-box;
+    height: 100%;
 `;
 const RecommendGoodsImage = styled.img`
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
 
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        border-radius: 10px;
+    }
 `;
 const RecommendGoodsName = styled.div`
     width: 100%;
     text-align: left;
     font-size: 14px;
     margin-top: 5px;
+
+    white-space: nowrap;    /* 텍스트가 줄 바꿈 없이 한 줄로 나타나게 합니다 */
+    overflow: hidden;       /* 넘치는 텍스트를 숨깁니다 */
+    text-overflow: ellipsis; /* 넘치는 부분에 '...'을 표시합니다 */
 `;
 
 export default RecommendGoods

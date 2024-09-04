@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mediaQueries, BREAKPOINT_PHONE } from '../../mediaquery/mediaQuery';
 import googleBtn from '../../images/googleBtn.png';
 
 const GoogleLoginButton = () => {
@@ -15,7 +16,7 @@ const GoogleLoginButton = () => {
     //     REDIRECT_URI = 'https://server.templ.es/login';
     // }
 
-    const REDIRECT_URI = 'https://baronow.netlify.app/login';
+    const REDIRECT_URI = 'http://localhost:3000/login';
     const CLIENT_ID = '564600149423-3k57skta0kr16fblavp23vp34k9tvkp0.apps.googleusercontent.com';
     const GOOGLE_LOGIN_LINK = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email%20profile`;
 
@@ -42,4 +43,8 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     width: 200px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 70%;
+    }
 `;

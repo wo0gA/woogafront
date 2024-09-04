@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mediaQueries, BREAKPOINT_PHONE } from '../../mediaquery/mediaQuery';
 import kakaoBtn from '../../images/kakaoBtn.png';
 
 const KakaoLoginButton = () => {
@@ -14,7 +15,7 @@ const KakaoLoginButton = () => {
     // else {
     //     REDIRECT_URI = 'https://server.templ.es/login';
     // }
-    const REDIRECT_URI = 'https://baronow.netlify.app/login';
+    const REDIRECT_URI = 'localhost:3000';
     const REST_API_KEY = 'b6390fc9c0a186ec2d9dc18c54150b14';
     const KAKAO_LOGIN_LINK = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
@@ -40,4 +41,8 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     width: 200px;
+
+    ${mediaQueries(BREAKPOINT_PHONE)} {
+        width: 70%;
+    }
 `;
