@@ -4,11 +4,9 @@ import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 import GoogleLoginButton from './loginButtons/GoogleLoginButton';
 import KakaoLoginButton from './loginButtons/KakaoLoginButton';
 import { sendWhichLogin } from '../apis/login';
-import { useNavigate } from 'react-router-dom';
 import loginbanner from '../images/loginbanner.png';
 
 const LoginMain = () => {
-    const navigate = useNavigate();
     useEffect(() => {
         //url에서 인가코드 받아오기
         const url = new URL(window.location.href);

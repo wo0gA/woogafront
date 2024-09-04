@@ -52,12 +52,6 @@ const Nearbymain = () => {
     }
 
     useEffect(() => {
-        const currentPosition = navigator.geolocation.getCurrentPosition((position) => {
-            console.log("<현위치>");
-            console.log(position);
-            curLat = position.coords.latitude;
-            curLon = position.coords.longitude;
-        } );
         console.log("[[ curLat: ", curLat, "curLon: ", curLon);
 
         //지도를 초기화

@@ -449,16 +449,6 @@ const Review = styled.div`
       }
    `;
 
-const ReviewImage = styled.img`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 13%;
-   aspect-ratio: 1;
-   margin-left: 10px;
-   margin-right: 10px;
-   object-fit: cover; //비율 구기지 않고 그냥 프레임에 맞게 자르게!!
-`; 
 
 const ReviewText = styled.div`
       display: flex;

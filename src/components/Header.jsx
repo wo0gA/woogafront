@@ -5,7 +5,9 @@ import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 import logo from '../images/logo.png';
 import { logoClick } from '../utils/simple';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { logout } from '../apis/login';
+
 import { NavContext } from '../context/NavContext';
 
 const Header = () => {

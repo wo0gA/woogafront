@@ -24,7 +24,6 @@ const MypageMain = () => {
   const [historyData, setHistoryData] = useState(null);
   const [registerData, setRegisterData] = useState(null);
   const [activeItem, setActiveItem] = useState('');
-  const [isActive, setIsActive] = useState(false);
   const [rentalData, setRentalData] = useState(null);
   const { productID } = useParams();
   const [levelImage, setLevelImage] = useState(level1);

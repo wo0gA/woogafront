@@ -8,7 +8,7 @@ import RentalFeeDisplay from './RentalFeeDisplay'
 import { RentalFeeContext } from '../context/RentalFeeContext'
 import { getReviewsOfProduct } from '../apis/review'
 import { formatDate } from '../utils/formatDate'
-import { getFourRecommendProducts, getProductInfo } from '../apis/product'
+import { getProductInfo } from '../apis/product'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createChatRoom } from '../apis/websocket'
 import empty from '../images/Frame 114.png'
@@ -51,7 +51,7 @@ const GoodsDetailMain = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   // const productID = 2; // @@@@임시로 상수로 설정@@@@
   const imsiPrice = 1000;
-  const { setDailyRate, highlightRanges, setHighlightRanges } = useContext(RentalFeeContext); //전역 상태 불러오기(RntalFeeContext)
+  const { setDailyRate } = useContext(RentalFeeContext); //전역 상태 불러오기(RntalFeeContext)
 
   //navigate 하는 기본 함수
   const navigate = useNavigate();

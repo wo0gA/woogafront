@@ -395,11 +395,13 @@ const Banner = styled.div`
     margin-right: 1rem;
     margin-top: 2rem;
     top: 0px;
+
     ${mediaQueries(BREAKPOINT_PHONE)}{
    font-size: 15px;
    margin-left: 1rem;
    margin-right: 0.5rem;
 }
+
 `;
 
 const Contents = styled.div`

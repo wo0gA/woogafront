@@ -88,9 +88,6 @@ const RegistrationDetailMain = ({ item }) => {
   const [previewImg, setPreviewImg] = useState('null');
   const [tags, setTags] = useState([]);
 
-  const onItemSelect ={
-        category : {item}};
-
   const accessToken = localStorage.getItem("access");
   const [state, dispatch] = useReducer(reducer, initialState); 
   const navigate = useNavigate();
@@ -421,7 +418,6 @@ const Title = styled.div`
 const PhotoBox = styled.div`
     
 `;
-
 
 const PreviewImg = styled.div`
     //margin-right: 1.5rem;
