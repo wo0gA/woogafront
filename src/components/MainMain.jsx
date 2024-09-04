@@ -41,10 +41,6 @@ const Main = () => {
             handleSearchClick();
         }
     };
-    const handleCategoryClick = (categoryID) => () => {
-        console.log(`Search Category ID: ${categoryID}`);
-        window.location.href = `/rentalCategory/?category=${categoryID}`;
-    }
 
     const location = useLocation();
     const updateCategoryParam = (categoryName) => {
@@ -56,10 +52,6 @@ const Main = () => {
 		navigate(`/rentalCategory?${searchParams.toString()}`);
 	};
 
-    //nav
-    const handleNavClick = (path) => () => {
-        navigate(path);
-    };
 
     useEffect(() => {
         // Fetch popular products and categories
@@ -435,6 +427,7 @@ const PopularContents = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
+    height: 100%;
     margin-top: 15px;
     & > div:nth-child(-n+4) {
         margin-bottom: 40px; // 윗줄과 아랫줄 간격 설정
@@ -504,6 +497,10 @@ const PopularName = styled.div`
     align-self: flex-start; // 왼쪽 정렬
     font-size: 14px;
     font-weight: 600;
+
+    white-space: nowrap;    /* 텍스트가 줄 바꿈 없이 한 줄로 나타나게 합니다 */
+    overflow: hidden;       /* 넘치는 텍스트를 숨깁니다 */
+    text-overflow: ellipsis; /* 넘치는 부분에 '...'을 표시합니다 */
 
     ${mediaQueries(BREAKPOINT_PHONE)} {
         font-size: 12px;
