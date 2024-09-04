@@ -15,6 +15,10 @@ const StoreMain = () => {
    const [products, setProducts] = useState([]); // 등록 물품 상태 추가
    const [reviews, setReviews] = useState([]); // 리뷰 상태 추가
 
+   const handleItemClick = (productID) => {
+      window.location.href = `/goodsDetail/${productID}`;
+  };
+
    useEffect(() => {
       console.log('상점 id:', userID);
 
@@ -91,7 +95,7 @@ const StoreMain = () => {
          <DownTitle>등록 물품</DownTitle>
          <PopularContents>
             {products.map((product) => (
-               <PopularItem key={product.id}>
+               <PopularItem key={product.id} onClick={()=> handleItemClick(product.id)}>
                   <PopularImage src={product.thumbnails[0].thumbnail} />
                   <PolularText>
                      <PopularName>{product.name}</PopularName>
