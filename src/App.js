@@ -10,7 +10,6 @@ import CategoryPage from './pages/CategoryPage';
 import ChatPage from "./pages/ChatPage";
 import RegistrationPage from './pages/RegistrationPage';
 import { RentalFeeProvider } from './context/RentalFeeContext';
-import MagazinePage from './pages/MagazinePage';
 import StorePage from './pages/StorePage';
 import { NavProvider } from './context/NavContext';
 import RegistrationDetailPage from './pages/RegistrationDetailPage';
@@ -35,7 +34,6 @@ function App() {
           <Route path="/register" element={<RegistrationPage />} />
           <Route path="/registerDetail" element={<RegistrationDetailPage />} />
           <Route path='/loading' element={<></>} /> 
-          <Route path='/magazine' element={<MagazinePage />} />
           <Route path='/store/:userID' element={<StorePage/>} />
           <Route path='/editProduct/:productID' element={<EditProductPage />} />
         </Routes>
