@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { mediaQueries, BREAKPOINT_PHONE } from '../mediaquery/mediaQuery';
+
 import empty from '../images/Frame 250.png';
 import ReactCalendar from './special/NonclickReactCalendar';
 import { useNavigate, useParams } from 'react-router-dom';
 import profileImage from '../images/profileImage.png';
 import { getRentalHistory } from '../apis/product';
-import { BREAKPOINT_PHONE, mediaQueries } from '../mediaquery/mediaQuery';
 
 import level1 from '../images/level1.png';  
 import level2 from '../images/level2.png';
@@ -164,6 +165,10 @@ const MypageMain = () => {
     setIsRentSelected(false);
   };
 
+  const handleItemClick = (productID) => {
+    window.location.href = `/goodsDetail/${productID}`;
+};
+
   function Rent() {
     return (
       <RentContainer>
@@ -171,7 +176,7 @@ const MypageMain = () => {
           <GoodsRecord>
             <GoodsItems>
               {historyData.map((historyData) => (
-                <GoodsCard key={historyData.id}>
+                <GoodsCard key={historyData.id} onClick={()=>handleItemClick(historyData.product.id)}>
                   <GoodsPic><GoodsImg src={historyData.product.thumbnails[0].thumbnail} alt='rentalItem' />
                     <GoodsDday>D-{historyData.remaining_days}</GoodsDday>
                   </GoodsPic>
@@ -198,7 +203,7 @@ const MypageMain = () => {
                 ? registerData.thumbnails[0].thumbnail 
                 : ''}></Itempic>
               <ItemDetails>
-                <Itemname>{registerData.name}</Itemname>
+                <Itemname onClick={()=>handleItemClick(registerData.id)}>{registerData.name}</Itemname>
                 <Itemprice>일 {registerData.rental_fee_for_a_day}원  주 {registerData.rental_fee_for_a_week}원</Itemprice>
               </ItemDetails>
               <EditIcon onClick={(e) => {
@@ -362,6 +367,11 @@ const GoodsRecord = styled.div`
   justify-content: center;
   margin-bottom: 3rem;
   margin-top: 3rem;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    margin-top: 1rem;
+    justify-content: flex-start;
+  }
 `;
 
 const GoodsItems = styled.div`
@@ -377,6 +387,12 @@ const GoodsCard = styled.div`
   height: 10rem;
   width: 10rem;
   margin-right: 1rem;
+
+  //미디어쿼리일때는 더 작게
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    height: 6rem;
+    width: 6rem;
+  }
 `;
 
 const GoodsPic = styled.div`
@@ -388,6 +404,11 @@ const GoodsPic = styled.div`
   align-items: center;
   justify-content: center;
   position: relative; 
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    height: 6rem;
+    width: 6rem;
+  }
 `;
 const GoodsImg = styled.img`
   width: 100%;
@@ -436,6 +457,11 @@ const Buttons = styled.div`
   padding-left: 15rem;
   padding-right: 15rem;
   margin-bottom: 20px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
 const Button = styled.button`
@@ -460,8 +486,11 @@ const ProfileSection = styled.div`
   width: 40%;
   margin-left: 1rem;
   border: 1px solid #eee;
-  ${mediaQueries(BREAKPOINT_PHONE)}{
-    width: 100%;    ;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
   }
 `;
 
@@ -472,7 +501,8 @@ const UpperContents = styled.div`
   justify-content: space-between;
   margin-bottom: 2rem;
   width: 100%;
-  ${mediaQueries(BREAKPOINT_PHONE)}{
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
     flex-direction: column;
     align-items: center;
   }
@@ -488,8 +518,14 @@ const Greeting = styled.div`
   span {
     font-weight: bold;
   }
-  ${mediaQueries(BREAKPOINT_PHONE)}{
-    max-width: 100%;    ;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    text-align: center;
+
+    & > *{
+      width: 100%;
+    }
   }
 `;
 
@@ -501,6 +537,11 @@ const RegisterRecord = styled.div`
   overflow-y: auto;
   height: 80vh;
   border: 1px solid #d3d3d3;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    /* height: 60%; */
+  }
 `;
 
 
@@ -522,12 +563,17 @@ const RegisterItem = styled.div`
   border-bottom: 1px solid #eee;
 
   background-color: ${props => (props.isActive ? '#eee' : 'white')};
+  cursor: pointer;
 
 `;
 
 const Itempic = styled.img`
   aspect-ratio: 1/1;
   cursor: pointer;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 20%;
+  }
 `;
 
 const ItemDetails = styled.div`
@@ -545,6 +591,11 @@ const Itemname = styled.div`
   font-size: 14px;
   font-weight: 550;
   height: 40%;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Itemprice = styled.div`
@@ -576,11 +627,22 @@ const RegisterContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 60%;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    flex-direction: column;
+    height: 100%;
+  }
 `;
 
 const CalendarContainer = styled.div`
   width: 50%;
   height: 100%;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    width: 100%;
+    margin-top: 20px;
+    /* height: 40%; */
+  }
 `;
 
 const RentalList = styled.div`
@@ -602,6 +664,11 @@ const Rental = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   padding: 10px;
+
+  ${mediaQueries(BREAKPOINT_PHONE)} {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `;
 
 const RentalPic = styled.img`
